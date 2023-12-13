@@ -74,6 +74,7 @@ export default defineNuxtConfig({
 			tailwindcss: {},
 		},
 	},
+	ssr: false,
 	typescript: {
 		strict: true,
 		shim: false,

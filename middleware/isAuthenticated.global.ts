@@ -2,9 +2,7 @@ export default defineNuxtRouteMiddleware((to) => {
 	const authStore = useAuthStore()
 	const appConfig = useAppConfig()
 
-	if (process.client) {
-		authStore.syncLocalStorage()
-	}
+	authStore.syncLocalStorage()
 
 	const authenticatedRoutes = Object.values(appConfig.authenticatedRoutes)
 

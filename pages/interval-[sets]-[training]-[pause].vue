@@ -162,9 +162,7 @@ async function onStop() {
 	await navigateTo('/timer')
 }
 
-if (process.client) {
-	window.addEventListener('touchstart', onTouchStart, { passive: true })
-}
+window.addEventListener('touchstart', onTouchStart, { passive: true })
 
 onBeforeUnmount(() => {
 	window.removeEventListener('touchstart', onTouchStart)
