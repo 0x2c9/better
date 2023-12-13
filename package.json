@@ -15,8 +15,8 @@
 		"howler": "^2.2.4"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "^2.4.3",
-		"@nuxt/devtools": "^1.0.5",
+		"@antfu/eslint-config": "^2.4.5",
+		"@nuxt/devtools": "^1.0.6",
 		"@nuxt/kit": "^3.8.2",
 		"@pinia/nuxt": "^0.5.1",
 		"@types/howler": "^2.2.11",
@@ -24,7 +24,7 @@
 		"@vueuse/nuxt": "^10.7.0",
 		"eslint": "^8.55.0",
 		"nuxt": "^3.8.2",
-		"nuxt-fable": "^1.0.1",
+		"nuxt-fable": "^1.0.3",
 		"nuxt-icon": "^0.6.7",
 		"pinia": "^2.1.7",
 		"tailwindcss": "^3.3.6",
