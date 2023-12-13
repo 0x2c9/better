@@ -43,6 +43,9 @@ devDependencies:
   nuxt:
     specifier: ^3.8.2
     version: 3.8.2(eslint@8.55.0)(typescript@5.3.3)(vite@5.0.7)
+  nuxt-fable:
+    specifier: ^1.0.1
+    version: 1.0.1
   nuxt-icon:
     specifier: ^0.6.7
     version: 0.6.7(nuxt@3.8.2)(vite@5.0.7)(vue@3.3.11)
@@ -6391,6 +6394,15 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
+
+  /nuxt-fable@1.0.1:
+    resolution: {integrity: sha512-UCU2Vnm9KLAEqh8Z4EGRtxZ8rDL9PLU3jNCUmGJwIov4YTEWK4JL091VbIJzJATPpL6WjmNcslnZFn1NarjfCg==}
+    dependencies:
+      '@nuxt/kit': 3.8.2
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: true
 
   /nuxt-icon@0.6.7(nuxt@3.8.2)(vite@5.0.7)(vue@3.3.11):
