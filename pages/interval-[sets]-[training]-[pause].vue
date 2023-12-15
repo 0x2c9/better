@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { Pausable } from '@vueuse/core'
-import { Howl } from 'howler'
 
-const shortbeep = new Howl({ src: ['/sounds/short-beep.ogg'] })
-const longBeep = new Howl({ src: ['/sounds/long-beep.ogg'] })
-const doubleBeep = new Howl({ src: ['/sounds/2x-beep.ogg'] })
-const tripleBeep = new Howl({ src: ['/sounds/3x-beep.ogg'] })
+const shortbeep = new Audio('/sounds/short-beep.ogg')
+const longBeep = new Audio('/sounds/long-beep.ogg')
+const doubleBeep = new Audio('/sounds/2x-beep.ogg')
+const tripleBeep = new Audio('/sounds/3x-beep.ogg')
 
 definePageMeta({
 	layout: 'app',
@@ -112,6 +111,8 @@ let timer: Pausable | null = null
 onMounted(() => {
 	timer = initTimer()
 })
+
+console.log(performance.getEntriesByType('navigation'))
 
 function repeatTimer() {
 	timer = initTimer()
