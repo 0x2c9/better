@@ -63,7 +63,7 @@ function onDelete() {
 	>
 		<div
 			ref="itemEl"
-			class="relative flex-1 better-layer z-10 flex items-center overflow-hidden rounded-lg  px-4 py-2 transition-transform duration-300 ease-in-out select-none"
+			class="relative flex-1 better-layer z-10 flex items-center overflow-hidden rounded-xl px-4 py-2 transition-transform duration-300 ease-in-out select-none"
 			:style="{
 				transform: `translateX(${xValue}px)`,
 			}"
