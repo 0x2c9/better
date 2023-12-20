@@ -6,7 +6,7 @@ export const ICONS = {
 
 	'add': 'material-symbols:add-rounded',
 
-	'remove': 'ic:round-minus',
+	'remove': 'material-symbols:remove-rounded',
 
 	'loading': 'line-md:loading-twotone-loop',
 
