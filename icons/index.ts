@@ -1,28 +1,24 @@
 export const ICONS = {
-
-	'chevron-left': 'heroicons:chevron-left-20-solid',
-	'chevron-right': 'heroicons:chevron-right-20-solid',
-	'today': 'gg:calendar-today',
-
-	'add': 'material-symbols:add-rounded',
-
-	'remove': 'material-symbols:remove-rounded',
-
-	'loading': 'line-md:loading-twotone-loop',
-
-	'trend-down': 'ic:round-trending-down',
-	'trend-up': 'ic:round-trending-up',
-	'trend-flat': 'ic:round-trending-flat',
-
-	'timer-set': 'material-symbols:rotate-right-rounded',
-	'timer-training-time': 'material-symbols:timer-outline-rounded',
-	'timer-pause-time': 'material-symbols:motion-photos-paused-outline-rounded',
-	'timer-start': 'material-symbols:play-arrow-rounded',
-	'timer-stop': 'material-symbols:stop-rounded',
-	'timer-pause': 'material-symbols:pause-rounded',
-	'timer-replay': 'material-symbols:replay-rounded',
-	'timer-skip': 'material-symbols:skip-next-rounded',
-	'timer-skip-back': 'material-symbols:skip-previous-rounded',
-
-	'delete': 'heroicons:trash',
+	'ion-fitness': 'ion-fitness',
+	'ion-fitness-outline': 'ion-fitness-outline',
+	'material-symbols-add-rounded': 'material-symbols-add-rounded',
+	'material-symbols-alarm-outline-rounded': 'material-symbols-alarm-outline-rounded',
+	'material-symbols-alarm-rounded': 'material-symbols-alarm-rounded',
+	'material-symbols-home-outline-rounded': 'material-symbols-home-outline-rounded',
+	'material-symbols-home-rounded': 'material-symbols-home-rounded',
+	'material-symbols-monitor-weight': 'material-symbols-monitor-weight',
+	'material-symbols-monitor-weight-outline': 'material-symbols-monitor-weight-outline',
+	'material-symbols-motion-photos-paused-outline-rounded': 'material-symbols-motion-photos-paused-outline-rounded',
+	'material-symbols-pause-rounded': 'material-symbols-pause-rounded',
+	'material-symbols-play-arrow-rounded': 'material-symbols-play-arrow-rounded',
+	'material-symbols-remove-rounded': 'material-symbols-remove-rounded',
+	'material-symbols-replay-rounded': 'material-symbols-replay-rounded',
+	'material-symbols-rotate-right-rounded': 'material-symbols-rotate-right-rounded',
+	'material-symbols-skip-next-rounded': 'material-symbols-skip-next-rounded',
+	'material-symbols-skip-previous-rounded': 'material-symbols-skip-previous-rounded',
+	'material-symbols-stop-rounded': 'material-symbols-stop-rounded',
+	'material-symbols-timer-outline-rounded': 'material-symbols-timer-outline-rounded',
+	'material-symbols-trending-down-rounded': 'material-symbols-trending-down-rounded',
+	'material-symbols-trending-flat-rounded': 'material-symbols-trending-flat-rounded',
+	'material-symbols-trending-up-rounded': 'material-symbols-trending-up-rounded',
 } as const

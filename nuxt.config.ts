@@ -67,7 +67,7 @@ export default defineNuxtConfig({
 	modules: [
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
-		'nuxt-icon',
+		'nuxt-fable',
 	],
 	postcss: {
 		plugins: {
@@ -77,6 +77,5 @@ export default defineNuxtConfig({
 	ssr: false,
 	typescript: {
 		strict: true,
-		shim: false,
 	},
 })
