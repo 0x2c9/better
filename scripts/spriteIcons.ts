@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { load } from 'cheerio'
 
-const svgFile = './assets/sprite.svg'
+const svgFile = './components/SvgSprite.vue'
 const indexFile = './icons/index.ts'
 const svgContent = fs.readFileSync(svgFile, 'utf8')
 const $ = load(svgContent, { xmlMode: true })
