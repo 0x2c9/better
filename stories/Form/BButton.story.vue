@@ -26,6 +26,27 @@
 			Secondary Button
 		</BButton>
 	</Variant>
+	<Variant title="Button with Icons">
+		<BButton
+			variant="primary"
+		>
+			<BIcon
+				name="material-symbols-add-rounded"
+				class="-ml-1 mr-2"
+			/>
+			Add new Item
+		</BButton>
+		<BButton
+			variant="primary"
+			small
+		>
+			<BIcon
+				name="material-symbols-add-rounded"
+				class="-ml-2 mr-2"
+			/>
+			Add new Item
+		</BButton>
+	</Variant>
 
 	<Variant title="Icon Buttons">
 		<BButton

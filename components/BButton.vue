@@ -16,7 +16,7 @@ const isIconButton = computed(() => !!iconName)
 
 <template>
 	<button
-		class="border-2 border-neutral-700 text-white rounded-full active:bg-neutral-700 font-semibold select-none"
+		class="border-2 border-neutral-700 text-white rounded-full active:bg-neutral-700 font-semibold select-none flex items-center"
 		:class="{
 			'bg-neutral-800 ': variant === 'primary',
 			'bg-transparent ': variant === 'secondary',
