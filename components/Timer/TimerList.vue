@@ -37,13 +37,13 @@ async function onStartTimer(item: ITimer) {
 				<div class="flex pb-2">
 					<div class="flex flex-col space-y-1 justify-between">
 						<div class="flex space-x-2 items-center">
-							<JIcon name="material-symbols-rotate-right-rounded" /> <span>{{ item.sets }} Sets</span>
+							<BIcon name="material-symbols-rotate-right-rounded" /> <span>{{ item.sets }} Sets</span>
 						</div>
 						<div class="flex space-x-2 items-center">
-							<JIcon name="material-symbols-timer-outline-rounded" /> <span>{{ secondsIntoMinutes(item.training_time) }}</span>
+							<BIcon name="material-symbols-timer-outline-rounded" /> <span>{{ secondsIntoMinutes(item.training_time) }}</span>
 						</div>
 						<div class="flex space-x-2 items-center">
-							<JIcon name="material-symbols-motion-photos-paused-outline-rounded" /> <span>{{ secondsIntoMinutes(item.pause_time) }}</span>
+							<BIcon name="material-symbols-motion-photos-paused-outline-rounded" /> <span>{{ secondsIntoMinutes(item.pause_time) }}</span>
 						</div>
 					</div>
 					<div class="mt-auto ml-auto">

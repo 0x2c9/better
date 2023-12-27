@@ -27,7 +27,7 @@ const isIconButton = computed(() => !!iconName)
 			'h-10 px-5': !isIconButton && small,
 		}"
 	>
-		<JIcon
+		<BIcon
 			v-if="iconName"
 			:name="iconName"
 			size="32"

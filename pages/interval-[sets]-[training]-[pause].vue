@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
 						variant="secondary"
 						@click="repeatTimer"
 					>
-						<JIcon
+						<BIcon
 							name="timer-replay"
 							class="mr-2"
 						/>

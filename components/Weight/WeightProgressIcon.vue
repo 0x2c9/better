@@ -13,19 +13,19 @@ const { progress } = defineProps<{
 			'border-blue ': progress === 'same' || progress === undefined,
 		}"
 	>
-		<JIcon
+		<BIcon
 			v-if="progress === 'increase'"
 			name="trend-down"
 			size="16"
 			class="text-green"
 		/>
-		<JIcon
+		<BIcon
 			v-if="progress === 'decrease'"
 			name="trend-up"
 			size="16"
 			class="text-red"
 		/>
-		<JIcon
+		<BIcon
 			v-if="progress === 'same' || progress === undefined"
 			name="trend-flat"
 			size="16"

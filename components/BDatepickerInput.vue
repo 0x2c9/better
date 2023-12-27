@@ -1,9 +1,15 @@
 <script setup lang="ts">
 const modelValue = defineModel<string>()
 const showDatepicker = ref(false)
+const activeElement = useActiveElement()
 
 function openDatepicker() {
 	showDatepicker.value = true
+}
+
+function onSetDate() {
+	showDatepicker.value = false
+	activeElement.value?.blur()
 }
 
 const displayValue = computed(() => {
@@ -23,10 +29,10 @@ const displayValue = computed(() => {
 		v-model="showDatepicker"
 		:narrow="false"
 	>
-		<JDatepicker
+		<BDatepicker
 			v-model="modelValue"
 			:disable-future-dates="true"
-			@set-date="showDatepicker = false"
+			@set-date="onSetDate"
 		/>
 	</LazyJDropdown>
 </template>

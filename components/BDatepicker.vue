@@ -4,8 +4,9 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import 'dayjs/locale/de'
 
-const { disableFutureDates = false } = defineProps<{
+const { disableFutureDates = false, blank = true } = defineProps<{
 	disableFutureDates?: boolean
+	blank?: boolean
 }>()
 
 const emits = defineEmits(['setDate'])
@@ -75,10 +76,12 @@ const days = computed(() => {
 		if (i >= firstDayOfMonthIndex + date.value.daysInMonth()) {
 			const dateOfMonth = i - firstDayOfMonthIndex - date.value.daysInMonth() + 1
 			const futureDate = date.value.add(1, 'month').date(dateOfMonth)
+
+			const isFuture = futureDate.isAfter(dayjs(), 'day')
 			out.push({
 				date: futureDate,
 				dateOfMonth,
-				isDisabled: disableFutureDates,
+				isDisabled: isFuture && disableFutureDates,
 				type: 'future',
 			})
 			continue
@@ -106,21 +109,25 @@ function getDayClass(dayObj: IDay) {
 	const isSelected = dayObj.date.isSame(initialDate.value, 'day')
 	const isToday = dayObj.date.isSame(dayjs(), 'day')
 	return {
-		'm-[6px] flex aspect-square select-none items-center justify-center rounded-full': true,
-		'text-neutral-300': dayObj.type === 'past' || dayObj.type === 'future',
-		'bg-neutral-200 text-': isToday,
-		'bg-black text-white': isSelected,
-		'cursor-default text-neutral-300 line-through': dayObj.isDisabled,
+		'm-[1px] flex aspect-square select-none items-center justify-center rounded-full tabular-nums font-medium': true,
+		'text-neutral-500': dayObj.type === 'past' || dayObj.type === 'future',
+		'border border-neutral-400': isToday,
+		'bg-white text-neutral-900': isSelected,
+		'cursor-default text-neutral-500 line-through': dayObj.isDisabled,
 		'cursor-pointer': !dayObj.isDisabled,
-		'hover:bg-neutral-500': !isSelected && !isToday && !dayObj.isDisabled,
+		'hover:bg-neutral-400 hover:text-neutral-950': !dayObj.isDisabled && !isSelected,
 	}
 }
 </script>
 
 <template>
-	<div class="rounded-lg bg-white ">
+	<div
+		:class="{
+			'rounded-xl bg-neutral-800 p-4': !blank,
+		}"
+	>
 		<div class="mx-auto min-w-[300px] max-w-[420px]">
-			<div class="mb-4 flex items-center justify-between pl-[10px] pr-2">
+			<div class="mb-6 flex items-center justify-between pl-[10px] pr-2">
 				<h1 class="tracking-wide">
 					{{ monthLabels[month] }} - {{ year }}
 				</h1>
@@ -129,8 +136,8 @@ function getDayClass(dayObj: IDay) {
 						type="button"
 						@click="previousMonth"
 					>
-						<JIcon
-							name="chevron-left"
+						<BIcon
+							name="material-symbols-chevron-left-rounded"
 							size="24"
 						/>
 					</button>
@@ -138,8 +145,8 @@ function getDayClass(dayObj: IDay) {
 						type="button"
 						@click="resetDate"
 					>
-						<JIcon
-							name="today"
+						<BIcon
+							name="gg-calendar-today"
 							size="20"
 						/>
 					</button>
@@ -147,8 +154,8 @@ function getDayClass(dayObj: IDay) {
 						type="button"
 						@click="nextMonth"
 					>
-						<JIcon
-							name="chevron-right"
+						<BIcon
+							name="material-symbols-chevron-right-rounded"
 							size="24"
 						/>
 					</button>
