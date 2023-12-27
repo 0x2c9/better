@@ -47,6 +47,17 @@
 			Add new Item
 		</BButton>
 	</Variant>
+	<Variant title="Full Width Buttons">
+		<div class="flex flex-col w-full max-w-lg gap-y-5">
+			<BButton variant="primary">
+				Primary Button
+			</BButton>
+
+			<BButton variant="secondary">
+				Secondary Button
+			</BButton>
+		</div>
+	</Variant>
 
 	<Variant title="Icon Buttons">
 		<BButton
