@@ -1,5 +1,5 @@
 <script setup lang="ts">
-interface IJStepperProps {
+interface IBStepperProps {
 	steps?: number
 	min?: number
 	max?: number
@@ -7,7 +7,7 @@ interface IJStepperProps {
 	displayValue?: string | number
 }
 
-const { steps = 0.1, min = 0, max = null, label = null, displayValue = null } = defineProps<IJStepperProps>()
+const { steps = 0.1, min = 0, max = null, label = null, displayValue = null } = defineProps<IBStepperProps>()
 
 const modelValue = defineModel<number>({ required: true })
 
@@ -67,6 +67,14 @@ function onTouchEnd() {
 	clearTimeout(currentTimeout.value)
 	clearTimeout(fasterIntervalTimeout.value)
 }
+
+const computedDisplayValue = computed(() => {
+	if (displayValue) {
+		return displayValue
+	}
+
+	return modelValue.value
+})
 </script>
 
 <template>
@@ -89,7 +97,7 @@ function onTouchEnd() {
 			/>
 			<div class="flex flex-1 select-none flex-col text-center tabular-nums">
 				<span class="text-4xl font-semibold">
-					{{ displayValue }}
+					{{ computedDisplayValue }}
 				</span>
 				<slot />
 			</div>

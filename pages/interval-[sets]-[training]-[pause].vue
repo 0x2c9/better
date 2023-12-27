@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
 					v-if="currentPhase === TimerPhase.Done"
 					class="space-y-4 flex flex-col absolute bottom-0 w-full"
 				>
-					<JButton
+					<BButton
 						variant="secondary"
 						@click="repeatTimer"
 					>
@@ -236,10 +236,10 @@ onBeforeUnmount(() => {
 							class="mr-2"
 						/>
 						Repeat
-					</JButton>
-					<JButton to="/timer">
+					</BButton>
+					<BButton to="/timer">
 						Return
-					</JButton>
+					</BButton>
 				</div>
 			</Transition>
 		</div>

@@ -44,7 +44,7 @@ async function onSubmit() {
 		class="flex flex-col items-center space-y-4"
 		@submit.prevent="onSubmit"
 	>
-		<JStepper
+		<BStepper
 			v-if="formWeight"
 			v-model="formWeight"
 			label="Weight"
@@ -54,11 +54,11 @@ async function onSubmit() {
 		<JDatepickerInput
 			v-model="date"
 		/>
-		<JButton
+		<BButton
 			type="submit"
 			class="!mt-12 w-full"
 		>
 			Update Your Weight
-		</JButton>
+		</BButton>
 	</form>
 </template>

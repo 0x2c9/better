@@ -75,7 +75,7 @@ async function onSubmit() {
 			label="Timer name"
 			:placeholder="selectedTimer?.name || computedTimerDefaultName"
 		/>
-		<JStepper
+		<BStepper
 			v-model="sets"
 			label="Sets"
 			:steps="1"
@@ -83,7 +83,7 @@ async function onSubmit() {
 			:display-value="sets"
 		/>
 
-		<JStepper
+		<BStepper
 			v-model="trainingTime"
 			label="Training Time"
 			:steps="1"
@@ -91,7 +91,7 @@ async function onSubmit() {
 			:display-value="secondsIntoMinutes(trainingTime)"
 		/>
 
-		<JStepper
+		<BStepper
 			v-model="restTime"
 			label="Rest Time"
 			:min="0"

@@ -39,14 +39,14 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 
 <template>
 	<article class="relative">
-		<JButton
+		<BButton
 			class="fixed bottom-20 left-1/2 z-50 -translate-x-1/2"
 			variant="primary"
 			size="small"
 			@click="onOpenWeightForm"
 		>
 			Update your weight
-		</JButton>
+		</BButton>
 
 		<JGenericList
 			key-field="id"

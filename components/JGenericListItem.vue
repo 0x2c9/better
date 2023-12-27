@@ -109,7 +109,7 @@ function onDelete() {
 				leave-to-class="opacity-0 scale-[0.8] "
 				mode="out-in"
 			>
-				<JButton
+				<BButton
 					v-if="xValue === -100"
 					icon-name="material-symbols-delete-outline-rounded"
 					size="small"

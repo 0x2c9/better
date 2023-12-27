@@ -8,6 +8,7 @@ export default {
 		'./pages/**/*.vue',
 		'./composables/**/*.ts',
 		'./app.vue',
+		'./stories/**/*.story.vue',
 	],
 	theme: {
 		colors: {
