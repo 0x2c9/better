@@ -43,12 +43,12 @@ function onSelectTimer(timer: ITimer) {
 			@select-timer="onSelectTimer"
 		/>
 
-		<JDropdown v-model="showDropdown">
+		<BDrawer v-model="showDropdown">
 			<TimerForm
 				mode="form"
 				:selected-timer="selectedTimer"
 				@submit="onSubmit"
 			/>
-		</JDropdown>
+		</BDrawer>
 	</article>
 </template>

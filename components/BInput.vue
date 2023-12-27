@@ -10,9 +10,15 @@ const { placeholder, type = 'text', labelCenter = false, readonly = false } = de
 const modelValue = defineModel()
 const hasFocus = ref(false)
 function onFocusIn() {
+	if (readonly) {
+		return
+	}
 	hasFocus.value = true
 }
 function onFocusOut() {
+	if (readonly) {
+		return
+	}
 	hasFocus.value = false
 }
 </script>
@@ -37,15 +43,15 @@ function onFocusOut() {
 				px-4
 				py-2
 				w-full
-				focus:outline-none
-				focus:ring-2
-				focus:border-transparent
-				focus:ring-sky-600
 				h-12
 				text-lg
 				font-medium
 				text-white
 			"
+			:class="{
+				'border-neutral-400': !hasFocus,
+				'ring-sky-600 ring-2 outline-none focus:border-transparent': hasFocus,
+			}"
 			:type="type"
 			:placeholder="placeholder"
 			:readonly="readonly"

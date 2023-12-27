@@ -46,6 +46,24 @@ watch(
 		}
 	},
 )
+const swipedToSnap = ref(false)
+const SWIPE_UP_TO_SNAP_THRESHOLD = 50
+const SWIPE_DOWN_TO_SNAP_THRESHOLD = 25
+
+function setToFullState() {
+	top.value = '12px'
+	currentState.value = 'full'
+}
+
+function setToInitialState() {
+	top.value = `${windowHeight.value - inialTargetHeight.value - 12}px` // -8 -> inset-2
+	currentState.value = 'auto'
+}
+
+function setToCloseState() {
+	top.value = `${windowHeight.value}px`
+	currentState.value = 'close'
+}
 
 const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 	threshold: 10,
@@ -57,11 +75,21 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 			const swipedLength = Math.abs(lengthY.value)
 			switch (direction.value) {
 				case SwipeDirection.UP:
+					if (swipedLength > SWIPE_UP_TO_SNAP_THRESHOLD) {
+						swipedToSnap.value = true
+					} else {
+						swipedToSnap.value = false
+					}
 					if (top.value !== '0') {
 						top.value = `${(swipedLength - (windowHeight.value - targetHeight.value)) * -1}px`
 					}
 					break
 				case SwipeDirection.DOWN:
+					if (swipedLength > SWIPE_DOWN_TO_SNAP_THRESHOLD) {
+						swipedToSnap.value = true
+					} else {
+						swipedToSnap.value = false
+					}
 					if (currentState.value === 'full') {
 						top.value = `${swipedLength}px`
 					}
@@ -78,18 +106,20 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 		if (isInputFocused.value) {
 			return
 		}
+
 		switch (direction) {
 			case SwipeDirection.UP:
-				top.value = '12px'
-				currentState.value = 'full'
+				if (swipedToSnap.value) {
+					setToFullState()
+				} else {
+					setToInitialState()
+				}
 				break
 			case SwipeDirection.DOWN:
 				if (currentState.value === 'full') {
-					top.value = `${windowHeight.value - inialTargetHeight.value - 12}px` // -8 -> inset-2
-					currentState.value = 'auto'
+					swipedToSnap.value ? setToInitialState() : setToFullState()
 				} else if (currentState.value === 'auto') {
-					top.value = `${windowHeight.value}px`
-					currentState.value = 'close'
+					swipedToSnap.value ? setToCloseState() : setToInitialState()
 				}
 				break
 		}

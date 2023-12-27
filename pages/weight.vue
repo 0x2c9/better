@@ -68,14 +68,14 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 				{{ item.dateDisplay }}
 			</template>
 		</JGenericList>
-		<LazyJDropdown
+		<BDrawer
 			v-model="showWeightForm"
 		>
 			<WeightForm
 				:selected-weight-entry="selectedWeightEntry"
 				@submit="onWeightFormSubmit"
 			/>
-		</LazyJDropdown>
+		</BDrawer>
 	</article>
 </template>
 

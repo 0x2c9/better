@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const modelValue = defineModel<string>()
 const showDatepicker = ref(false)
-const activeElement = useActiveElement()
 
 function openDatepicker() {
 	showDatepicker.value = true
@@ -9,7 +8,6 @@ function openDatepicker() {
 
 function onSetDate() {
 	showDatepicker.value = false
-	activeElement.value?.blur()
 }
 
 const displayValue = computed(() => {
@@ -25,7 +23,7 @@ const displayValue = computed(() => {
 		readonly
 		@click="openDatepicker"
 	/>
-	<LazyJDropdown
+	<BDrawer
 		v-model="showDatepicker"
 		:narrow="false"
 	>
@@ -34,5 +32,5 @@ const displayValue = computed(() => {
 			:disable-future-dates="true"
 			@set-date="onSetDate"
 		/>
-	</LazyJDropdown>
+	</BDrawer>
 </template>
