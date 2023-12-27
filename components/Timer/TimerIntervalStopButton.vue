@@ -13,14 +13,15 @@ function onTransitionEnd() {
 </script>
 
 <template>
-	<JButton
+	<BButton
 		class="
       relative
       overflow-hidden
+			active:bg-neutral-800
       before:pointer-events-none
       before:absolute
       before:inset-0
-      before:bg-blue
+      before:bg-neutral-600
       before:scale-x-0
       before:transform
       before:origin-left
@@ -35,6 +36,6 @@ function onTransitionEnd() {
 		@touchend="buttonIsActive = false"
 		@transitionend="onTransitionEnd"
 	>
-		<span class="z-20">Hold to Stop</span>
-	</JButton>
+		<span class="relative z-20">Hold to Stop</span>
+	</BButton>
 </template>

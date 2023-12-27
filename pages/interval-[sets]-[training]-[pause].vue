@@ -113,8 +113,6 @@ onMounted(() => {
 	timer = initTimer()
 })
 
-console.log(performance.getEntriesByType('navigation'))
-
 function repeatTimer() {
 	timer = initTimer()
 }
@@ -176,7 +174,7 @@ onBeforeUnmount(() => {
 		<Transition name="fade">
 			<div
 				v-if="!timer?.isActive.value && currentPhase !== TimerPhase.Done && showTimerOverlay"
-				class="fixed z-50 inset-0 bg-white/20 pointer-events-none backdrop-blur-[2px]"
+				class="fixed z-50 inset-0 bg-neutral-950/50 pointer-events-none backdrop-blur-[3px]"
 			/>
 		</Transition>
 		<Transition name="fade">
@@ -191,9 +189,10 @@ onBeforeUnmount(() => {
 				<div class="mt-auto flex items-center w-full">
 					<TimerIntervalStopButton @stop="onStop" />
 
-					<JButton
+					<BButton
 						class="ml-auto"
-						:icon-name="timer?.isActive.value ? 'timer-pause' : 'timer-start'"
+						big
+						:icon-name="timer?.isActive.value ? 'material-symbols-pause-rounded' : 'material-symbols-play-arrow-rounded'"
 						@click="toggleTimer"
 					/>
 				</div>

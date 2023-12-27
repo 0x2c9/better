@@ -37,20 +37,19 @@ async function onStartTimer(item: ITimer) {
 				<div class="flex pb-2">
 					<div class="flex flex-col space-y-1 justify-between">
 						<div class="flex space-x-2 items-center">
-							<JIcon name="timer-set" /> <span>{{ item.sets }} Sets</span>
+							<JIcon name="material-symbols-rotate-right-rounded" /> <span>{{ item.sets }} Sets</span>
 						</div>
 						<div class="flex space-x-2 items-center">
-							<JIcon name="timer-training-time" /> <span>{{ secondsIntoMinutes(item.training_time) }}</span>
+							<JIcon name="material-symbols-timer-outline-rounded" /> <span>{{ secondsIntoMinutes(item.training_time) }}</span>
 						</div>
 						<div class="flex space-x-2 items-center">
-							<JIcon name="timer-pause-time" /> <span>{{ secondsIntoMinutes(item.pause_time) }}</span>
+							<JIcon name="material-symbols-motion-photos-paused-outline-rounded" /> <span>{{ secondsIntoMinutes(item.pause_time) }}</span>
 						</div>
 					</div>
 					<div class="mt-auto ml-auto">
-						<JButton
+						<BButton
 							type="button"
-
-							icon-name="timer-start"
+							icon-name="material-symbols-play-arrow-rounded"
 							@click.stop="onStartTimer(item)"
 						/>
 					</div>

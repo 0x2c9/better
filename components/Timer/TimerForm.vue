@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ITimer } from '@/types/timer'
 
-const { mode = 'form', selectedTimer } = defineProps<{
-	mode?: 'form' | 'timer'
+const { selectedTimer, mode = 'timer' } = defineProps<{
 	selectedTimer?: ITimer | null
+	mode?: 'form' | 'timer'
 }>()
 
 const emits = defineEmits<{
@@ -66,10 +66,10 @@ async function onSubmit() {
 
 <template>
 	<form
-		class="flex flex-col items-center space-y-8"
+		class="flex flex-col items-center space-y-8 mb-4"
 		@submit.prevent="onSubmit"
 	>
-		<JInput
+		<BInput
 			v-if="mode === 'form'"
 			v-model="name"
 			label="Timer name"
@@ -99,12 +99,12 @@ async function onSubmit() {
 			:display-value="secondsIntoMinutes(restTime)"
 		/>
 
-		<JButton
-			type="submit"
+		<BButton
+			type="button"
 			variant="primary"
 			class="!mt-12 w-full"
 		>
 			{{ mode === 'form' ? 'Save' : 'Start' }}
-		</JButton>
+		</BButton>
 	</form>
 </template>

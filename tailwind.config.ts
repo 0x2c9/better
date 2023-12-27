@@ -17,6 +17,7 @@ export default {
 			orange: '#dd8b1d',
 			white: '#FFFFFF',
 			black: '#000000',
+			transparent: 'transparent',
 			neutral: {
 				50: colors.neutral['50'],
 				100: colors.neutral['100'],
@@ -30,6 +31,8 @@ export default {
 				900: '#171717',
 				950: '#0A0A0A',
 			},
+			sky: colors.sky,
+
 		},
 		extend: {
 			boxShadow: {

@@ -135,7 +135,7 @@ function onBackdropClick() {
 		>
 			<div
 				v-if="modelValue"
-				class="fixed inset-0 bg-neutral-200/50 backdrop-blur-[4px]"
+				class="fixed inset-0 bg-neutral-950/50 backdrop-blur-[4px]"
 				:style="{
 					zIndex: 1010 + localDropdownCounter,
 				}"
@@ -155,7 +155,7 @@ function onBackdropClick() {
 			<div
 				v-if="modelValue"
 				ref="dropdownEl"
-				class="absolute better-layer inset-4 z-[1020] rounded-3xl border-t border-transparent  pb-8 will-change-transform overflow-hidden"
+				class="absolute b-box inset-4 z-[1020] rounded-3xl border-t border-transparent  pb-8 will-change-transform overflow-hidden"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
 					'px-8': narrow,

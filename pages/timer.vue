@@ -25,28 +25,30 @@ function onSelectTimer(timer: ITimer) {
 
 <template>
 	<article class="relative">
-		<JButton
-			class="fixed z-40 bottom-12 left-1/2 -translate-x-1/2"
-			variant="primary"
-			size="small"
-			@click="openDropdown"
-		>
-			Create Interval
-		</JButton>
-
-		<div class="better-layer p-8 rounded-3xl mb-4">
-			<TimerForm mode="timer" />
+		<div class="b-box px-5 pt-6 pb-4 mb-6">
+			<TimerForm />
 		</div>
-
+		<div class="flex justify-between items-center mb-6">
+			<h1 class="text-lg font-semibold">
+				Saved Timers
+			</h1>
+			<BButton
+				variant="secondary"
+				@click="openDropdown"
+			>
+				Create Interval
+			</BButton>
+		</div>
 		<TimerList
 			@select-timer="onSelectTimer"
 		/>
 
-		<LazyJDropdown v-model="showDropdown">
+		<JDropdown v-model="showDropdown">
 			<TimerForm
+				mode="form"
 				:selected-timer="selectedTimer"
 				@submit="onSubmit"
 			/>
-		</LazyJDropdown>
+		</JDropdown>
 	</article>
 </template>

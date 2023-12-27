@@ -12,7 +12,7 @@ const displayValue = computed(() => {
 </script>
 
 <template>
-	<JInput
+	<BInput
 		v-model="displayValue"
 		type="text"
 		label="Date"

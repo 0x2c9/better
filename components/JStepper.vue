@@ -71,17 +71,17 @@ function onTouchEnd() {
 
 <template>
 	<div class="w-full select-none">
-		<h1 class="text text-center text-[11px] uppercase tracking-widest font-bold  text-black">
+		<h1 class="text text-center text-xs uppercase tracking-widest font-medium  text-neutral-400">
 			{{ label }}
 		</h1>
 
 		<div class="flex items-center justify-between text-4xl">
-			<JButton
+			<BButton
 				class="-ml-1"
 				type="button"
 				variant="primary"
 				size="small"
-				icon-name="remove"
+				icon-name="material-symbols-remove-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'minus')"
 				@touchend="onTouchEnd"
 				@touchmove.stop.passive="onTouchMove"
@@ -93,12 +93,12 @@ function onTouchEnd() {
 				</span>
 				<slot />
 			</div>
-			<JButton
+			<BButton
 				class="-mr-1"
 				type="button"
 				variant="primary"
 				size="small"
-				icon-name="add"
+				icon-name="material-symbols-add-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'plus')"
 				@touchend="onTouchEnd"
 				@touchmove.stop.passive="onTouchMove"

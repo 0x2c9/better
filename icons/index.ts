@@ -21,4 +21,6 @@ export const ICONS = {
 	'material-symbols-trending-down-rounded': 'material-symbols-trending-down-rounded',
 	'material-symbols-trending-flat-rounded': 'material-symbols-trending-flat-rounded',
 	'material-symbols-trending-up-rounded': 'material-symbols-trending-up-rounded',
+	'material-symbols-delete-outline-rounded': 'material-symbols-delete-outline-rounded',
+	'material-symbols-save-outline-rounded': 'material-symbols-save-outline-rounded',
 } as const

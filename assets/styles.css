@@ -14,16 +14,24 @@
 
 
   body {
-    @apply text-black bg-neutral-50 font-inter overflow-x-hidden antialiased;
+    @apply bg-neutral-950 text-white font-inter overflow-x-hidden antialiased;
   }
 
   :focus-visible {
     outline: none;
   }
 }
+@layer components {
+  .b-box {
+		background-color: theme('colors.neutral.900');
+		border-width: 2px;
+		border-radius: 20px;
+		@apply border-neutral-600/40;
+	}
+}
 
-@tailwind utilities;
 @tailwind components;
+@tailwind utilities;
 
 .page-enter-active {
   @apply transition-opacity duration-75 ease-linear;
