@@ -232,7 +232,7 @@ onBeforeUnmount(() => {
 						@click="repeatTimer"
 					>
 						<BIcon
-							name="timer-replay"
+							name="material-symbols-replay-rounded"
 							class="mr-2"
 						/>
 						Repeat

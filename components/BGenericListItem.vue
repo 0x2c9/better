@@ -63,7 +63,7 @@ function onDelete() {
 	>
 		<div
 			ref="itemEl"
-			class="relative b-box flex-1 z-10 flex items-center overflow-hidden rounded-xl px-4 py-2 transition-transform duration-300 ease-in-out select-none"
+			class="relative b-box border-none outline outline-1 outline-neutral-500/30 -outline-offset-1 flex-1 z-10 flex items-center overflow-hidden rounded-xl px-4 py-2 transition-transform duration-300 ease-in-out select-none"
 			:style="{
 				transform: `translateX(${xValue}px)`,
 			}"
@@ -73,28 +73,6 @@ function onDelete() {
 				name="content"
 				:item="item"
 			/>
-			<template v-if="!unstyled">
-				<slot name="icon" />
-				<div class="flex flex-1 flex-col">
-					<div class="flex items-center justify-between">
-						<h1 class="text-lg font-semibold">
-							<slot
-								name="title"
-								:item="item"
-							/>
-						</h1>
-					</div>
-
-					<div>
-						<h3 class="text-xs text-neutral-500">
-							<slot
-								name="subtitle"
-								:item="item"
-							/>
-						</h3>
-					</div>
-				</div>
-			</template>
 		</div>
 
 		<div

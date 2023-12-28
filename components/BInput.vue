@@ -50,7 +50,7 @@ function onFocusOut() {
 			"
 			:class="{
 				'border-neutral-400': !hasFocus,
-				'ring-sky-600 ring-2 outline-none focus:border-transparent': hasFocus,
+				'ring-blue ring-2 outline-none focus:border-transparent': hasFocus,
 			}"
 			:type="type"
 			:placeholder="placeholder"

@@ -5,6 +5,7 @@ definePageMeta({
 	layout: 'app',
 })
 
+const timerStore = useTimerStore()
 const selectedTimer = ref<ITimer | null>(null)
 const showDropdown = ref(false)
 
@@ -20,6 +21,15 @@ function onSubmit() {
 function onSelectTimer(timer: ITimer) {
 	selectedTimer.value = timer
 	showDropdown.value = true
+}
+
+async function onDeleteTimer(timer: ITimer) {
+	await timerStore.deleteTimer(timer.id!)
+}
+
+async function onStartTimer(item: ITimer) {
+	const navigationTarget = `/interval-${item.sets}-${item.training_time}-${item.pause_time}`
+	await navigateTo(navigationTarget)
 }
 
 const globalStateStore = useGlobalState()
@@ -64,7 +74,10 @@ function toggleQuickStartForm() {
 			</BButton>
 		</div>
 		<TimerList
+			:items="timerStore.timers"
 			@select-timer="onSelectTimer"
+			@delete-timer="onDeleteTimer"
+			@start-timer="onStartTimer"
 		/>
 
 		<BDrawer v-model="showDropdown">

@@ -48,26 +48,11 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 			Update your weight
 		</BButton>
 
-		<JGenericList
-			key-field="id"
+		<WeightList
 			:items="weightStore.parsedWeightHistory"
-			@select="onSelectEntry"
-			@delete="onDeleteEntry"
-		>
-			<template #icon="{ item }">
-				<WeightProgressIcon
-					:progress="item.progress"
-				/>
-			</template>
-
-			<template #title="{ item }">
-				{{ item.weightDisplay }}
-			</template>
-
-			<template #subtitle="{ item }">
-				{{ item.dateDisplay }}
-			</template>
-		</JGenericList>
+			@select-weight="onSelectEntry"
+			@delete-weight="onDeleteEntry"
+		/>
 		<BDrawer
 			v-model="showWeightForm"
 		>

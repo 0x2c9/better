@@ -1,30 +1,25 @@
 <script setup lang="ts">
 import type { ITimer } from '~/types/timer'
 
-const emits = defineEmits<{
-	'select-timer': [ITimer]
+defineProps<{
+	items: ITimer[]
 }>()
 
-const timerStore = useTimerStore()
+const emits = defineEmits<{
+	'select-timer': [ITimer]
+	'delete-timer': [ITimer]
+	'start-timer': [ITimer]
+}>()
+
 const { secondsIntoMinutes } = useUtils()
-
-async function onDeleteTimer(timer: ITimer) {
-	await timerStore.deleteTimer(timer.id!)
-}
-
-async function onStartTimer(item: ITimer) {
-	const navigationTarget = `/interval-${item.sets}-${item.training_time}-${item.pause_time}`
-	await navigateTo(navigationTarget)
-}
 </script>
 
 <template>
-	<JGenericList
+	<BGenericList
 		key-field="id"
-		:items="timerStore.timers"
-		:unstyled="true"
+		:items="items"
 		@select="emits('select-timer', $event)"
-		@delete="onDeleteTimer"
+		@delete="emits('delete-timer', $event)"
 	>
 		<template #content="{ item }">
 			<div class="flex-1">
@@ -50,11 +45,11 @@ async function onStartTimer(item: ITimer) {
 						<BButton
 							type="button"
 							icon-name="material-symbols-play-arrow-rounded"
-							@click.stop="onStartTimer(item)"
+							@click.stop="emits('start-timer', item)"
 						/>
 					</div>
 				</div>
 			</div>
 		</template>
-	</JGenericList>
+	</BGenericList>
 </template>

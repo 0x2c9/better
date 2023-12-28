@@ -20,13 +20,13 @@ function onDelete(item: T) {
 </script>
 
 <template>
-	<div class="relative">
+	<div class="relative w-full">
 		<TransitionGroup
 			name="list"
 			tag="ul"
 			class="space-y-4"
 		>
-			<JGenericListItem
+			<BGenericListItem
 				v-for="item of items"
 				:id="String(item[keyField as keyof T])"
 				:key="String(item[keyField as keyof T])"
@@ -41,26 +41,7 @@ function onDelete(item: T) {
 						:item="item"
 					/>
 				</template>
-				<template #icon>
-					<slot
-						name="icon"
-						:item="item"
-					/>
-				</template>
-
-				<template #title>
-					<slot
-						name="title"
-						:item="item"
-					/>
-				</template>
-				<template #subtitle>
-					<slot
-						name="subtitle"
-						:item="item"
-					/>
-				</template>
-			</JGenericListItem>
+			</BGenericListItem>
 		</TransitionGroup>
 	</div>
 </template>

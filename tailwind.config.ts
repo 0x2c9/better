@@ -12,9 +12,9 @@ export default {
 	],
 	theme: {
 		colors: {
-			blue: '#509BF5',
-			green: '#4B917D',
-			red: '#F93049',
+			blue: '#0EA5E9',
+			green: '#059669',
+			red: '#DC2626',
 			orange: '#dd8b1d',
 			white: '#FFFFFF',
 			black: '#000000',
@@ -32,8 +32,6 @@ export default {
 				900: '#171717',
 				950: '#0A0A0A',
 			},
-			sky: colors.sky,
-
 		},
 		extend: {
 			boxShadow: {
