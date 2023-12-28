@@ -51,7 +51,7 @@ async function onSubmit() {
 			:display-value="formWeight % 1 === 0 ? `${formWeight}.0` : formWeight"
 		/>
 		<div class="bg-gradient !mt-4" />
-		<JDatepickerInput
+		<BDatepickerInput
 			v-model="date"
 		/>
 		<BButton
