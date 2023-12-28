@@ -38,6 +38,12 @@ watch(
 	},
 )
 const router = useRouter()
+
+const activeElement = useActiveElement()
+function onEnter() {
+	activeElement.value?.blur()
+}
+
 async function onSubmit() {
 	if (mode === 'timer') {
 		const navigationTarget = `/interval-${sets.value}-${trainingTime.value}-${restTime.value}`
@@ -67,7 +73,7 @@ async function onSubmit() {
 <template>
 	<form
 		class="flex flex-col items-center space-y-8 mb-4"
-		@submit.prevent="onSubmit"
+		@submit.prevent="onEnter"
 	>
 		<BInput
 			v-if="mode === 'form'"
@@ -103,6 +109,7 @@ async function onSubmit() {
 			type="button"
 			variant="primary"
 			class="!mt-12 w-full"
+			@click="onSubmit"
 		>
 			{{ mode === 'form' ? 'Save' : 'Start' }}
 		</BButton>

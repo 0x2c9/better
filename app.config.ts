@@ -6,5 +6,7 @@ export default defineAppConfig({
 	},
 	authenticatedRoutes: {
 		appHome: '/home',
+		timer: '/timer',
+		weight: '/weight',
 	},
 })
