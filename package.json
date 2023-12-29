@@ -26,10 +26,10 @@
 		"cheerio": "1.0.0-rc.12",
 		"eslint": "^8.56.0",
 		"nuxt": "^3.9.0",
-		"nuxt-fable": "^1.0.13",
+		"nuxt-fable": "^1.0.14",
 		"pinia": "^2.1.7",
 		"tailwindcss": "^3.4.0",
-		"vue": "^3.3.13",
+		"vue": "^3.4.0",
 		"vue-router": "^4.2.5"
 	}
 }
