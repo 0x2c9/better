@@ -39,15 +39,19 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 
 <template>
 	<article class="relative">
-		<BButton
-			class="fixed bottom-20 left-1/2 z-50 -translate-x-1/2"
-			variant="primary"
-			size="small"
-			@click="onOpenWeightForm"
-		>
-			Update your weight
-		</BButton>
-
+		<div class="flex justify-end items-center mb-6">
+			<BButton
+				variant="secondary"
+				small
+				@click="onOpenWeightForm"
+			>
+				<BIcon
+					name="material-symbols-add-rounded"
+					class="-ml-2 mr-2"
+				/>
+				Update your weight
+			</BButton>
+		</div>
 		<WeightList
 			:items="weightStore.parsedWeightHistory"
 			@select-weight="onSelectEntry"
