@@ -11,7 +11,7 @@
 		"postinstall": "nuxt prepare"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "^2.39.1",
+		"@supabase/supabase-js": "^2.39.2",
 		"dayjs": "^1.11.10",
 		"howler": "^2.2.4"
 	},
@@ -29,7 +29,7 @@
 		"nuxt-fable": "^1.0.14",
 		"pinia": "^2.1.7",
 		"tailwindcss": "^3.4.0",
-		"vue": "^3.4.0",
+		"vue": "^3.4.3",
 		"vue-router": "^4.2.5"
 	}
 }
