@@ -9,10 +9,16 @@ interface IBSwitchProps {
 
 const { options } = defineProps<IBSwitchProps>()
 
-const modelValue = defineModel<IBSwitchOption>({ required: true })
+const emits = defineEmits<{
+	change: [index: number]
+}>()
+
+const modelValue = defineModel<IBSwitchOption>()
 const selectedIndex = ref(0)
+
 function onOptionClick(option: IBSwitchOption) {
 	modelValue.value = option
+	emits('change', selectedIndex.value)
 }
 
 const markerRef = ref<HTMLElement>()
@@ -38,8 +44,11 @@ onMounted(() => {
 
 watch(
 	() => modelValue.value,
-	() => {
-		const index = options.findIndex((option) => option.content === modelValue.value.content)
+	(newModeValue) => {
+		if (!newModeValue) {
+			return
+		}
+		const index = options.findIndex((option) => option.content === newModeValue.content)
 
 		calculateMarkerDimensions(index)
 	},
@@ -58,7 +67,7 @@ onUnmounted(() => {
 
 <template>
 	<div
-		class="w-full border border-neutral-500 rounded-2xl px-2 py-[6px] grid gap-x-3 relative"
+		class="w-full border border-neutral-500 rounded-2xl px-2 py-[6px] grid gap-x-3 relative z-50"
 		:style="{
 			'grid-template-columns': `repeat(${options.length}, 1fr)`,
 		}"
@@ -83,7 +92,7 @@ onUnmounted(() => {
 			ref="btnRefs"
 			class="h-9 py-2 flex items-center justify-center rounded-xl select-none text-neutral-500"
 			:class="{
-				'text-white': modelValue.content === option.content,
+				'text-white': options[selectedIndex].content === option.content,
 			}"
 			@click="onOptionClick(option)"
 		>
