@@ -18,35 +18,19 @@ export const useWeightStore = defineStore(
 			return weightHistory.value[0]
 		})
 
-		const parsedWeightHistory = computed(() => {
-			const history = weightHistory.value.sort((a, b) => {
-				const aTime = new Date(a.date).getTime()
-				const bTime = new Date(b.date).getTime()
+		const parsedWeightHistory = computed<IWeightEntrySorted[]>(() => {
+			const history = [...weightHistory.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) as IWeightEntrySorted[]
 
-				return aTime - bTime
-			}).reverse() as IWeightEntrySorted[]
-
-			return history.map((entry, index: number) => {
-				entry.dateDisplay = dayjs(entry.date).format('ddd, DD.MM.YYYY')
-				entry.weightDisplay = entry.weight % 1 === 0 ? `${entry.weight}.0 kg` : `${entry.weight} kg`
-
-				if (index === 0) {
-					entry.progress = 'same'
-					return entry
+			const parsedHistory = history.map((entry, index: number) => {
+				let progress: 'same' | 'increase' | 'decrease' = 'same'
+				if (index > 0) {
+					const lastWeight = history[index - 1].weight
+					progress = entry.weight > lastWeight ? 'increase' : entry.weight < lastWeight ? 'decrease' : 'same'
 				}
-
-				const lastEntry = weightHistory.value[index - 1] as IWeightEntrySorted
-
-				if (entry.weight > lastEntry.weight) {
-					lastEntry.progress = 'increase'
-				} else if (entry.weight < lastEntry.weight) {
-					lastEntry.progress = 'decrease'
-				} else {
-					lastEntry.progress = 'same'
-				}
-
-				return entry
+				return { ...entry, progress }
 			})
+
+			return parsedHistory
 		})
 
 		async function fetchWeightHistory() {
@@ -72,6 +56,8 @@ export const useWeightStore = defineStore(
 				...formData,
 				user_id,
 				user_date_id: `${user_id}-${formData.date}`,
+				date_display: dayjs(formData.date).format('ddd, DD.MM.YYYY'),
+				weight_display: `${formData.weight.toFixed(1)} kg`,
 			}
 
 			const { data, error } = await supaClient.from(DB_TABLE_NAME).upsert(payload, {

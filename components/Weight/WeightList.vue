@@ -49,10 +49,10 @@ const emits = defineEmits<{
 				</div>
 
 				<h2 class="ml-12 font-semibold text-xl">
-					{{ item.weightDisplay }}
+					{{ item.weight_display }}
 				</h2>
 				<h3 class="ml-auto text-neutral-400 text-sm tabular-nums">
-					{{ item.dateDisplay }}
+					{{ item.date_display }}
 				</h3>
 			</div>
 		</template>

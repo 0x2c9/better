@@ -11,15 +11,15 @@ const parsedWeightHistory = computed(() => {
 		const weight = Math.floor(Math.random() * 100) + 50
 		const date = dayjs().subtract(i, 'day').toISOString()
 		const progress = ['increase', 'decrease', 'same'][Math.floor(Math.random() * 3)] as 'increase' | 'decrease' | 'same'
-		const dateDisplay = dayjs(date).format('DD.MM.YYYY')
+		const date_display = dayjs(date).format('DD.MM.YYYY')
 
 		result.push({
 			id: i.toString(),
 			weight,
 			progress,
 			date,
-			dateDisplay,
-			weightDisplay: `${weight.toFixed(1)} kg`,
+			date_display,
+			weight_display: `${weight.toFixed(1)} kg`,
 			user_date_id: `${date}-abiuqhwri9bnqdw`,
 			user_id: 'abiuqhwri9bnqdw',
 		})

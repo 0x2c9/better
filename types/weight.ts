@@ -4,6 +4,8 @@ export interface IWeightEntry {
 	user_date_id: string
 	user_id: string
 	weight: number
+	date_display: string
+	weight_display: string
 }
 
 export interface IWeightEntryFormData {
@@ -17,6 +19,4 @@ export type IWeightEntryUnsaved = Omit<IWeightEntry, 'id' | 'created_at' | 'upda
 
 export type IWeightEntrySorted = IWeightEntry & {
 	progress: 'increase' | 'decrease' | 'same'
-	dateDisplay: string
-	weightDisplay: string
 }
