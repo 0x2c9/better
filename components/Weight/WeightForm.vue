@@ -37,6 +37,14 @@ async function onSubmit() {
 
 	await weightStore.upsertWeight(payload, selectedWeightEntry)
 }
+
+onMounted(() => {
+	if (weightStore.parsedWeightHistory.length) {
+		const latestEntry = weightStore.parsedWeightHistory[0]
+
+		formWeight.value = latestEntry.weight
+	}
+})
 </script>
 
 <template>
