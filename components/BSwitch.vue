@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface IBSwitchOption {
-	content: string
+	content: any
 	label: string
 }
 interface IBSwitchProps {
@@ -13,12 +13,11 @@ const emits = defineEmits<{
 	change: [index: number]
 }>()
 
-const modelValue = defineModel<IBSwitchOption>()
 const selectedIndex = ref(0)
 
-function onOptionClick(option: IBSwitchOption) {
-	modelValue.value = option
-	emits('change', selectedIndex.value)
+function onOptionClick(index: number) {
+	selectedIndex.value = index
+	emits('change', index)
 }
 
 const markerRef = ref<HTMLElement>()
@@ -43,14 +42,9 @@ onMounted(() => {
 })
 
 watch(
-	() => modelValue.value,
-	(newModeValue) => {
-		if (!newModeValue) {
-			return
-		}
-		const index = options.findIndex((option) => option.content === newModeValue.content)
-
-		calculateMarkerDimensions(index)
+	() => selectedIndex.value,
+	(newIndex) => {
+		calculateMarkerDimensions(newIndex)
 	},
 )
 
@@ -87,14 +81,14 @@ onUnmounted(() => {
 			"
 		/>
 		<button
-			v-for="option of options"
+			v-for="(option, index) of options"
 			:key="option.content"
 			ref="btnRefs"
 			class="h-9 py-2 flex items-center justify-center rounded-xl select-none text-neutral-500 tabular-nums font-semibold"
 			:class="{
 				'text-white': options[selectedIndex].content === option.content,
 			}"
-			@click="onOptionClick(option)"
+			@click="onOptionClick(index)"
 		>
 			{{ option.label }}
 		</button>
