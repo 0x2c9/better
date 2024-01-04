@@ -39,6 +39,7 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 
 <template>
 	<article class="relative">
+		<LazyWeightHistoryChart v-if="weightStore.weightHistory.length" />
 		<div class="flex justify-end items-center mb-6">
 			<BButton
 				variant="secondary"
@@ -57,14 +58,14 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 			@select-weight="onSelectEntry"
 			@delete-weight="onDeleteEntry"
 		/>
-		<BDrawer
+		<LazyBDrawer
 			v-model="showWeightForm"
 		>
 			<WeightForm
 				:selected-weight-entry="selectedWeightEntry"
 				@submit="onWeightFormSubmit"
 			/>
-		</BDrawer>
+		</LazyBDrawer>
 	</article>
 </template>
 
