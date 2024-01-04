@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import type { IWeightEntrySorted } from '~/types/weight'
 
 const { selectedWeightEntry } = defineProps<{
@@ -12,7 +13,7 @@ const emits = defineEmits<{
 const weightStore = useWeightStore()
 
 const formWeight = ref(80)
-const date = ref(new Date().toISOString().substring(0, 10))
+const date = ref(dayjs().format('YYYY-MM-DD'))
 
 watch(
 	() => selectedWeightEntry,
@@ -66,7 +67,7 @@ onMounted(() => {
 			type="submit"
 			class="!mt-12 w-full"
 		>
-			Update Your Weight
+			{{ selectedWeightEntry ? 'Update your weight' : 'Add new entry' }}
 		</BButton>
 	</form>
 </template>
