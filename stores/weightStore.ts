@@ -10,27 +10,37 @@ export const useWeightStore = defineStore(
 
 		const weightHistory = ref<IWeightEntry[]>([])
 
-		const latestEntry = computed(() => {
-			if (weightHistory.value.length === 0) {
-				return null
-			}
-
-			return weightHistory.value[0]
-		})
-
 		const parsedWeightHistory = computed<IWeightEntrySorted[]>(() => {
-			const history = [...weightHistory.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) as IWeightEntrySorted[]
+			const history = [...weightHistory.value] as IWeightEntrySorted[]
 
 			const parsedHistory = history.map((entry, index: number) => {
-				let progress: 'same' | 'increase' | 'decrease' = 'same'
-				if (index > 0) {
-					const lastWeight = history[index - 1].weight
-					progress = entry.weight > lastWeight ? 'increase' : entry.weight < lastWeight ? 'decrease' : 'same'
+				if (index === 0) {
+					entry.progress = 'same'
+					return entry
 				}
-				return { ...entry, progress }
+
+				const lastEntry = weightHistory.value[index - 1] as IWeightEntrySorted
+
+				if (entry.weight > lastEntry.weight) {
+					lastEntry.progress = 'increase'
+				} else if (entry.weight < lastEntry.weight) {
+					lastEntry.progress = 'decrease'
+				} else {
+					lastEntry.progress = 'same'
+				}
+
+				return entry
 			})
 
 			return parsedHistory
+		})
+
+		const latestEntry = computed(() => {
+			if (parsedWeightHistory.value.length === 0) {
+				return null
+			}
+
+			return parsedWeightHistory.value[0]
 		})
 
 		async function fetchWeightHistory() {
