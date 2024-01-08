@@ -75,6 +75,7 @@ onMounted(() => {
 							font: {
 								size: 12,
 							},
+							minRotation: 45,
 						},
 					},
 					y: {
@@ -106,7 +107,8 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="b-box px-5 pt-6 pb-4 mb-6 relative overflow-hidden">
+	<div class="pt-12 pb-8 mb-6 relative overflow-hidden -mx-4 -mt-8">
+		<div class="absolute h-44 bottom-0 inset-x-0 bg-gradient-to-t from-neutral-950 z-50" />
 		<div
 			v-if="weightStore.latestEntry"
 			class="absolute inset-0 pointer-events-none bg-gradient-to-tl"
@@ -116,16 +118,18 @@ onMounted(() => {
 				'from-blue/40 via-blue/5 ': weightStore.latestEntry.progress === 'same',
 			}"
 		/>
-		<BSwitch
-			class="mb-4"
-			:options="timespanOptions"
-			@change="onTimespanChange"
-		/>
+		<div class="px-4">
+			<BSwitch
+				class="mb-4"
+				:options="timespanOptions"
+				@change="onTimespanChange"
+			/>
+		</div>
 		<div class="flex flex-col mx-auto items-center mb-5">
 			<span class="text-neutral-400">Current Weight</span>
 			<span class="text-white text-4xl font-semibold">{{ weightStore.latestEntry?.weight_display }}</span>
 		</div>
-		<div>
+		<div class="z-50 relative px-3">
 			<canvas ref="chartRef" />
 		</div>
 	</div>
