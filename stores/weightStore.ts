@@ -43,6 +43,14 @@ export const useWeightStore = defineStore(
 			return parsedWeightHistory.value[0]
 		})
 
+		const firstEntry = computed(() => {
+			if (parsedWeightHistory.value.length === 0) {
+				return null
+			}
+
+			return parsedWeightHistory.value[parsedWeightHistory.value.length - 1]
+		})
+
 		async function fetchWeightHistory() {
 			const { data, error } = await supaClient.from(DB_TABLE_NAME).select('*').order('date', { ascending: false })
 
@@ -87,7 +95,7 @@ export const useWeightStore = defineStore(
 			}
 
 			const entryIndex = weightHistory.value.findIndex((entry) => entry.user_date_id === selectedWeigth?.user_date_id)
-			console.log(entryIndex)
+
 			if (entryIndex === -1) {
 				weightHistory.value.unshift(data)
 			} else {
@@ -107,6 +115,7 @@ export const useWeightStore = defineStore(
 		return {
 			weightHistory,
 			latestEntry,
+			firstEntry,
 			parsedWeightHistory,
 			fetchWeightHistory,
 			upsertWeight,
