@@ -72,7 +72,7 @@ async function onSubmit() {
 
 <template>
 	<form
-		class="flex flex-col items-center space-y-8 mb-4"
+		class="flex flex-col items-center space-y-4 mb-4"
 		@submit.prevent="onEnter"
 	>
 		<BInput
@@ -108,7 +108,7 @@ async function onSubmit() {
 		<BButton
 			type="button"
 			variant="primary"
-			class="!mt-12 w-full"
+			class="!mt-10 w-full"
 			@click="onSubmit"
 		>
 			{{ mode === 'form' ? 'Save' : 'Start' }}
