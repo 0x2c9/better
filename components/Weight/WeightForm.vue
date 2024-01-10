@@ -40,7 +40,7 @@ async function onSubmit() {
 }
 
 onMounted(() => {
-	if (weightStore.parsedWeightHistory.length) {
+	if (weightStore.parsedWeightHistory.length && !selectedWeightEntry) {
 		const latestEntry = weightStore.parsedWeightHistory[0]
 
 		formWeight.value = latestEntry.weight
