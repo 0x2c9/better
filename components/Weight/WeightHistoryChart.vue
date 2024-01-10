@@ -30,13 +30,40 @@ const selectedEntry = ref<IWeightEntrySorted | null>(weightStore.latestEntry)
 const tweened = reactive({
 	weight: 0,
 	date: '',
+	weightDiffToFirst: 0,
+	weightDiffToFirstPercent: 0,
+	weightDiffProgress: 'same',
+})
+
+weightStore.$onAction((action) => {
+	action.after(() => {
+		if (action.name === 'deleteWeight' || action.name === 'upsertWeight') {
+			chart.value.data.datasets[0] = getChartDataset()
+			chart.value.update()
+			selectedEntry.value = weightStore.latestEntry
+		}
+	})
 })
 
 watch(selectedEntry, (entry) => {
 	if (!entry) {
 		return
 	}
+	if (weightStore.firstEntry) {
+		tweened.weightDiffToFirst = entry.weight - weightStore.firstEntry?.weight
+		tweened.weightDiffToFirstPercent = (tweened.weightDiffToFirst / weightStore.firstEntry?.weight) * 100
+
+		if (tweened.weightDiffToFirst > 0) {
+			tweened.weightDiffProgress = 'decrease'
+		} else if (tweened.weightDiffToFirst < 0) {
+			tweened.weightDiffProgress = 'increase'
+		} else {
+			tweened.weightDiffProgress = 'same'
+		}
+	}
+
 	gsap.to(tweened, { duration: 0.5, weight: Number(entry?.weight) || 0 })
+
 	tweened.date = entry.date === weightStore.latestEntry?.date || entry.weight === weightStore.latestEntry?.weight
 		? 'Current Weight'
 		: entry.date_display
@@ -51,7 +78,34 @@ watch(selectedEntry, (entry) => {
 	immediate: true,
 })
 
+function getProgressColor() {
+	if (!weightStore.latestEntry) {
+		return 'white'
+	}
+
+	if (weightStore.latestEntry.progress === 'increase') {
+		return '#059669'
+	}
+	if (weightStore.latestEntry.progress === 'decrease') {
+		return '#DC2626'
+	}
+
+	return '#0EA5E9'
+}
 function getChartDataset() {
+	const dataset = {
+		pointBackgroundColor: (ctx) => {
+			return ctx?.raw?.selected ? getProgressColor() : 'transparent'
+		},
+		borderColor: getProgressColor(),
+		borderWidth: 2,
+		pointRadius: 1,
+		data: getChartDataPoints(),
+	}
+
+	return dataset
+}
+function getChartDataPoints() {
 	const timespan = timespanOptions[selectedTimespan.value].content
 
 	const entries = weightStore.parsedWeightHistory.slice(0, timespan)
@@ -71,10 +125,9 @@ function getChartDataset() {
 function onTimespanChange(option: number) {
 	timespanChanging.value = true
 	selectedTimespan.value = option
-	const newData = getChartDataset()
-	chart.value.data.datasets[0].data = newData
+	chart.value.data.datasets[0] = getChartDataset()
 	chart.value.update()
-	selectedEntry.value = newData[newData.length - 1].entry
+	selectedEntry.value = weightStore.latestEntry
 	setTimeout(() => {
 		timespanChanging.value = false
 	}, 500)
@@ -120,7 +173,6 @@ onMounted(() => {
 						enabled: false,
 						position: 'nearest',
 						external: (ctx) => {
-							console.log(ctx)
 							if (timespanChanging.value) {
 								return
 							}
@@ -158,15 +210,7 @@ onMounted(() => {
 				},
 			},
 			data: {
-				datasets: [{
-					pointBackgroundColor: (ctx) => {
-					  return ctx.raw.selected ? 'red' : 'white'
-					},
-					borderColor: 'white',
-					borderWidth: 2,
-					pointRadius: 3,
-					data: getChartDataset(),
-				}],
+				datasets: [getChartDataset()],
 			},
 			plugins: [intersectingVerticalLine],
 		},
@@ -175,7 +219,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="pt-12 pb-8 mb-6 relative overflow-hidden -mx-4 -mt-8">
+	<div class="pt-12 pb-8 mb-6 relative overflow-hidden -mx-4 -mt-12">
 		<div class="absolute h-44 bottom-0 inset-x-0 bg-gradient-to-t from-neutral-950 z-50" />
 		<div
 			v-if="weightStore.latestEntry"
@@ -205,8 +249,21 @@ onMounted(() => {
 					{{ tweened.date }}
 				</span>
 			</Transition>
-
-			<span class="text-white text-4xl font-semibold tabular-nums">{{ tweened.weight.toFixed(1) }}</span>
+			<div class="flex flex-col items-center">
+				<span class="text-white text-4xl font-semibold tabular-nums mb-2">{{ tweened.weight.toFixed(1) }} kg</span>
+				<span
+					class="rounded-full border px-2 py-0.5 text-xs font-semibold"
+					:class="{
+						'bg-green/20 text-green border border-green': tweened.weightDiffProgress === 'increase',
+						'bg-red/20 text-red border border-red ': tweened.weightDiffProgress === 'decrease',
+						'bg-blue/20 text-blue border border-blue ': tweened.weightDiffProgress === 'same',
+					}"
+				>
+					overall
+					{{ tweened.weightDiffToFirstPercent.toFixed(1) }}%
+					{{ tweened.weightDiffToFirst > 0 ? '↑' : '↓' }}
+				</span>
+			</div>
 		</div>
 		<div class="z-50 relative px-3">
 			<canvas ref="chartRef" />
