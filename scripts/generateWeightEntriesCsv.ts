@@ -16,7 +16,7 @@ function generateWeightEntriesForTwoMonths() {
 		const weight = (startWeight - (days - 1 - i) * decrement + Math.random() * 2 - 1).toFixed(1)
 		const weight_display = `${weight} kg`
 		const date_display = currentDate.format('ddd, DD.MM.YYYY')
-		const user_date_id = `${USER_ID}_${date}`
+		const user_date_id = `${USER_ID}-${date}`
 		result.push({
 			weight,
 			date,
