@@ -9,15 +9,10 @@ interface IBSwitchProps {
 
 const { options } = defineProps<IBSwitchProps>()
 
-const emits = defineEmits<{
-	change: [index: number]
-}>()
-
-const selectedIndex = ref(0)
+const modelValue = defineModel<number>({ required: true })
 
 function onOptionClick(index: number) {
-	selectedIndex.value = index
-	emits('change', index)
+	modelValue.value = index
 }
 
 const markerRef = ref<HTMLElement>()
@@ -28,7 +23,7 @@ function calculateMarkerDimensions(index: number = 0) {
 		return
 	}
 
-	selectedIndex.value = index
+	modelValue.value = index
 	const activeButton = btnRefs.value[index]
 
 	markerRef.value.style.top = `${activeButton.offsetTop}px`
@@ -38,18 +33,18 @@ function calculateMarkerDimensions(index: number = 0) {
 }
 
 onMounted(() => {
-	calculateMarkerDimensions()
+	calculateMarkerDimensions(modelValue.value)
 })
 
 watch(
-	() => selectedIndex.value,
+	() => modelValue.value,
 	(newIndex) => {
 		calculateMarkerDimensions(newIndex)
 	},
 )
 
 const throttledCalculateMarkerDimensions = useThrottleFn(() => {
-	calculateMarkerDimensions(selectedIndex.value)
+	calculateMarkerDimensions(modelValue.value)
 }, 500)
 
 window.addEventListener('resize', throttledCalculateMarkerDimensions)
@@ -87,7 +82,7 @@ onUnmounted(() => {
 			type="button"
 			class="h-9 py-2 flex items-center justify-center rounded-xl select-none text-neutral-500 tabular-nums font-semibold"
 			:class="{
-				'text-white': options[selectedIndex].content === option.content,
+				'text-white': options[modelValue].content === option.content,
 			}"
 			@click="onOptionClick(index)"
 		>

@@ -122,16 +122,19 @@ function getChartDataPoints() {
 	})).reverse()
 }
 
-function onTimespanChange(option: number) {
-	timespanChanging.value = true
-	selectedTimespan.value = option
-	chart.value.data.datasets[0] = getChartDataset()
-	chart.value.update()
-	selectedEntry.value = weightStore.latestEntry
-	setTimeout(() => {
-		timespanChanging.value = false
-	}, 500)
-}
+watch(
+	() => selectedTimespan.value,
+	() => {
+		timespanChanging.value = true
+		chart.value.data.datasets[0] = getChartDataset()
+		chart.value.update()
+		selectedEntry.value = weightStore.latestEntry
+		setTimeout(() => {
+			timespanChanging.value = false
+		}, 500)
+	},
+)
+
 onMounted(() => {
 	if (!chartRef.value) {
 		return
@@ -232,9 +235,9 @@ onMounted(() => {
 		/>
 		<div class="px-4">
 			<BSwitch
+				v-model="selectedTimespan"
 				class="mb-4"
 				:options="timespanOptions"
-				@change="onTimespanChange"
 			/>
 		</div>
 		<div class="flex flex-col mx-auto items-center mb-5">
