@@ -2,6 +2,7 @@
 const authStore = useAuthStore()
 const timerStore = useTimerStore()
 const weightStore = useWeightStore()
+const exerciseStore = useExerciseStore()
 
 onMounted(async () => {
 	if (!authStore.isAuthenticated) {
@@ -10,6 +11,7 @@ onMounted(async () => {
 
 	await timerStore.getTimers()
 	await weightStore.fetchWeightHistory()
+	await exerciseStore.getExercises()
 })
 </script>
 
