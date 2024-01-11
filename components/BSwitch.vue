@@ -84,6 +84,7 @@ onUnmounted(() => {
 			v-for="(option, index) of options"
 			:key="option.content"
 			ref="btnRefs"
+			type="button"
 			class="h-9 py-2 flex items-center justify-center rounded-xl select-none text-neutral-500 tabular-nums font-semibold"
 			:class="{
 				'text-white': options[selectedIndex].content === option.content,
