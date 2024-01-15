@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const { title = null, narrow = true } = defineProps<{ title?: string, narrow?: boolean }>()
+const { title = null, narrow = true, enableMutationObserver = false } = defineProps<{
+	title?: string
+	narrow?: boolean
+	enableMutationObserver?: boolean
+}>()
 
 const emits = defineEmits(['close'])
 
@@ -105,6 +109,20 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 })
 
 const mutationObserver = new MutationObserver((_mutations, _observer) => {
+	console.log(_mutations)
+	if (_mutations.length === 1) {
+		const mutation = _mutations[0]
+		if (mutation.type === 'childList') {
+			if (mutation.addedNodes.length === 1 && mutation.removedNodes.length === 1) {
+				const addedNode = mutation.addedNodes[0]
+				const removedNode = mutation.removedNodes[0]
+				if (addedNode.nodeType === 3 && removedNode.nodeType === 3) {
+					console.log('skip mutation')
+					return
+				}
+			}
+		}
+	}
 	const computedStyle = window.getComputedStyle(dropdownEl.value!)
 	const dropdownElPaddingBottom = Number.parseInt(computedStyle.getPropertyValue('padding-bottom'))
 	const swipeElHeight = swipeEl.value?.clientHeight ?? 0
@@ -128,10 +146,12 @@ watch(
 			return
 		}
 
-		mutationObserver.observe(newElement, {
-			subtree: true,
-			childList: true,
-		})
+		if (enableMutationObserver) {
+			mutationObserver.observe(newElement, {
+				subtree: true,
+				childList: true,
+			})
+		}
 
 		if (typeof newElement.clientHeight === 'number' && newElement.clientHeight > 0 && !targetHeight.value) {
 			targetHeight.value = newElement.clientHeight
