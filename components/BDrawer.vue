@@ -16,36 +16,13 @@ const globalState = useGlobalState()
 const dropdownEl = ref<HTMLElement | null>(null)
 const swipeEl = ref<HTMLElement | null>(null)
 const windowHeight = computed(() => window.innerHeight)
-const targetHeight = computed(() => dropdownEl.value?.clientHeight)
-const inialTargetHeight = ref(0)
+const targetHeight = ref(0)
 const isInputFocused = ref(false)
 const localDropdownCounter = ref(0)
 const top = ref('auto')
 
 const currentState = ref<'full' | 'auto' | 'close'>('auto')
 
-watch(
-	() => dropdownEl.value,
-	(newVal) => {
-		if (newVal && currentState.value === 'auto') {
-			newVal.addEventListener('transitionend', () => {
-				if (currentState.value === 'close') {
-					modelValue.value = false
-					emits('close')
-				}
-			})
-		}
-	},
-)
-
-watch(
-	() => dropdownEl.value?.clientHeight,
-	(newVal) => {
-		if (typeof newVal === 'number' && newVal > 0 && !inialTargetHeight.value) {
-			inialTargetHeight.value = newVal
-		}
-	},
-)
 const swipedToSnap = ref(false)
 const SWIPE_UP_TO_SNAP_THRESHOLD = 50
 const SWIPE_DOWN_TO_SNAP_THRESHOLD = 25
@@ -56,7 +33,7 @@ function setToFullState() {
 }
 
 function setToInitialState() {
-	top.value = `${windowHeight.value - inialTargetHeight.value - 12}px` // -8 -> inset-2
+	top.value = `${windowHeight.value - targetHeight.value - 12}px` // -8 -> inset-2
 	currentState.value = 'auto'
 }
 
@@ -125,6 +102,37 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 		}
 	},
 })
+
+const mutationObserver = new MutationObserver((_mutations, _observer) => {
+	targetHeight.value = dropdownEl.value?.clientHeight ?? 0
+})
+
+watch(
+	() => dropdownEl.value,
+	(newElement) => {
+		if (!newElement) {
+			return
+		}
+
+		mutationObserver.observe(newElement, {
+			subtree: true,
+			childList: true,
+		})
+
+		if (typeof newElement.clientHeight === 'number' && newElement.clientHeight > 0 && !targetHeight.value) {
+			targetHeight.value = newElement.clientHeight
+		}
+
+		if (currentState.value === 'auto') {
+			newElement.addEventListener('transitionend', () => {
+				if (currentState.value === 'close') {
+					modelValue.value = false
+					emits('close')
+				}
+			})
+		}
+	},
+)
 
 watch(() => modelValue.value, (isOpen) => {
 	if (isOpen) {
@@ -198,7 +206,7 @@ function onBackdropClick() {
 			>
 				<div
 					ref="swipeEl"
-					class="flex flex-col items-center justify-center pb-8 pt-4"
+					class="flex flex-col items-center justify-center pb-6 pt-4"
 				>
 					<div
 						class="h-1.5 w-12 rounded-full bg-neutral-200"
