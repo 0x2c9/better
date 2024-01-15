@@ -15,6 +15,7 @@ const globalState = useGlobalState()
 
 const dropdownEl = ref<HTMLElement | null>(null)
 const swipeEl = ref<HTMLElement | null>(null)
+const slotEl = ref<HTMLElement | null>(null)
 const windowHeight = computed(() => window.innerHeight)
 const targetHeight = ref(0)
 const isInputFocused = ref(false)
@@ -104,7 +105,20 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 })
 
 const mutationObserver = new MutationObserver((_mutations, _observer) => {
-	targetHeight.value = dropdownEl.value?.clientHeight ?? 0
+	const computedStyle = window.getComputedStyle(dropdownEl.value!)
+	const dropdownElPaddingBottom = Number.parseInt(computedStyle.getPropertyValue('padding-bottom'))
+	const swipeElHeight = swipeEl.value?.clientHeight ?? 0
+	const slotElHeight = slotEl.value?.clientHeight ?? 0
+	const sum = dropdownElPaddingBottom + swipeElHeight + slotElHeight
+
+	targetHeight.value = sum
+	if (currentState.value === 'auto') {
+		setToInitialState()
+	}
+
+	if (currentState.value === 'full') {
+		setToFullState()
+	}
 })
 
 watch(
@@ -142,6 +156,7 @@ watch(() => modelValue.value, (isOpen) => {
 	} else {
 		globalState.dropdownCounter -= 1
 		document.body.style.removeProperty('overflow')
+		mutationObserver.disconnect()
 	}
 
 	localDropdownCounter.value = globalState.dropdownCounter * 100
@@ -218,8 +233,9 @@ function onBackdropClick() {
 						{{ title }}
 					</div>
 				</div>
-
-				<slot />
+				<div ref="slotEl">
+					<slot />
+				</div>
 			</div>
 		</Transition>
 	</Teleport>
