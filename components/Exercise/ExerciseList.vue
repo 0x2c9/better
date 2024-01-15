@@ -25,7 +25,7 @@ const { secondsIntoMinutes } = useUtils()
 			<div class="flex-1">
 				<div class="flex items-center justify-between text-lg font-medium">
 					<h2 class="">
-						{{ item.name }}
+						{{ item.exercise_name }}
 					</h2>
 
 					<div

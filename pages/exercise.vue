@@ -7,17 +7,18 @@ definePageMeta({
 
 const exerciseStore = useExerciseStore()
 
+const selectedExercise = ref<IExercise | null>(null)
 const openExerciseForm = ref(false)
 
 function openExercise() {
+	selectedExercise.value = null
 	openExerciseForm.value = true
 }
-
-const selectedExercise = ref<IExercise | null>(null)
 
 function onSubmit() {
 	openExerciseForm.value = false
 }
+
 function onSelectExercise(exercise: IExercise) {
 	selectedExercise.value = exercise
 	openExerciseForm.value = true
@@ -52,10 +53,11 @@ function onDeleteExercise(exercise: IExercise) {
 
 		<LazyBDrawer
 			v-model="openExerciseForm"
+			:enable-mutation-observer="true"
 		>
 			<ExerciseForm
 				:selected-exercise="selectedExercise"
-				@submit="onSubmit"
+				@submit-form="onSubmit"
 			/>
 		</LazyBDrawer>
 	</article>
