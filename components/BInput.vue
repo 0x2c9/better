@@ -47,6 +47,7 @@ function onFocusOut() {
 				text-lg
 				font-medium
 				text-white
+				placeholder:text-neutral-600
 			"
 			:class="{
 				'border-neutral-400': !hasFocus,
