@@ -109,7 +109,6 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 })
 
 const mutationObserver = new MutationObserver((_mutations, _observer) => {
-	console.log(_mutations)
 	if (_mutations.length === 1) {
 		const mutation = _mutations[0]
 		if (mutation.type === 'childList') {
@@ -117,7 +116,6 @@ const mutationObserver = new MutationObserver((_mutations, _observer) => {
 				const addedNode = mutation.addedNodes[0]
 				const removedNode = mutation.removedNodes[0]
 				if (addedNode.nodeType === 3 && removedNode.nodeType === 3) {
-					console.log('skip mutation')
 					return
 				}
 			}
@@ -164,6 +162,8 @@ watch(
 					emits('close')
 				}
 			})
+
+			// setToInitialState()
 		}
 	},
 )
@@ -243,9 +243,7 @@ function onBackdropClick() {
 					ref="swipeEl"
 					class="flex flex-col items-center justify-center pb-6 pt-4"
 				>
-					<div
-						class="h-1.5 w-12 rounded-full bg-neutral-200"
-					/>
+					<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
 					<div
 						v-if="title"
 						class="text-neutral-200 mt-4"
@@ -260,9 +258,3 @@ function onBackdropClick() {
 		</Transition>
 	</Teleport>
 </template>
-
-<style scoped>
-.overlay.animated {
-  transition: all 0.2s ease-out;
-}
-</style>
