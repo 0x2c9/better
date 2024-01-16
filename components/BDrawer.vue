@@ -163,7 +163,7 @@ watch(
 				}
 			})
 
-			// setToInitialState()
+			setToInitialState()
 		}
 	},
 )
