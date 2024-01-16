@@ -151,7 +151,7 @@ watch(
 			})
 		}
 
-		if (typeof newElement.clientHeight === 'number' && newElement.clientHeight > 0 && !targetHeight.value) {
+		if (typeof newElement.clientHeight === 'number' && newElement.clientHeight > 0) {
 			targetHeight.value = newElement.clientHeight
 		}
 
