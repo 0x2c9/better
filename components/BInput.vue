@@ -24,7 +24,7 @@ function onFocusOut() {
 </script>
 
 <template>
-	<label>
+	<label class="inline-block">
 		<span
 			class="w-full inline-block text-[11px] uppercase tracking-widest font-bold  text-neutral-400 mb-1"
 			:class="{
