@@ -159,6 +159,7 @@ function toggleTimer() {
 }
 
 async function onStop() {
+	timer?.pause()
 	await navigateTo('/timer')
 }
 
