@@ -9,16 +9,30 @@ const emits = defineEmits<{
 	'submitForm': [void]
 }>()
 
+const selectedDurationTypeOption = ref(0)
+const durationTypeOptions = [
+	{
+		label: 'Single',
+		content: 'single',
+	},
+	{
+		label: 'Sets',
+		content: 'sets',
+	},
+]
+
 const exerciseStore = useExerciseStore()
 
 const { secondsIntoMinutes } = useUtils()
 
 const exerciseName = ref('')
-const exerciseType = ref<'reps' | 'duration' | null>(null)
-const exerciseDuration = ref(10)
+const exerciseType = ref<'reps' | 'time' | null>(null)
+const exerciseTrainingTime = ref(10)
 const exerciseRepetions = ref(5)
+const exerciseSets = ref(2)
+const exercisePauseTime = ref(10)
 
-function selectExerciseType(type: 'reps' | 'duration') {
+function selectExerciseType(type: 'reps' | 'time') {
 	exerciseType.value = type
 }
 
@@ -28,8 +42,13 @@ watch(
 		if (newExercise) {
 			exerciseName.value = newExercise.exercise_name
 			exerciseType.value = newExercise.exercise_type
-			exerciseDuration.value = newExercise.exercise_duration
+			exerciseTrainingTime.value = newExercise.exercise_training_time
 			exerciseRepetions.value = newExercise.exercise_repetions
+			exerciseSets.value = newExercise.exercise_sets
+			exercisePauseTime.value = newExercise.exercise_pause_time
+			selectedDurationTypeOption.value = durationTypeOptions.findIndex(
+				(option) => option.content === newExercise.exercise_duration_type,
+			)
 		}
 	},
 	{
@@ -50,9 +69,13 @@ async function onSubmit() {
 
 	const formData: IExercise = {
 		exercise_name: exerciseName.value,
-		exercise_type: exerciseType.value as 'reps' | 'duration',
-		exercise_duration: exerciseDuration.value,
+		exercise_type: exerciseType.value as 'reps' | 'time',
+		exercise_training_time: exerciseTrainingTime.value,
+		exercise_pause_time: exercisePauseTime.value,
+		exercise_sets: exerciseSets.value,
 		exercise_repetions: exerciseRepetions.value,
+		exercise_duration_type: durationTypeOptions[selectedDurationTypeOption.value].content as 'single' | 'sets',
+		exercise_set_duration: (exerciseTrainingTime.value + exercisePauseTime.value) * exerciseSets.value,
 	}
 
 	if (selectedExercise?.id) {
@@ -65,8 +88,11 @@ async function onSubmit() {
 function goBackToTypeSelection() {
 	exerciseType.value = null
 	exerciseName.value = ''
-	exerciseDuration.value = 10
+	exerciseTrainingTime.value = 10
 	exerciseRepetions.value = 5
+	exerciseSets.value = 2
+	exercisePauseTime.value = 10
+	selectedDurationTypeOption.value = 0
 }
 </script>
 
@@ -91,30 +117,30 @@ function goBackToTypeSelection() {
 			</h2>
 			<div class="grid grid-cols-2 gap-6">
 				<BButton
-					class="flex flex-col items-center justify-center min-h-32 rounded-xl"
+					class="flex flex-col items-center justify-center min-h-32 rounded-xl relative overflow-hidden"
 					type="button"
 					small
 					@click="selectExerciseType('reps')"
 				>
 					<BIcon
-						class="text-neutral-400 mb-2"
-						size="28"
+						class="text-neutral-700/50 absolute -top-1 -left-3 z-0 transform rotate-12"
+						size="120"
 						name="material-symbols-rotate-right-rounded"
 					/>
-					<span class="uppercase tracking-wider font-bold text-neutral-100">Repetition</span>
+					<span class="font-bold text-xl text-neutral-100 z-10">Repetition</span>
 				</BButton>
 				<BButton
-					class="flex flex-col items-center justify-center min-h-32 rounded-xl"
+					class="flex flex-col items-center justify-center min-h-32 rounded-xl relative overflow-hidden"
 					type="button"
 					small
-					@click="selectExerciseType('duration')"
+					@click="selectExerciseType('time')"
 				>
 					<BIcon
-						class="text-neutral-400 mb-2"
-						size="28"
+						class="text-neutral-700/50 absolute -top-1 -left-3 z-0 transform rotate-12"
+						size="120"
 						name="material-symbols-timer-outline-rounded"
 					/>
-					<span class="uppercase tracking-wider font-bold text-neutral-100">Duration</span>
+					<span class="font-bold text-xl text-neutral-100 z-10">Duration</span>
 				</BButton>
 			</div>
 		</section>
@@ -122,6 +148,12 @@ function goBackToTypeSelection() {
 			v-if="exerciseType"
 			class="space-y-6"
 		>
+			<BSwitch
+				v-if="exerciseType === 'time' && !selectedExercise"
+				v-model="selectedDurationTypeOption"
+				:options="durationTypeOptions"
+			/>
+
 			<BInput
 				v-model="exerciseName"
 				label="Exercise Name"
@@ -130,12 +162,30 @@ function goBackToTypeSelection() {
 			/>
 
 			<BStepper
-				v-if="exerciseType === 'duration'"
-				v-model="exerciseDuration"
+				v-if="exerciseType === 'time' && selectedDurationTypeOption === 1"
+				v-model="exerciseSets"
+				label="Sets"
+				:steps="1"
+				:min="1"
+				:display-value="exerciseSets"
+			/>
+
+			<BStepper
+				v-if="exerciseType === 'time'"
+				v-model="exerciseTrainingTime"
 				label="Duration"
 				:min="10"
 				:steps="1"
-				:display-value="secondsIntoMinutes(exerciseDuration)"
+				:display-value="secondsIntoMinutes(exerciseTrainingTime)"
+			/>
+
+			<BStepper
+				v-if="exerciseType === 'time' && selectedDurationTypeOption === 1"
+				v-model="exercisePauseTime"
+				label="Rest"
+				:min="0"
+				:steps="1"
+				:display-value="secondsIntoMinutes(exercisePauseTime)"
 			/>
 
 			<BStepper
