@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { title = null, narrow = true, enableMutationObserver = false } = defineProps<{
+const { title = null, narrow = true, enableMutationObserver = false, fullscreen = false } = defineProps<{
 	title?: string
 	narrow?: boolean
+	fullscreen?: boolean
 	enableMutationObserver?: boolean
 }>()
 
@@ -57,6 +58,10 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 			const swipedLength = Math.abs(lengthY.value)
 			switch (direction.value) {
 				case SwipeDirection.UP:
+					if (fullscreen) {
+						return
+					}
+
 					if (swipedLength > SWIPE_UP_TO_SNAP_THRESHOLD) {
 						swipedToSnap.value = true
 					} else {
@@ -91,6 +96,10 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 
 		switch (direction) {
 			case SwipeDirection.UP:
+				if (fullscreen) {
+					return
+				}
+
 				if (swipedToSnap.value) {
 					setToFullState()
 				} else {
@@ -98,6 +107,10 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 				}
 				break
 			case SwipeDirection.DOWN:
+				if (fullscreen) {
+					swipedToSnap.value ? setToCloseState() : setToFullState()
+					return
+				}
 				if (currentState.value === 'full') {
 					swipedToSnap.value ? setToInitialState() : setToFullState()
 				} else if (currentState.value === 'auto') {
@@ -155,13 +168,18 @@ watch(
 			targetHeight.value = newElement.clientHeight
 		}
 
-		if (currentState.value === 'auto') {
+		if (currentState.value === 'auto' || fullscreen) {
 			newElement.addEventListener('transitionend', () => {
 				if (currentState.value === 'close') {
 					modelValue.value = false
 					emits('close')
 				}
 			})
+
+			if (fullscreen) {
+				setToFullState()
+				return
+			}
 
 			setToInitialState()
 		}
@@ -180,6 +198,10 @@ watch(() => modelValue.value, (isOpen) => {
 	}
 
 	localDropdownCounter.value = globalState.dropdownCounter * 100
+	if (fullscreen) {
+		setToFullState()
+		return
+	}
 	top.value = 'auto'
 	currentState.value = 'auto'
 })
