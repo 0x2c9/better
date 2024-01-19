@@ -27,8 +27,8 @@ const { secondsIntoMinutes } = useUtils()
 
 const exerciseName = ref('')
 const exerciseType = ref<'reps' | 'time' | null>(null)
-const exerciseTrainingTime = ref(10)
-const exerciseRepetions = ref(5)
+const exerciseTrainingTime = ref(45)
+const exerciseRepetions = ref(10)
 const exerciseSets = ref(2)
 const exercisePauseTime = ref(10)
 
