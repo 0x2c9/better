@@ -51,16 +51,13 @@ function setToCloseState() {
 const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 	threshold: 10,
 	onSwipe() {
-		if (isInputFocused.value) {
+		if (isInputFocused.value || fullscreen) {
 			return
 		}
 		if (windowHeight.value && targetHeight.value) {
 			const swipedLength = Math.abs(lengthY.value)
 			switch (direction.value) {
 				case SwipeDirection.UP:
-					if (fullscreen) {
-						return
-					}
 
 					if (swipedLength > SWIPE_UP_TO_SNAP_THRESHOLD) {
 						swipedToSnap.value = true
@@ -96,10 +93,6 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 
 		switch (direction) {
 			case SwipeDirection.UP:
-				if (fullscreen) {
-					return
-				}
-
 				if (swipedToSnap.value) {
 					setToFullState()
 				} else {
@@ -107,10 +100,6 @@ const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 				}
 				break
 			case SwipeDirection.DOWN:
-				if (fullscreen) {
-					swipedToSnap.value ? setToCloseState() : setToFullState()
-					return
-				}
 				if (currentState.value === 'full') {
 					swipedToSnap.value ? setToInitialState() : setToFullState()
 				} else if (currentState.value === 'auto') {
@@ -176,11 +165,6 @@ watch(
 				}
 			})
 
-			if (fullscreen) {
-				setToFullState()
-				return
-			}
-
 			setToInitialState()
 		}
 	},
@@ -220,6 +204,8 @@ function onBackdropClick() {
 	modelValue.value = false
 	emits('close')
 }
+
+const sluts = useSlots()
 </script>
 
 <template>
@@ -250,11 +236,11 @@ function onBackdropClick() {
 			<div
 				v-if="modelValue"
 				ref="dropdownEl"
-				class="absolute b-box inset-4 z-[1020] rounded-3xl border-t border-transparent  pb-8 will-change-transform overflow-hidden"
+				:data-drawer-index="localDropdownCounter"
+				class="absolute b-box inset-4 z-[1020] rounded-3xl border-t border-transparent   will-change-transform overflow-hidden flex flex-col"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
-					'px-8': narrow,
-					'px-4': !narrow,
+					'pb-8': !sluts.footer,
 				}"
 				:style="{
 					top,
@@ -263,19 +249,59 @@ function onBackdropClick() {
 			>
 				<div
 					ref="swipeEl"
-					class="flex flex-col items-center justify-center pb-6 pt-4"
+					class="pb-6 pt-4"
+					:class="{
+						'px-8': narrow && !fullscreen,
+						'px-4': !narrow || fullscreen,
+					}"
 				>
-					<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
-					<div
-						v-if="title"
-						class="text-neutral-200 mt-4"
-					>
-						{{ title }}
-					</div>
+					<template v-if="!fullscreen">
+						<div class="flex flex-col justify-center items-center">
+							<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
+							<div
+								v-if="title"
+								class="text-neutral-200 mt-4"
+							>
+								{{ title }}
+							</div>
+						</div>
+					</template>
+					<template v-else>
+						<div class="flex items-center relative min-h-6">
+							<button
+								class="absolute left-0"
+								type="button"
+								@click="onBackdropClick"
+							>
+								<BIcon
+									name="material-symbols-arrow-back-rounded"
+									size="24"
+								/>
+							</button>
+							<div
+								v-if="title"
+								class="text-neutral-200 mx-auto	"
+							>
+								{{ title }}
+							</div>
+						</div>
+					</template>
 				</div>
-				<div ref="slotEl">
-					<slot />
+
+				<div
+					ref="slotEl"
+					class="flex-1"
+					:class="{
+						'overflow-y-auto overflow-x-hidden': fullscreen,
+						'px-8': narrow && !fullscreen,
+						'px-4': !narrow || fullscreen,
+					}"
+				>
+					<slot name="default" />
 				</div>
+				<footer class="empty:hidden z-50 bg-neutral-900 p-4">
+					<slot name="footer" />
+				</footer>
 			</div>
 		</Transition>
 	</Teleport>
