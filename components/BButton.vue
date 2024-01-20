@@ -20,6 +20,7 @@ const isIconButton = computed(() => !!iconName)
 		:class="{
 			'bg-neutral-800 ': variant === 'primary',
 			'bg-transparent ': variant === 'secondary',
+			'shrink-0': isIconButton,
 			'w-12 h-12': isIconButton && !small,
 			'w-11 h-11': isIconButton && small,
 			'h-12 text-lg px-6 ': !isIconButton && !small,
