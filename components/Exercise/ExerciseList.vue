@@ -1,25 +1,35 @@
 <script setup lang="ts">
 import type { IExercise } from '~/types/exercise'
 
-defineProps<{
+const { disableDelete = false, keyField = 'id' } = defineProps<{
 	items: IExercise[]
+	keyField?: string
+	disableDelete?: boolean
 }>()
 
 const emits = defineEmits<{
-	'select-exercise': [IExercise]
-	'delete-exercise': [IExercise]
-	'start-exercise': [IExercise]
+	'selectExercise': [item: IExercise]
+	'deleteExercise': [item: IExercise]
 }>()
 
 const { secondsIntoMinutes } = useUtils()
+
+function onSelectExercise(item: IExercise) {
+	emits('selectExercise', item)
+}
+
+function onDeleteExercise(item: IExercise) {
+	emits('deleteExercise', item)
+}
 </script>
 
 <template>
 	<BGenericList
-		key-field="id"
+		:key-field="(keyField as keyof IExercise)"
 		:items="items"
-		@select="emits('select-exercise', $event)"
-		@delete="emits('delete-exercise', $event)"
+		:disable-delete="disableDelete"
+		@select="onSelectExercise"
+		@delete="onDeleteExercise"
 	>
 		<template #content="{ item }">
 			<div class="flex-1">
