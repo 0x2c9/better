@@ -22,12 +22,12 @@ export const useExerciseStore = defineStore(
 					throw new Error(error.message)
 				}
 
-				const timerIndex = exercises.value.findIndex((exercise) => exercise.id === data?.id)
+				const exerciseIndex = exercises.value.findIndex((exercise) => exercise.id === data?.id)
 
-				if (timerIndex === -1) {
+				if (exerciseIndex === -1) {
 					exercises.value.unshift(data as IExercise)
 				} else {
-					exercises.value[timerIndex] = data as IExercise
+					exercises.value[exerciseIndex] = data as IExercise
 				}
 			} catch (error) {
 				console.log(error)
@@ -44,10 +44,10 @@ export const useExerciseStore = defineStore(
 			exercises.value = data as IExercise[]
 		}
 
-		async function deleteExercise(timerId: string) {
-			exercises.value = exercises.value.filter((timer) => timer.id !== timerId)
+		async function deleteExercise(exerciseId: string) {
+			exercises.value = exercises.value.filter((exercise) => exercise.id !== exerciseId)
 
-			const { error } = await supaClient.from(DB_TABLE_NAME).delete().match({ id: timerId })
+			const { error } = await supaClient.from(DB_TABLE_NAME).delete().match({ id: exerciseId })
 
 			if (error) {
 				throw new Error(error.message)
