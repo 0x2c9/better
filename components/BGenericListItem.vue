@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="T">
-const { item, id } = defineProps<{
-	unstyled?: boolean
+const { item, id, disableDelete = false } = defineProps<{
 	id: string
 	item: T
+	disableDelete?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -34,6 +34,9 @@ watch(
 const { direction } = useSwipe(itemEl, {
 	threshold: 10,
 	onSwipe() {
+		if (disableDelete) {
+			return
+		}
 		switch (direction.value) {
 			case SwipeDirection.LEFT:
 				xValue.value = -100
@@ -58,7 +61,6 @@ function onDelete() {
 
 <template>
 	<li
-		:key="id"
 		class="relative w-full flex"
 	>
 		<div
