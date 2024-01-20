@@ -55,6 +55,8 @@ function onSelect() {
 }
 
 function onDelete() {
+	xValue.value = 0
+	globalState.currentOpenItem = null
 	emits('delete', item)
 }
 </script>
