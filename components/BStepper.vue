@@ -55,7 +55,6 @@ function onTouchMove(event: TouchEvent) {
 	const yDiff = Math.abs(initialTouchStart.value.y - clientY)
 
 	if (xDiff > 100 || yDiff > 100) {
-		event.preventDefault()
 		clearInterval(currentInterval.value)
 		clearTimeout(currentTimeout.value)
 		clearTimeout(fasterIntervalTimeout.value)
