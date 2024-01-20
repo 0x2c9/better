@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="T">
-const { unstyled = false } = defineProps<{
+const { disableDelete = false, keyField = 'id' } = defineProps<{
 	items: T[]
-	unstyled?: boolean
-	keyField: keyof T
+	disableDelete?: boolean
+	keyField?: keyof T
 }>()
 
 const emits = defineEmits<{
@@ -24,14 +24,14 @@ function onDelete(item: T) {
 		<TransitionGroup
 			name="list"
 			tag="ul"
-			class="space-y-4"
+			class="flex flex-col gap-y-4"
 		>
 			<BGenericListItem
 				v-for="item of items"
 				:id="String(item[keyField as keyof T])"
 				:key="String(item[keyField as keyof T])"
 				:item="item"
-				:unstyled="unstyled"
+				:disable-delete="disableDelete"
 				@select="onSelect(item)"
 				@delete="onDelete(item)"
 			>
@@ -55,11 +55,11 @@ function onDelete(item: T) {
 
 .list-enter-from {
   opacity: 0;
-  transform: translateX(30px);
+  transform: scale(0.9);
 }
 .list-leave-to {
   opacity: 0;
-	transform: translateX(-30px);
+	transform: scale(0.7);
 }
 
 .list-leave-active {
