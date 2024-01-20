@@ -258,12 +258,6 @@ const sluts = useSlots()
 					<template v-if="!fullscreen">
 						<div class="flex flex-col justify-center items-center">
 							<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
-							<div
-								v-if="title"
-								class="text-neutral-200 mt-4"
-							>
-								{{ title }}
-							</div>
 						</div>
 					</template>
 					<template v-else>
@@ -280,7 +274,7 @@ const sluts = useSlots()
 							</button>
 							<div
 								v-if="title"
-								class="text-neutral-200 mx-auto	"
+								class="text-neutral-200 mx-auto font-medium text-lg"
 							>
 								{{ title }}
 							</div>
@@ -299,7 +293,7 @@ const sluts = useSlots()
 				>
 					<slot name="default" />
 				</div>
-				<footer class="empty:hidden z-50 bg-neutral-900 p-4">
+				<footer class="empty:hidden z-50 bg-neutral-900 p-4 border-t border-t-neutral-600/60">
 					<slot name="footer" />
 				</footer>
 			</div>
