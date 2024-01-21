@@ -43,7 +43,8 @@ function startWorkout() {
 				</div>
 				<ul class="space-y-2">
 					<ExerciseListItem
-						v-for="workoutExercise of item.resolvedExercises"
+						v-for="(workoutExercise, index) of item.resolvedExercises"
+						:key="`${workoutExercise.id}-${index}`"
 						class="border border-neutral-600/40 rounded-md p-4"
 						:item="workoutExercise"
 					/>
