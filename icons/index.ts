@@ -1,4 +1,6 @@
 export const ICONS = {
+	'material-symbols-check-circle-outline-rounded': 'material-symbols-check-circle-outline-rounded',
+	'material-symbols-check-circle-rounded': 'material-symbols-check-circle-rounded',
 	'material-symbols-arrow-back-rounded': 'material-symbols-arrow-back-rounded',
 	'material-symbols-fitbit-check-small-rounded': 'material-symbols-fitbit-check-small-rounded',
 	'gg-calendar-today': 'gg-calendar-today',
