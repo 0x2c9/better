@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import type { IExercise } from '~/types/exercise'
 
-defineProps<{
+const { columnMode = false } = defineProps<{
 	item: IExercise
+	columnMode?: boolean
 }>()
 
 const { secondsIntoMinutes } = useUtils()
 </script>
 
 <template>
-	<div class="flex items-center justify-between tabular-nums text-neutral-400">
+	<div
+		class="flex tabular-nums text-neutral-400"
+		:class="{
+			'flex-col space-y-1': columnMode,
+			'items-center justify-between': !columnMode,
+		}"
+	>
 		<div class="flex space-x-2 items-center">
 			<BIcon name="material-symbols-rotate-right-rounded" />
 			<span>{{ item.exercise_sets }} Sets</span>
