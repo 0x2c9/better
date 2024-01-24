@@ -3,6 +3,7 @@ import type { Exercise } from '~/types/exercise'
 
 definePageMeta({
 	layout: 'app',
+	auth: true,
 })
 
 const exerciseStore = useExerciseStore()

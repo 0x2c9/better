@@ -4,6 +4,7 @@ import type { IWeightEntrySorted } from '@/types/weight'
 
 definePageMeta({
 	layout: 'app',
+	auth: true,
 })
 
 const weightStore = useWeightStore()

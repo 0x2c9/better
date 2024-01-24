@@ -3,6 +3,7 @@ import type { ITimer } from '~/types/timer'
 
 definePageMeta({
 	layout: 'app',
+	auth: true,
 })
 
 const timerStore = useTimerStore()

@@ -7,7 +7,6 @@ interface UserCredentials {
 }
 
 export const useAuthStore = defineStore('Authentication', () => {
-	const appConfig = useAppConfig()
 	const supaClient = useSupabase()
 	const userSession = ref<Session | null>(null)
 
@@ -41,7 +40,7 @@ export const useAuthStore = defineStore('Authentication', () => {
 			return
 		}
 
-		await navigateTo(appConfig.authenticatedRoutes.appHome)
+		await navigateTo('/home')
 	}
 
 	async function signUp(credentials: UserCredentials) {
@@ -65,13 +64,13 @@ export const useAuthStore = defineStore('Authentication', () => {
 			return
 		}
 
-		await navigateTo(appConfig.authenticatedRoutes.appHome)
+		await navigateTo('/home')
 	}
 
 	async function signOut() {
 		await supaClient.auth.signOut()
 		userSession.value = null
-		await navigateTo(appConfig.unauthenticatedRoutes.index)
+		await navigateTo('/')
 	}
 
 	function syncLocalStorage() {

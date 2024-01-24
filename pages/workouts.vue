@@ -3,6 +3,7 @@ import type { IWorkoutResolved } from '@/types/workout'
 
 definePageMeta({
 	layout: 'app',
+	auth: true,
 })
 
 const workoutStore = useWorkoutStore()

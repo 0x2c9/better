@@ -9,6 +9,7 @@ const tripleBeep = new Howl({ src: ['/sounds/3x-beep.ogg'] })
 
 definePageMeta({
 	layout: 'app',
+	auth: true,
 })
 
 const route = useRoute()
