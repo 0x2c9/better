@@ -25,6 +25,12 @@ const menuItems: IMenuItem[] = [
 		iconBase: 'ion-fitness-outline',
 		iconActive: 'ion-fitness',
 	},
+	{
+		title: 'Exercises',
+		link: '/exercises',
+		iconBase: 'material-symbols-exercise-outline',
+		iconActive: 'material-symbols-exercise',
+	},
 ]
 
 const route = useRoute()
@@ -36,7 +42,7 @@ const showNavigation = computed(() => {
 <template>
 	<nav
 		v-if="showNavigation"
-		class="fixed inset-x-0 bottom-0 h-[72px] z-50 bg-neutral-950/85 border-t-2 border-neutral-700/50 backdrop-blur grid grid-cols-3 items-center justify-center px-4 rounded-t-3xl"
+		class="fixed inset-x-0 bottom-0 h-[72px] z-50 bg-neutral-950/85 border-t-2 border-neutral-700/50 backdrop-blur grid grid-cols-4 items-center justify-center px-4 rounded-t-3xl"
 	>
 		<NuxtLink
 			v-for="item in menuItems"

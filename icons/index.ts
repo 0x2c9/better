@@ -1,4 +1,6 @@
 export const ICONS = {
+	'material-symbols-exercise': 'material-symbols-exercise',
+	'material-symbols-exercise-outline': 'material-symbols-exercise-outline',
 	'material-symbols-check-circle-outline-rounded': 'material-symbols-check-circle-outline-rounded',
 	'material-symbols-check-circle-rounded': 'material-symbols-check-circle-rounded',
 	'material-symbols-arrow-back-rounded': 'material-symbols-arrow-back-rounded',
