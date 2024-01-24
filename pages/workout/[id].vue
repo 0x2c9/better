@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
-import type { IWorkoutResolved } from '~/types/workout'
+import type { Exercise } from '~/types/exercise'
+import type { Workout } from '~/types/workout'
 
 definePageMeta({
 	layout: 'app',
@@ -10,9 +10,9 @@ definePageMeta({
 const workoutStore = useWorkoutStore()
 const route = useRoute()
 
-const selectedWorkout = ref<IWorkoutResolved | null>(null)
+const selectedWorkout = ref<Workout | null>(null)
 watch(
-	() => workoutStore.resolvedWorkouts,
+	() => workoutStore.workouts,
 	(newWorkouts) => {
 		if (!newWorkouts?.length) {
 			return
@@ -27,37 +27,35 @@ watch(
 )
 
 const openExerciseForm = ref(false)
-const selectedExercise = ref<IExercise | null>(null)
-function onSelectExercise(item: IExercise) {
+const selectedExercise = ref<Exercise | null>(null)
+
+function onSelectExercise(item: Exercise) {
 	selectedExercise.value = item
 	openExerciseForm.value = true
-	console.log(item)
 }
 
-function onExerciseChange(updatedExercise: IExercise) {
+function onExerciseChange(updatedExercise: Exercise) {
 	openExerciseForm.value = false
-	console.log(updatedExercise)
-	const index = selectedWorkout.value!.resolvedExercises.findIndex((exercise) => exercise.id === updatedExercise.id)
+	const index = selectedWorkout.value!.workout_exercises.findIndex((exercise) => exercise.listId === updatedExercise.listId)
+
 	if (index !== -1) {
-		selectedWorkout.value!.resolvedExercises[index] = updatedExercise
+		selectedWorkout.value!.workout_exercises[index] = updatedExercise
 	}
 }
 
-const timedExercise = ref<IExercise | null>(null)
+const timedExercise = ref<Exercise | null>(null)
 
-function onStartExercise(item: IExercise) {
-	console.log(item)
+function onStartExercise(item: Exercise) {
 	timedExercise.value = item
 }
 
 function onStopTimer() {
 	timedExercise.value = null
-	console.log('stop?')
 }
 
-function onDoneTimer(exercise: IExercise) {
+function onDoneTimer(exercise: Exercise) {
 	timedExercise.value = null
-	for (const workoutExercise of selectedWorkout.value!.resolvedExercises) {
+	for (const workoutExercise of selectedWorkout.value!.workout_exercises) {
 		if (workoutExercise.id === exercise.id) {
 			workoutExercise.done = true
 		}
@@ -65,7 +63,7 @@ function onDoneTimer(exercise: IExercise) {
 }
 
 function onSaveWorkout() {
-	workoutStore.saveWorkoutEntry(selectedWorkout.value)
+	workoutStore.saveWorkoutEntry(selectedWorkout.value!)
 }
 </script>
 
@@ -73,7 +71,8 @@ function onSaveWorkout() {
 	<article class="relative">
 		<WorkoutExerciseList
 			v-if="selectedWorkout"
-			:items="selectedWorkout.resolvedExercises"
+			key-field="listId"
+			:items="selectedWorkout.workout_exercises"
 			:disable-delete="true"
 			@select-exercise="onSelectExercise"
 			@start-exercise="onStartExercise"
@@ -81,15 +80,13 @@ function onSaveWorkout() {
 		<BButton @click="onSaveWorkout">
 			Save Workout
 		</BButton>
-		<LazyBDrawer
+
+		<ExerciseForm
 			v-model="openExerciseForm"
-		>
-			<ExerciseForm
-				:selected-exercise="selectedExercise"
-				:prevent-submit="true"
-				@submit-exercise="onExerciseChange"
-			/>
-		</LazyBDrawer>
+			:selected-exercise="selectedExercise"
+			:prevent-submit="true"
+			@submit-exercise="onExerciseChange"
+		/>
 
 		<Teleport to="body">
 			<TimerIntervalClock

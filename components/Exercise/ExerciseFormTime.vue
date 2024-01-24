@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Exercise, TimeExercise } from '@/types/exercise'
+import type { TimeExercise } from '@/types/exercise'
 
 const { selectedExercise, preventSubmit = false } = defineProps<{
 	selectedExercise?: TimeExercise

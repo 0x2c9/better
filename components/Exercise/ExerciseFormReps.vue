@@ -49,7 +49,6 @@ async function onSubmit() {
 	}
 
 	if (preventSubmit) {
-		console.log('submitting exercise')
 		emits('submitExercise', exercise.value)
 		return
 	}

@@ -3,6 +3,7 @@ type ExerciseCommon = {
 	exercise_name: string
 	done?: boolean
 	user_id?: string
+	listId?: string
 }
 
 export type RepsExercise = ExerciseCommon & {

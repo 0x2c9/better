@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IWorkoutResolved } from '@/types/workout'
+import type { Workout } from '@/types/workout'
 
 definePageMeta({
 	layout: 'app',
@@ -9,18 +9,18 @@ definePageMeta({
 const workoutStore = useWorkoutStore()
 
 const showWorkoutForm = ref(false)
-const selectedWorkout = ref<IWorkoutResolved | null>(null)
+const selectedWorkout = ref<Workout | null>(null)
 
 function openWorkout() {
 	showWorkoutForm.value = true
 }
 
-function onSelectWorkout(workout: IWorkoutResolved) {
+function onSelectWorkout(workout: Workout) {
 	selectedWorkout.value = workout
 	showWorkoutForm.value = true
 }
 
-function onDeleteWorkout(workout: IWorkoutResolved) {
+function onDeleteWorkout(workout: Workout) {
 	workoutStore.deleteWorkout(workout.id!)
 }
 
@@ -54,7 +54,7 @@ watch(
 		</div>
 		<div>
 			<WorkoutList
-				:workouts="workoutStore.resolvedWorkouts"
+				:workouts="workoutStore.workouts"
 				@select-workout="onSelectWorkout"
 				@delete-workout="onDeleteWorkout"
 			/>

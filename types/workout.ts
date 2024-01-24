@@ -1,20 +1,12 @@
-import type { IExercise } from '@/types/exercise'
+import type { Exercise } from '@/types/exercise'
 
-export interface IWorkoutExercise extends IExercise {
+export type Workout = {
+	id?: string
+	workout_name: string
+	workout_exercises: Exercise[]
+	user_id?: string
+}
+
+export type WorkoutExercise = Exercise & {
 	listId?: string
-	done?: boolean
-}
-
-export interface IWorkout {
-	id?: string
-	name: string
-	exercise_ids: string[]
-	user_id?: string
-}
-
-export interface IWorkoutResolved {
-	id?: string
-	name: string
-	resolvedExercises: IWorkoutExercise[]
-	user_id?: string
 }

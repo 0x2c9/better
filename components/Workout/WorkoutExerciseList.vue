@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
+import type { Exercise } from '~/types/exercise'
 
 const { disableDelete = false, keyField = 'id' } = defineProps<{
-	items: IExercise[]
+	items: Exercise[]
 	keyField?: string
 	disableDelete?: boolean
 }>()
 
 const emits = defineEmits<{
-	'selectExercise': [item: IExercise]
-	'deleteExercise': [item: IExercise]
-	'startExercise': [item: IExercise]
-	'checkExercise': [item: IExercise, checked: boolean]
+	'selectExercise': [item: Exercise]
+	'deleteExercise': [item: Exercise]
+	'startExercise': [item: Exercise]
+	'checkExercise': [item: Exercise, checked: boolean]
 }>()
 
-function onSelectExercise(item: IExercise) {
+function onSelectExercise(item: Exercise) {
 	emits('selectExercise', item)
 }
 
-function onDeleteExercise(item: IExercise) {
+function onDeleteExercise(item: Exercise) {
 	emits('deleteExercise', item)
 }
 
-function onCheck(checked: boolean, item: IExercise) {
+function onCheck(checked: boolean, item: Exercise) {
 	emits('checkExercise', item, checked)
 }
 
-function onStartExercise(item: IExercise) {
+function onStartExercise(item: Exercise) {
 	emits('startExercise', item)
 }
 </script>
 
 <template>
 	<BGenericList
-		:key-field="(keyField as keyof IExercise)"
+		:key-field="(keyField as keyof Exercise)"
 		:items="items"
 		:disable-delete="disableDelete"
 		@select="onSelectExercise"
@@ -52,12 +52,12 @@ function onStartExercise(item: IExercise) {
 					:item="item"
 				/>
 				<ExerciseListItemTimeType
-					v-if="item.exercise_type === 'time' && item.exercise_duration_type === 'single'"
+					v-if="item.exercise_type === 'time' && item.exercise_sets === 1"
 					:item="item"
 				/>
 
 				<ExerciseListItemSetType
-					v-if="item.exercise_duration_type === 'sets'"
+					v-if="item.exercise_type === 'time' && item.exercise_sets > 1"
 					class="mt-4"
 					column-mode
 					:item="item"

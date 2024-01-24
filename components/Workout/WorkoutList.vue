@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import type { IWorkoutResolved } from '~/types/workout'
+import type { Workout } from '~/types/workout'
 
 defineProps<{
-	workouts: IWorkoutResolved[]
+	workouts: Workout[]
 }>()
 
 const emits = defineEmits<{
-	'selectWorkout': [item: IWorkoutResolved]
-	'deleteWorkout': [item: IWorkoutResolved]
+	'selectWorkout': [item: Workout]
+	'deleteWorkout': [item: Workout]
 }>()
 
-function selectWorkout(item: IWorkoutResolved) {
+function selectWorkout(item: Workout) {
 	emits('selectWorkout', item)
 }
 
-function deleteWorkout(item: IWorkoutResolved) {
+function deleteWorkout(item: Workout) {
 	emits('deleteWorkout', item)
 }
 
 function startWorkout(workoutId: string) {
-	console.log(workoutId)
 	navigateTo(`/workout/${workoutId}`)
 }
 </script>
@@ -34,7 +33,7 @@ function startWorkout(workoutId: string) {
 			<div class="flex-1">
 				<div class="flex justify-between items-center mb-4">
 					<h2 class="text-xl font-medium">
-						{{ item.name }}
+						{{ item.workout_name }}
 					</h2>
 					<BButton
 						type="button"
@@ -44,7 +43,7 @@ function startWorkout(workoutId: string) {
 				</div>
 				<ul class="space-y-2">
 					<ExerciseListItem
-						v-for="(workoutExercise, index) of item.resolvedExercises"
+						v-for="(workoutExercise, index) of item.workout_exercises"
 						:key="`${workoutExercise.id}-${index}`"
 						class="border border-neutral-600/40 rounded-md p-4"
 						:item="workoutExercise"

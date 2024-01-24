@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { IExercise } from '@/types/exercise'
+import type { Exercise } from '@/types/exercise'
 
-import type { IWorkout, IWorkoutExercise, IWorkoutResolved } from '@/types/workout'
+import type { Workout, WorkoutExercise } from '@/types/workout'
 
 const { selectedWorkout } = defineProps<{
-	selectedWorkout?: IWorkoutResolved | null
+	selectedWorkout?: Workout | null
 }>()
 
 const openWorkoutForm = defineModel<boolean>({ required: true })
@@ -12,16 +12,16 @@ const openWorkoutForm = defineModel<boolean>({ required: true })
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
 const workoutName = ref('')
-const workoutExercises = ref<IWorkoutExercise[]>([])
+const workoutExercises = ref<WorkoutExercise[]>([])
 const showExerciseList = ref(false)
 
 watch(
 	() => openWorkoutForm.value,
 	(isOpen) => {
 		if (selectedWorkout && isOpen) {
-			workoutName.value = selectedWorkout.name
-			workoutExercises.value = selectedWorkout.resolvedExercises.map((item, idx) => {
-				const clonedExercise = JSON.parse(JSON.stringify(item)) as IWorkoutExercise
+			workoutName.value = selectedWorkout.workout_name
+			workoutExercises.value = selectedWorkout.workout_exercises.map((item, idx) => {
+				const clonedExercise = JSON.parse(JSON.stringify(item)) as WorkoutExercise
 				clonedExercise.listId = `${item.id}-${idx}`
 				return clonedExercise
 			})
@@ -40,10 +40,9 @@ function createWorkout() {
 		console.error('Workout name is required')
 		return
 	}
-	const exerciseIds = workoutExercises.value.map((item) => item.id!)
-	const workoutPayload: IWorkout = {
-		name: workoutName.value,
-		exercise_ids: exerciseIds,
+	const workoutPayload: Workout = {
+		workout_name: workoutName.value,
+		workout_exercises: workoutExercises.value,
 	}
 
 	if (selectedWorkout?.id) {
@@ -55,16 +54,16 @@ function createWorkout() {
 }
 
 const index = ref(0)
-function onSelectExercise(exercise: IExercise) {
-	const clonedExercise = JSON.parse(JSON.stringify(exercise)) as IWorkoutExercise
+function onSelectExercise(exercise: Exercise) {
+	const clonedExercise = JSON.parse(JSON.stringify(exercise)) as WorkoutExercise
 	clonedExercise.listId = `${exercise.id}-${index.value}`
 	workoutExercises.value.push(clonedExercise)
 	showExerciseList.value = false
 	index.value++
 }
 
-function onDeleteExercise(exercise: IExercise) {
-	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as IWorkoutExercise).listId)
+function onDeleteExercise(exercise: Exercise) {
+	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as WorkoutExercise).listId)
 	workoutExercises.value.splice(idx, 1)
 }
 

@@ -6,6 +6,10 @@ const { selectedExercise, preventSubmit = false } = defineProps<{
 	preventSubmit?: boolean
 }>()
 
+const emits = defineEmits<{
+	'submitExercise': [exercise: Exercise]
+}>()
+
 const openExerciseForm = defineModel<boolean>({ required: true, default: false })
 
 const exerciseType = ref<'reps' | 'time' | null>(null)
@@ -17,7 +21,7 @@ function selectExerciseType(type: 'reps' | 'time') {
 watch(
 	openExerciseForm,
 	(newValue) => {
-		if (!newValue) {
+		if (!newValue && !selectedExercise) {
 			exerciseType.value = null
 		}
 	},
@@ -41,6 +45,10 @@ function goBackToTypeSelection() {
 
 function closeExerciseForm() {
 	openExerciseForm.value = false
+}
+
+function onSubmitExercise(exercise: Exercise) {
+	emits('submitExercise', exercise)
 }
 </script>
 
@@ -82,6 +90,7 @@ function closeExerciseForm() {
 				v-if="exerciseType === 'reps'"
 				:selected-exercise="(selectedExercise as RepsExercise)"
 				:prevent-submit="preventSubmit"
+				@submit-exercise="onSubmitExercise"
 				@submit-form="closeExerciseForm"
 			/>
 
@@ -89,6 +98,7 @@ function closeExerciseForm() {
 				v-if="exerciseType === 'time'"
 				:selected-exercise="(selectedExercise as TimeExercise)"
 				:prevent-submit="preventSubmit"
+				@submit-exercise="onSubmitExercise"
 				@submit-form="closeExerciseForm"
 			/>
 		</section>
