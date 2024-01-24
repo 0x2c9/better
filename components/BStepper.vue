@@ -1,13 +1,21 @@
 <script setup lang="ts">
-interface IBStepperProps {
+type BStepperProps = {
 	steps?: number
 	min?: number
 	max?: number
 	label?: string
 	displayValue?: string | number
+	disabled?: boolean
 }
 
-const { steps = 0.1, min = 0, max = null, label = null, displayValue = null } = defineProps<IBStepperProps>()
+const {
+	steps = 0.1,
+	min = 0,
+	max = null,
+	label = null,
+	displayValue = null,
+	disabled = false,
+} = defineProps<BStepperProps>()
 
 const modelValue = defineModel<number>({ required: true })
 
@@ -77,7 +85,12 @@ const computedDisplayValue = computed(() => {
 </script>
 
 <template>
-	<div class="w-full select-none">
+	<div
+		class="w-full select-none"
+		:class="{
+			'opacity-50': disabled,
+		}"
+	>
 		<h1 class="text text-center text-xs uppercase tracking-widest font-medium  text-neutral-400">
 			{{ label }}
 		</h1>
@@ -88,6 +101,7 @@ const computedDisplayValue = computed(() => {
 				type="button"
 				variant="primary"
 				size="small"
+				:disabled="disabled || modelValue <= min"
 				icon-name="material-symbols-remove-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'minus')"
 				@touchend="onTouchEnd"
@@ -105,6 +119,7 @@ const computedDisplayValue = computed(() => {
 				type="button"
 				variant="primary"
 				size="small"
+				:disabled="disabled || !!(max && modelValue >= max)"
 				icon-name="material-symbols-add-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'plus')"
 				@touchend="onTouchEnd"
