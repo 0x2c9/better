@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
+import type { Exercise } from '~/types/exercise'
 
 definePageMeta({
 	layout: 'app',
@@ -7,7 +7,7 @@ definePageMeta({
 
 const exerciseStore = useExerciseStore()
 
-const selectedExercise = ref<IExercise | null>(null)
+const selectedExercise = ref<Exercise | null>(null)
 const openExerciseForm = ref(false)
 
 function openExercise() {
@@ -15,16 +15,12 @@ function openExercise() {
 	openExerciseForm.value = true
 }
 
-function onSubmit() {
-	openExerciseForm.value = false
-}
-
-function onSelectExercise(exercise: IExercise) {
+function onSelectExercise(exercise: Exercise) {
 	selectedExercise.value = exercise
 	openExerciseForm.value = true
 }
 
-function onDeleteExercise(exercise: IExercise) {
+function onDeleteExercise(exercise: Exercise) {
 	exerciseStore.deleteExercise(exercise.id!)
 }
 </script>
@@ -51,14 +47,9 @@ function onDeleteExercise(exercise: IExercise) {
 			@delete-exercise="onDeleteExercise"
 		/>
 
-		<LazyBDrawer
+		<ExerciseForm
 			v-model="openExerciseForm"
-			:enable-mutation-observer="true"
-		>
-			<ExerciseForm
-				:selected-exercise="selectedExercise"
-				@submit-form="onSubmit"
-			/>
-		</LazyBDrawer>
+			:selected-exercise="selectedExercise"
+		/>
 	</article>
 </template>

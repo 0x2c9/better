@@ -1,56 +1,33 @@
 <script setup lang="ts">
-import type { IExercise } from '@/types/exercise'
+import type { Exercise, RepsExercise, TimeExercise } from '@/types/exercise'
 
 const { selectedExercise, preventSubmit = false } = defineProps<{
-	selectedExercise?: IExercise | null
+	selectedExercise: Exercise | null
 	preventSubmit?: boolean
 }>()
 
-const emits = defineEmits<{
-	'submitForm': [void]
-	'submitExercise': [exercise: IExercise]
-}>()
+const openExerciseForm = defineModel<boolean>({ required: true, default: false })
 
-const selectedDurationTypeOption = ref(0)
-const durationTypeOptions = [
-	{
-		label: 'Single',
-		content: 'single',
-	},
-	{
-		label: 'Sets',
-		content: 'sets',
-	},
-]
-
-const exerciseStore = useExerciseStore()
-
-const { secondsIntoMinutes } = useUtils()
-
-const exerciseName = ref('')
 const exerciseType = ref<'reps' | 'time' | null>(null)
-const exerciseTrainingTime = ref(45)
-const exerciseRepetions = ref(10)
-const exerciseSets = ref(2)
-const exercisePauseTime = ref(10)
 
 function selectExerciseType(type: 'reps' | 'time') {
 	exerciseType.value = type
 }
 
 watch(
+	openExerciseForm,
+	(newValue) => {
+		if (!newValue) {
+			exerciseType.value = null
+		}
+	},
+)
+
+watch(
 	() => selectedExercise,
 	(newExercise) => {
 		if (newExercise) {
-			exerciseName.value = newExercise.exercise_name
 			exerciseType.value = newExercise.exercise_type
-			exerciseTrainingTime.value = newExercise.exercise_training_time
-			exerciseRepetions.value = newExercise.exercise_repetions
-			exerciseSets.value = newExercise.exercise_sets
-			exercisePauseTime.value = newExercise.exercise_pause_time
-			selectedDurationTypeOption.value = durationTypeOptions.findIndex(
-				(option) => option.content === newExercise.exercise_duration_type,
-			)
 		}
 	},
 	{
@@ -58,56 +35,19 @@ watch(
 	},
 )
 
-const activeElement = useActiveElement()
-function onEnter() {
-	activeElement.value?.blur()
-}
-
-async function onSubmit() {
-	if (!exerciseName.value) {
-		return
-	}
-	emits('submitForm')
-
-	const durationType = durationTypeOptions[selectedDurationTypeOption.value].content as 'single' | 'sets'
-
-	const formData: IExercise = {
-		exercise_name: exerciseName.value,
-		exercise_type: exerciseType.value as 'reps' | 'time',
-		exercise_training_time: exerciseTrainingTime.value,
-		exercise_pause_time: exercisePauseTime.value,
-		exercise_sets: durationType === 'sets' ? exerciseSets.value : 1,
-		exercise_repetions: exerciseRepetions.value,
-		exercise_duration_type: durationType,
-		exercise_set_duration: (exerciseTrainingTime.value + exercisePauseTime.value) * exerciseSets.value,
-	}
-
-	if (selectedExercise?.id) {
-		formData.id = selectedExercise.id
-	}
-
-	if (preventSubmit) {
-		emits('submitExercise', formData)
-		return
-	}
-
-	exerciseStore.upsertExercise(formData)
-}
-
 function goBackToTypeSelection() {
 	exerciseType.value = null
-	exerciseName.value = ''
-	exerciseTrainingTime.value = 10
-	exerciseRepetions.value = 5
-	exerciseSets.value = 2
-	exercisePauseTime.value = 10
-	selectedDurationTypeOption.value = 0
+}
+
+function closeExerciseForm() {
+	openExerciseForm.value = false
 }
 </script>
 
 <template>
-	<form
-		@submit.prevent="onEnter"
+	<LazyBDrawer
+		v-model="openExerciseForm"
+		:enable-mutation-observer="true"
 	>
 		<button
 			v-if="exerciseType && !selectedExercise"
@@ -125,94 +65,32 @@ function goBackToTypeSelection() {
 				Select Exercise Type
 			</h2>
 			<div class="grid grid-cols-2 gap-6">
-				<BButton
-					class="flex flex-col items-center justify-center min-h-32 rounded-xl relative overflow-hidden"
-					type="button"
-					small
+				<ExerciseFormTypeButton
+					label="Repetitions"
+					icon-name="material-symbols-rotate-right-rounded"
 					@click="selectExerciseType('reps')"
-				>
-					<BIcon
-						class="text-neutral-700/50 absolute -top-1 -left-3 z-0 transform rotate-12"
-						size="120"
-						name="material-symbols-rotate-right-rounded"
-					/>
-					<span class="font-bold text-xl text-neutral-100 z-10">Repetition</span>
-				</BButton>
-				<BButton
-					class="flex flex-col items-center justify-center min-h-32 rounded-xl relative overflow-hidden"
-					type="button"
-					small
+				/>
+				<ExerciseFormTypeButton
+					label="Duration"
+					icon-name="material-symbols-timer-outline-rounded"
 					@click="selectExerciseType('time')"
-				>
-					<BIcon
-						class="text-neutral-700/50 absolute -top-1 -left-3 z-0 transform rotate-12"
-						size="120"
-						name="material-symbols-timer-outline-rounded"
-					/>
-					<span class="font-bold text-xl text-neutral-100 z-10">Duration</span>
-				</BButton>
+				/>
 			</div>
 		</section>
-		<section
-			v-if="exerciseType"
-			class="space-y-6"
-		>
-			<BSwitch
-				v-if="exerciseType === 'time' && !selectedExercise"
-				v-model="selectedDurationTypeOption"
-				:options="durationTypeOptions"
-			/>
-
-			<BInput
-				v-model="exerciseName"
-				label="Exercise Name"
-				placeholder="Exercise Name"
-				required
-			/>
-
-			<BStepper
-				v-if="exerciseType === 'time' && selectedDurationTypeOption === 1"
-				v-model="exerciseSets"
-				label="Sets"
-				:steps="1"
-				:min="1"
-				:display-value="exerciseSets"
-			/>
-
-			<BStepper
-				v-if="exerciseType === 'time'"
-				v-model="exerciseTrainingTime"
-				label="Duration"
-				:min="10"
-				:steps="1"
-				:display-value="secondsIntoMinutes(exerciseTrainingTime)"
-			/>
-
-			<BStepper
-				v-if="exerciseType === 'time' && selectedDurationTypeOption === 1"
-				v-model="exercisePauseTime"
-				label="Rest"
-				:min="0"
-				:steps="1"
-				:display-value="secondsIntoMinutes(exercisePauseTime)"
-			/>
-
-			<BStepper
+		<section>
+			<ExerciseFormReps
 				v-if="exerciseType === 'reps'"
-				v-model="exerciseRepetions"
-				label="Repetitions"
-				:min="1"
-				:steps="1"
+				:selected-exercise="(selectedExercise as RepsExercise)"
+				:prevent-submit="preventSubmit"
+				@submit-form="closeExerciseForm"
 			/>
 
-			<BButton
-				type="button"
-				variant="primary"
-				class="!mt-10 w-full"
-				@click="onSubmit"
-			>
-				Save
-			</BButton>
+			<ExerciseFormTime
+				v-if="exerciseType === 'time'"
+				:selected-exercise="(selectedExercise as TimeExercise)"
+				:prevent-submit="preventSubmit"
+				@submit-form="closeExerciseForm"
+			/>
 		</section>
-	</form>
+	</LazyBDrawer>
 </template>

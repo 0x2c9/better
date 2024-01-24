@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
+import type { Exercise } from '~/types/exercise'
 
-defineProps<{
-	item: IExercise
+const { item } = defineProps<{
+	item: Exercise
 }>()
 
 const { secondsIntoMinutes } = useUtils()
@@ -19,19 +19,19 @@ const { secondsIntoMinutes } = useUtils()
 				:item="item"
 			/>
 			<ExerciseListItemTimeType
-				v-if="item.exercise_type === 'time' && item.exercise_duration_type === 'single'"
+				v-if="item.exercise_type === 'time' && item.exercise_sets === 1"
 				:item="item"
 			/>
 			<span
-				v-if="item.exercise_duration_type === 'sets'"
+				v-if="item.exercise_type === 'time' && item.exercise_sets > 1"
 				class="text-neutral-200"
 			>
-				{{ secondsIntoMinutes(item.exercise_set_duration) }}
+				{{ secondsIntoMinutes(item.exercise_duration) }}
 			</span>
 		</div>
 
 		<ExerciseListItemSetType
-			v-if="item.exercise_duration_type === 'sets'"
+			v-if="item.exercise_type === 'time' && item.exercise_sets > 1"
 			class="mt-4"
 			:item="item"
 		/>

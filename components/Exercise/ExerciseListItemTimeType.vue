@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
+import type { TimeExercise } from '~/types/exercise'
 
 defineProps<{
-	item: IExercise
+	item: TimeExercise
 }>()
 
 const { secondsIntoMinutes } = useUtils()

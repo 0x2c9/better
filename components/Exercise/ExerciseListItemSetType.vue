@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { IExercise } from '~/types/exercise'
+import type { TimeExercise } from '~/types/exercise'
 
 const { columnMode = false } = defineProps<{
-	item: IExercise
+	item: TimeExercise
 	columnMode?: boolean
 }>()
 
