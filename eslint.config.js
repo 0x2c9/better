@@ -34,6 +34,7 @@ export default antfu(
 				},
 			],
 			'node/prefer-global/process': 'off',
+			'ts/consistent-type-definitions': ['error', 'type'],
 		},
 	},
 )
