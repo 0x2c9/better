@@ -1,14 +1,16 @@
 <script setup lang="ts">
-interface IButtonProps {
+type IButtonProps = {
 	iconName?: keyof typeof ICONS
 	variant?: 'primary' | 'secondary' | 'error'
 	small?: boolean
+	disabled?: boolean
 }
 
 const {
 	variant = 'primary',
 	iconName = null,
 	small = false,
+	disabled = false,
 } = defineProps<IButtonProps>()
 
 const isIconButton = computed(() => !!iconName)
@@ -16,7 +18,7 @@ const isIconButton = computed(() => !!iconName)
 
 <template>
 	<button
-		class="border-2 border-neutral-700 text-white rounded-full active:bg-neutral-700 font-semibold select-none flex items-center justify-center"
+		class="border-2 border-neutral-700 text-white rounded-full active:enabled:bg-neutral-700 font-semibold select-none flex items-center justify-center"
 		:class="{
 			'bg-neutral-800 ': variant === 'primary',
 			'bg-transparent ': variant === 'secondary',
@@ -26,6 +28,7 @@ const isIconButton = computed(() => !!iconName)
 			'h-12 text-lg px-6 ': !isIconButton && !small,
 			'h-10 px-5': !isIconButton && small,
 		}"
+		:disabled="disabled"
 	>
 		<BIcon
 			v-if="iconName"
