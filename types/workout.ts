@@ -2,6 +2,7 @@ import type { IExercise } from '@/types/exercise'
 
 export interface IWorkoutExercise extends IExercise {
 	listId?: string
+	done?: boolean
 }
 
 export interface IWorkout {

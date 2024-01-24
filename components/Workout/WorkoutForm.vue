@@ -65,8 +65,6 @@ function onSelectExercise(exercise: IExercise) {
 
 function onDeleteExercise(exercise: IExercise) {
 	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as IWorkoutExercise).listId)
-	console.log(idx)
-
 	workoutExercises.value.splice(idx, 1)
 }
 

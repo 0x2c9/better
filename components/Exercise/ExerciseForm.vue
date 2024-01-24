@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { IExercise } from '@/types/exercise'
 
-const { selectedExercise } = defineProps<{
+const { selectedExercise, preventSubmit = false } = defineProps<{
 	selectedExercise?: IExercise | null
+	preventSubmit?: boolean
 }>()
 
 const emits = defineEmits<{
 	'submitForm': [void]
+	'submitExercise': [exercise: IExercise]
 }>()
 
 const selectedDurationTypeOption = ref(0)
@@ -67,19 +69,26 @@ async function onSubmit() {
 	}
 	emits('submitForm')
 
+	const durationType = durationTypeOptions[selectedDurationTypeOption.value].content as 'single' | 'sets'
+
 	const formData: IExercise = {
 		exercise_name: exerciseName.value,
 		exercise_type: exerciseType.value as 'reps' | 'time',
 		exercise_training_time: exerciseTrainingTime.value,
 		exercise_pause_time: exercisePauseTime.value,
-		exercise_sets: exerciseSets.value,
+		exercise_sets: durationType === 'sets' ? exerciseSets.value : 1,
 		exercise_repetions: exerciseRepetions.value,
-		exercise_duration_type: durationTypeOptions[selectedDurationTypeOption.value].content as 'single' | 'sets',
+		exercise_duration_type: durationType,
 		exercise_set_duration: (exerciseTrainingTime.value + exercisePauseTime.value) * exerciseSets.value,
 	}
 
 	if (selectedExercise?.id) {
 		formData.id = selectedExercise.id
+	}
+
+	if (preventSubmit) {
+		emits('submitExercise', formData)
+		return
 	}
 
 	exerciseStore.upsertExercise(formData)

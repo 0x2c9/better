@@ -3,7 +3,8 @@ import type { IWorkout, IWorkoutResolved } from '@/types/workout'
 export const useWorkoutStore = defineStore(
 	'Workout Store',
 	() => {
-		const DB_TABLE_NAME = 'workouts'
+		const DB_TABLE_NAME_WORKOUTS = 'workouts'
+		const DB_TABLE_NAME_WORKOUTS_ENTRIES = 'workout_entries'
 		const supaClient = useSupabase()
 		const authStore = useAuthStore()
 		const exerciseStore = useExerciseStore()
@@ -37,7 +38,7 @@ export const useWorkoutStore = defineStore(
 					user_id: authStore.userId!,
 				}
 
-				const { data, error } = await supaClient.from(DB_TABLE_NAME).upsert(exercise).select().single()
+				const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).upsert(exercise).select().single()
 
 				if (error) {
 					throw new Error(error.message)
@@ -56,7 +57,7 @@ export const useWorkoutStore = defineStore(
 		}
 
 		async function getWorkouts() {
-			const { data, error } = await supaClient.from(DB_TABLE_NAME).select()
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).select()
 
 			if (error) {
 				throw new Error(error.message)
@@ -65,14 +66,38 @@ export const useWorkoutStore = defineStore(
 			workouts.value = data as IWorkout[]
 		}
 
-		async function deleteWorkout(timerId: string) {
-			workouts.value = workouts.value.filter((timer) => timer.id !== timerId)
-
-			const { error } = await supaClient.from(DB_TABLE_NAME).delete().match({ id: timerId })
+		async function getWorkoutById(workoutId: string): Promise<IWorkout> {
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).select().match({ id: workoutId }).single()
 
 			if (error) {
 				throw new Error(error.message)
 			}
+
+			return data
+		}
+
+		async function deleteWorkout(timerId: string) {
+			workouts.value = workouts.value.filter((timer) => timer.id !== timerId)
+
+			const { error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).delete().match({ id: timerId })
+
+			if (error) {
+				throw new Error(error.message)
+			}
+		}
+
+		async function saveWorkoutEntry(workoutEntry) {
+			// Todo: check if workoutEntry is "valid" - show check if some exercises are not done
+			console.log(workoutEntry)
+
+			const dbWorkoutEntry = {
+				workout_name: workoutEntry.name,
+				workout_id: workoutEntry.id,
+				workout_exercises: workoutEntry.resolvedExercises,
+				user_id: authStore.userId!,
+			}
+
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).insert(dbWorkoutEntry)
 		}
 
 		return {
@@ -80,7 +105,9 @@ export const useWorkoutStore = defineStore(
 			resolvedWorkouts,
 			upsertWorkout,
 			getWorkouts,
+			getWorkoutById,
 			deleteWorkout,
+			saveWorkoutEntry,
 		}
 	},
 )

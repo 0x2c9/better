@@ -8,5 +8,6 @@ export interface IExercise {
 	exercise_set_duration: number
 	exercise_training_time: number
 	exercise_pause_time: number
+	done?: boolean
 	user_id?: string
 }

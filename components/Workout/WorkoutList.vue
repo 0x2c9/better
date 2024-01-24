@@ -18,8 +18,9 @@ function deleteWorkout(item: IWorkoutResolved) {
 	emits('deleteWorkout', item)
 }
 
-function startWorkout() {
-	console.log('start workout')
+function startWorkout(workoutId: string) {
+	console.log(workoutId)
+	navigateTo(`/workout/${workoutId}`)
 }
 </script>
 
@@ -38,7 +39,7 @@ function startWorkout() {
 					<BButton
 						type="button"
 						icon-name="material-symbols-play-arrow-rounded"
-						@click.stop="startWorkout"
+						@click.stop="startWorkout(item.id!)"
 					/>
 				</div>
 				<ul class="space-y-2">
