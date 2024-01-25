@@ -1,4 +1,4 @@
-import type { IExercise } from '@/types/exercise'
+import type { Exercise } from '@/types/exercise'
 
 export const useExerciseStore = defineStore(
 	'Exercise Store',
@@ -7,9 +7,9 @@ export const useExerciseStore = defineStore(
 		const supaClient = useSupabase()
 		const authStore = useAuthStore()
 
-		const exercises = ref<IExercise[]>([])
+		const exercises = ref<Exercise[]>([])
 
-		async function upsertExercise(formData: IExercise) {
+		async function upsertExercise(formData: Exercise) {
 			try {
 				const exercise = {
 					...formData,
@@ -25,9 +25,9 @@ export const useExerciseStore = defineStore(
 				const exerciseIndex = exercises.value.findIndex((exercise) => exercise.id === data?.id)
 
 				if (exerciseIndex === -1) {
-					exercises.value.unshift(data as IExercise)
+					exercises.value.unshift(data as Exercise)
 				} else {
-					exercises.value[exerciseIndex] = data as IExercise
+					exercises.value[exerciseIndex] = data as Exercise
 				}
 			} catch (error) {
 				console.log(error)
@@ -41,7 +41,7 @@ export const useExerciseStore = defineStore(
 				throw new Error(error.message)
 			}
 
-			exercises.value = data as IExercise[]
+			exercises.value = data as Exercise[]
 		}
 
 		async function deleteExercise(exerciseId: string) {

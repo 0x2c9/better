@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Exercise } from '~/types/exercise'
+import type { Exercise, TimeExercise } from '~/types/exercise'
 import type { Workout } from '~/types/workout'
 
 definePageMeta({
@@ -43,9 +43,9 @@ function onExerciseChange(updatedExercise: Exercise) {
 	}
 }
 
-const timedExercise = ref<Exercise | null>(null)
+const timedExercise = ref<TimeExercise | null>(null)
 
-function onStartExercise(item: Exercise) {
+function onStartExercise(item: TimeExercise) {
 	timedExercise.value = item
 }
 

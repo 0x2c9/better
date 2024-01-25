@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { Pausable } from '@vueuse/core'
 import { Howl } from 'howler'
-import type { IExercise } from '~/types/exercise'
+import type { TimeExercise } from '~/types/exercise'
 
 const { exercise } = defineProps<{
-	exercise: IExercise
+	exercise: TimeExercise
 }>()
 
 const emits = defineEmits<{
 	stop: [void]
-	done: [IExercise]
+	done: [TimeExercise]
 }>()
 
 const sets = exercise.exercise_sets

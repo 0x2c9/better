@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Exercise } from '~/types/exercise'
+import type { Exercise, TimeExercise } from '~/types/exercise'
 
 const { disableDelete = false, keyField = 'id' } = defineProps<{
 	items: Exercise[]
@@ -10,7 +10,7 @@ const { disableDelete = false, keyField = 'id' } = defineProps<{
 const emits = defineEmits<{
 	'selectExercise': [item: Exercise]
 	'deleteExercise': [item: Exercise]
-	'startExercise': [item: Exercise]
+	'startExercise': [item: TimeExercise]
 	'checkExercise': [item: Exercise, checked: boolean]
 }>()
 
@@ -26,7 +26,7 @@ function onCheck(checked: boolean, item: Exercise) {
 	emits('checkExercise', item, checked)
 }
 
-function onStartExercise(item: Exercise) {
+function onStartExercise(item: TimeExercise) {
 	emits('startExercise', item)
 }
 </script>
