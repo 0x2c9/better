@@ -43,14 +43,10 @@ watch(
 	},
 )
 
-const throttledCalculateMarkerDimensions = useThrottleFn(() => {
-	calculateMarkerDimensions(modelValue.value)
-}, 500)
-
-window.addEventListener('resize', throttledCalculateMarkerDimensions)
+window.addEventListener('resize', () => calculateMarkerDimensions(modelValue.value))
 
 onUnmounted(() => {
-	window.removeEventListener('resize', throttledCalculateMarkerDimensions)
+	window.removeEventListener('resize', () => calculateMarkerDimensions(modelValue.value))
 })
 </script>
 
