@@ -71,6 +71,7 @@ export const useWorkoutStore = defineStore(
 			const dbWorkoutEntry: Workout = {
 				workout_name: workoutEntry.workout_name,
 				workout_exercises: workoutEntry.workout_exercises,
+				workout_sets: workoutEntry.workout_sets,
 				user_id: authStore.userId!,
 			}
 
