@@ -58,6 +58,14 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
 	],
+	vite: {
+		vue: {
+			script: {
+				defineModel: true,
+				propsDestructure: true,
+			},
+		},
+	},
 	postcss: {
 		plugins: {
 			tailwindcss: {},
