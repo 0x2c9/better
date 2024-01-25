@@ -11,23 +11,30 @@ const openWorkoutForm = defineModel<boolean>({ required: true })
 
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
-const workoutName = ref('')
-const workoutExercises = ref<Exercise[]>([])
+
 const showExerciseList = ref(false)
+
+function openExerciseList() {
+	showExerciseList.value = true
+}
+
+const workout = ref<Workout>({
+	workout_name: '',
+	workout_exercises: [],
+	workout_sets: 1,
+})
 
 watch(
 	() => openWorkoutForm.value,
 	(isOpen) => {
 		if (selectedWorkout && isOpen) {
-			workoutName.value = selectedWorkout.workout_name
-			workoutExercises.value = selectedWorkout.workout_exercises.map((item, idx) => {
-				const clonedExercise = JSON.parse(JSON.stringify(item)) as Exercise
-				clonedExercise.listId = `${item.id}-${idx}`
-				return clonedExercise
-			})
+			workout.value = JSON.parse(JSON.stringify(selectedWorkout)) as Workout
 		} else if (!isOpen) {
-			workoutName.value = ''
-			workoutExercises.value = []
+			workout.value = {
+				workout_name: '',
+				workout_exercises: [],
+				workout_sets: 1,
+			}
 		}
 	},
 	{
@@ -35,53 +42,45 @@ watch(
 	},
 )
 
-function createWorkout() {
-	if (!workoutName.value) {
+function saveWorkout() {
+	if (!workout.value.workout_name) {
 		console.error('Workout name is required')
 		return
 	}
-	const workoutPayload: Workout = {
-		workout_name: workoutName.value,
-		workout_exercises: workoutExercises.value,
-	}
 
 	if (selectedWorkout?.id) {
-		workoutPayload.id = selectedWorkout.id
+		workout.value.id = selectedWorkout.id
 	}
 
-	workoutStore.upsertWorkout(workoutPayload)
+	workoutStore.upsertWorkout(workout.value)
 	openWorkoutForm.value = false
 }
 
-const index = ref(0)
-function onSelectExercise(exercise: Exercise) {
+const exerciseCount = ref(0)
+function addExerciseToWorkout(exercise: Exercise) {
 	const clonedExercise = JSON.parse(JSON.stringify(exercise)) as Exercise
-	clonedExercise.listId = `${exercise.id}-${index.value}`
-	workoutExercises.value.push(clonedExercise)
+	clonedExercise.listId = `${exercise.id}-${exerciseCount.value}`
+	workout.value.workout_exercises.push(clonedExercise)
 	showExerciseList.value = false
-	index.value++
+	exerciseCount.value++
 }
 
-function onDeleteExercise(exercise: Exercise) {
-	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
-	workoutExercises.value.splice(idx, 1)
-}
-
-function openExerciseList() {
-	showExerciseList.value = true
+function deleteExerciseFromNewWorkout(exercise: Exercise) {
+	const idx = workout.value.workout_exercises.findIndex((item) => item.listId === (exercise as Exercise).listId)
+	workout.value.workout_exercises.splice(idx, 1)
 }
 
 const editedExercise = ref<Exercise | null>(null)
 const showEditExerciseForm = ref(false)
-function onEditExercise(exercise: Exercise) {
-	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
-	editedExercise.value = workoutExercises.value[idx]
+function selectExerciseToUpdate(exercise: Exercise) {
+	const idx = workout.value.workout_exercises.findIndex((item) => item.listId === (exercise as Exercise).listId)
+	editedExercise.value = workout.value.workout_exercises[idx]
 	showEditExerciseForm.value = true
 }
 
-function onSubmitEditedExercise(exercise: Exercise) {
-	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
-	workoutExercises.value[idx] = exercise
+function updateSelectedExercise(exercise: Exercise) {
+	const idx = workout.value.workout_exercises.findIndex((item) => item.listId === (exercise as Exercise).listId)
+	workout.value.workout_exercises[idx] = exercise
 	showEditExerciseForm.value = false
 }
 </script>
@@ -94,16 +93,16 @@ function onSubmitEditedExercise(exercise: Exercise) {
 	>
 		<ExerciseList
 			key-field="listId"
-			:items="workoutExercises"
-			@select-exercise="onEditExercise"
-			@delete-exercise="onDeleteExercise"
+			:items="workout.workout_exercises"
+			@select-exercise="selectExerciseToUpdate"
+			@delete-exercise="deleteExerciseFromNewWorkout"
 		/>
 
 		<template #footer>
 			<div class="flex flex-col items-center gap-6">
 				<div class="flex items-end gap-4">
 					<BInput
-						v-model="workoutName"
+						v-model="workout.workout_name"
 						label="Workout Name"
 						placeholder="Workout Name"
 					/>
@@ -116,7 +115,7 @@ function onSubmitEditedExercise(exercise: Exercise) {
 				<BButton
 					class="w-full"
 					variant="primary"
-					@click="createWorkout"
+					@click="saveWorkout"
 				>
 					Save Workout
 				</BButton>
@@ -127,7 +126,7 @@ function onSubmitEditedExercise(exercise: Exercise) {
 			v-model="showEditExerciseForm"
 			:selected-exercise="editedExercise"
 			:prevent-submit="true"
-			@submit-exercise="onSubmitEditedExercise"
+			@submit-exercise="updateSelectedExercise"
 		/>
 
 		<BDrawer
@@ -138,7 +137,7 @@ function onSubmitEditedExercise(exercise: Exercise) {
 			<ExerciseList
 				:items="exerciseStore.exercises"
 				:disable-delete="true"
-				@select-exercise="onSelectExercise"
+				@select-exercise="addExerciseToWorkout"
 			/>
 		</BDrawer>
 	</LazyBDrawer>
