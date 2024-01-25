@@ -23,7 +23,7 @@ watch(
 	() => selectedExercise,
 	(newExercise) => {
 		if (newExercise) {
-			exercise.value = newExercise
+			exercise.value = { ...newExercise }
 		}
 	},
 	{
