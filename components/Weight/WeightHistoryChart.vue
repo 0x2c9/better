@@ -69,6 +69,7 @@ watch(selectedEntry, (entry) => {
 		: entry.date_display
 
 	if (chart.value?.data.datasets[0]) {
+		// @ts-expect-error - need to figure out chart.js types
 		chart.value.data.datasets[0].data.forEach((data) => {
 			data.selected = data.entry.date === entry.date
 		})
@@ -94,6 +95,7 @@ function getProgressColor() {
 }
 function getChartDataset() {
 	const dataset = {
+		// @ts-expect-error - need to figure out chart.js types
 		pointBackgroundColor: (ctx) => {
 			return ctx?.raw?.selected ? getProgressColor() : 'transparent'
 		},
@@ -141,6 +143,7 @@ onMounted(() => {
 	}
 	const intersectingVerticalLine = {
 		id: 'intersectDataVerticalLine',
+		// @ts-expect-error - need to figure out chart.js types
 		beforeDraw: (chart) => {
 			if (chart.getActiveElements().length) {
 				const activePoint = chart.getActiveElements()[0]
@@ -179,7 +182,7 @@ onMounted(() => {
 							if (timespanChanging.value) {
 								return
 							}
-
+							// @ts-expect-error - need to figure out chart.js types
 							selectedEntry.value = ctx.tooltip.dataPoints[0].raw.entry
 						},
 					},
