@@ -82,6 +82,7 @@ function onSaveWorkout() {
 		</BButton>
 
 		<ExerciseForm
+			v-if="openExerciseForm"
 			v-model="openExerciseForm"
 			:selected-exercise="selectedExercise"
 			:prevent-submit="true"
