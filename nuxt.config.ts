@@ -51,16 +51,6 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-
-	// actual config
-	vite: {
-		vue: {
-			script: {
-				defineModel: true,
-				propsDestructure: true,
-			},
-		},
-	},
 	devtools: {
 		enabled: false,
 	},
