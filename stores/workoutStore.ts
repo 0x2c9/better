@@ -36,7 +36,7 @@ export const useWorkoutStore = defineStore(
 		}
 
 		async function getWorkouts() {
-			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).select()
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).select().order('created_at', { ascending: false })
 
 			if (error) {
 				throw new Error(error.message)

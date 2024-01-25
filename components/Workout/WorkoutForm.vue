@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Exercise } from '@/types/exercise'
 
-import type { Workout, WorkoutExercise } from '@/types/workout'
+import type { Workout } from '@/types/workout'
 
 const { selectedWorkout } = defineProps<{
 	selectedWorkout?: Workout | null
@@ -12,7 +12,7 @@ const openWorkoutForm = defineModel<boolean>({ required: true })
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
 const workoutName = ref('')
-const workoutExercises = ref<WorkoutExercise[]>([])
+const workoutExercises = ref<Exercise[]>([])
 const showExerciseList = ref(false)
 
 watch(
@@ -21,7 +21,7 @@ watch(
 		if (selectedWorkout && isOpen) {
 			workoutName.value = selectedWorkout.workout_name
 			workoutExercises.value = selectedWorkout.workout_exercises.map((item, idx) => {
-				const clonedExercise = JSON.parse(JSON.stringify(item)) as WorkoutExercise
+				const clonedExercise = JSON.parse(JSON.stringify(item)) as Exercise
 				clonedExercise.listId = `${item.id}-${idx}`
 				return clonedExercise
 			})
@@ -55,7 +55,7 @@ function createWorkout() {
 
 const index = ref(0)
 function onSelectExercise(exercise: Exercise) {
-	const clonedExercise = JSON.parse(JSON.stringify(exercise)) as WorkoutExercise
+	const clonedExercise = JSON.parse(JSON.stringify(exercise)) as Exercise
 	clonedExercise.listId = `${exercise.id}-${index.value}`
 	workoutExercises.value.push(clonedExercise)
 	showExerciseList.value = false
@@ -63,7 +63,7 @@ function onSelectExercise(exercise: Exercise) {
 }
 
 function onDeleteExercise(exercise: Exercise) {
-	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as WorkoutExercise).listId)
+	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
 	workoutExercises.value.splice(idx, 1)
 }
 

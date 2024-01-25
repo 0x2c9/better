@@ -5,8 +5,5 @@ export type Workout = {
 	workout_name: string
 	workout_exercises: Exercise[]
 	user_id?: string
-}
-
-export type WorkoutExercise = Exercise & {
-	listId?: string
+	created_at?: string
 }

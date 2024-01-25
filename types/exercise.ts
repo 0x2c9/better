@@ -4,6 +4,7 @@ type ExerciseCommon = {
 	done?: boolean
 	user_id?: string
 	listId?: string
+	created_at?: string
 }
 
 export type RepsExercise = ExerciseCommon & {

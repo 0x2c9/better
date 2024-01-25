@@ -6,6 +6,7 @@ export interface ITimer {
 	pause_time: number
 	duration: number
 	user_id?: string
+	created_at?: string
 }
 
 export interface IInterval {

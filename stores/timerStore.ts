@@ -37,7 +37,7 @@ export const useTimerStore = defineStore(
 		}
 
 		async function getTimers() {
-			const { data, error } = await supaClient.from(DB_TABLE_NAME).select()
+			const { data, error } = await supaClient.from(DB_TABLE_NAME).select().order('created_at', { ascending: false })
 
 			if (error) {
 				throw new Error(error.message)
