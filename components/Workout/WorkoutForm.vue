@@ -70,6 +70,20 @@ function onDeleteExercise(exercise: Exercise) {
 function openExerciseList() {
 	showExerciseList.value = true
 }
+
+const editedExercise = ref<Exercise | null>(null)
+const showEditExerciseForm = ref(false)
+function onEditExercise(exercise: Exercise) {
+	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
+	editedExercise.value = workoutExercises.value[idx]
+	showEditExerciseForm.value = true
+}
+
+function onSubmitEditedExercise(exercise: Exercise) {
+	const idx = workoutExercises.value.findIndex((item) => item.listId === (exercise as Exercise).listId)
+	workoutExercises.value[idx] = exercise
+	showEditExerciseForm.value = false
+}
 </script>
 
 <template>
@@ -81,6 +95,7 @@ function openExerciseList() {
 		<ExerciseList
 			key-field="listId"
 			:items="workoutExercises"
+			@select-exercise="onEditExercise"
 			@delete-exercise="onDeleteExercise"
 		/>
 
@@ -107,6 +122,13 @@ function openExerciseList() {
 				</BButton>
 			</div>
 		</template>
+
+		<ExerciseForm
+			v-model="showEditExerciseForm"
+			:selected-exercise="editedExercise"
+			:prevent-submit="true"
+			@submit-exercise="onSubmitEditedExercise"
+		/>
 
 		<BDrawer
 			v-model="showExerciseList"
