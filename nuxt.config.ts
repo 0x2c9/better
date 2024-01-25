@@ -57,7 +57,6 @@ export default defineNuxtConfig({
 	modules: [
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
-		'nuxt-fable',
 	],
 	postcss: {
 		plugins: {
