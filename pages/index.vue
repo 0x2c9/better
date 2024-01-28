@@ -24,11 +24,13 @@ async function onSubmit() {
 		>
 			<input
 				v-model="email"
+				class="rounded-lg bg-white px-2 py-3 text-black"
 				type="email"
 				placeholder="email"
 			>
 			<input
 				v-model="password"
+				class="rounded-lg bg-white px-2 py-3 text-black"
 				type="password"
 				placeholder="password"
 			>
@@ -39,13 +41,3 @@ async function onSubmit() {
 		</form>
 	</div>
 </template>
-
-<style scoped>
-input {
-	@apply shadow-better bg-white text-black rounded-lg px-2 py-3;
-}
-
-button {
-	@apply shadow-better bg-black text-white rounded-lg px-2 py-3;
-}
-</style>
