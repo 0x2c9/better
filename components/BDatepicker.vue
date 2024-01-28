@@ -4,7 +4,8 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import 'dayjs/locale/de'
 
-const { disableFutureDates = false, blank = true } = defineProps<{
+const { disableFutureDates = false, blank = true, highlightedDates = {} } = defineProps<{
+	highlightedDates: Record<string, boolean>
 	disableFutureDates?: boolean
 	blank?: boolean
 }>()
@@ -19,6 +20,7 @@ type IDay = {
 	isDisabled: boolean
 	type: 'past' | 'future' | 'current'
 	computedClass?: object
+	highlight: boolean
 }
 
 const modelValue = defineModel<string>()
@@ -68,6 +70,7 @@ const days = computed(() => {
 				dateOfMonth, // index
 				isDisabled: false,
 				type: 'past',
+				highlight: highlightedDates[pastDate.format('YYYY-MM-DD')],
 			})
 
 			continue
@@ -83,6 +86,7 @@ const days = computed(() => {
 				dateOfMonth,
 				isDisabled: isFuture && disableFutureDates,
 				type: 'future',
+				highlight: highlightedDates[futureDate.format('YYYY-MM-DD')],
 			})
 			continue
 		}
@@ -95,6 +99,7 @@ const days = computed(() => {
 			dateOfMonth,
 			isDisabled: isFuture && disableFutureDates,
 			type: 'current',
+			highlight: highlightedDates[currentDate.format('YYYY-MM-DD')],
 		})
 	}
 
@@ -109,13 +114,14 @@ function getDayClass(dayObj: IDay) {
 	const isSelected = dayObj.date.isSame(initialDate.value, 'day')
 	const isToday = dayObj.date.isSame(dayjs(), 'day')
 	return {
-		'm-[1px] flex aspect-square select-none items-center justify-center rounded-full tabular-nums font-medium': true,
+		'm-[1px] flex aspect-square select-none items-center justify-center rounded tabular-nums font-medium relative': true,
 		'text-neutral-500': dayObj.type === 'past' || dayObj.type === 'future',
-		'border border-neutral-400': isToday,
-		'bg-white text-neutral-900': isSelected,
+		'border border-primary': isToday,
+		'bg-primary text-neutral-900 before:bg-neutral-950 border-primary': isSelected,
 		'cursor-default text-neutral-500 line-through': dayObj.isDisabled,
 		'cursor-pointer': !dayObj.isDisabled,
 		'hover:bg-neutral-400 hover:text-neutral-950': !dayObj.isDisabled && !isSelected,
+		'before:absolute before:size-1 before:bg-primary before:rounded-full before:bottom-1': dayObj.highlight,
 	}
 }
 </script>

@@ -4,14 +4,14 @@ import type { ChartDataset, Plugin } from 'chart.js'
 import { CategoryScale, Chart, LineController, LineElement, LinearScale, PointElement, Tooltip } from 'chart.js'
 import gsap from 'gsap'
 
-import type { IWeightEntrySorted } from '~/types/weight'
+import type { WeightEntry } from '~/types/weight'
 
 Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip)
 
 type DataPoint = {
 	x: string
 	y: number[]
-	entry: IWeightEntrySorted
+	entry: WeightEntry
 	selected: boolean
 }
 
@@ -38,7 +38,7 @@ const selectedTimespan = ref(0)
 const timespanChanging = ref(false)
 const chartRef = ref<HTMLCanvasElement>()
 const chart = shallowRef<TChart>()
-const selectedEntry = ref<IWeightEntrySorted | null>(weightStore.latestEntry)
+const selectedEntry = ref<WeightEntry | null>(weightStore.latestEntry)
 const tweened = reactive({
 	weight: 0,
 	date: '',
@@ -79,9 +79,7 @@ watch(selectedEntry, (entry) => {
 
 	gsap.to(tweened, { duration: 0.5, weight: Number(entry?.weight) || 0 })
 
-	tweened.date = entry.date === weightStore.latestEntry?.date || entry.weight === weightStore.latestEntry?.weight
-		? 'Current Weight'
-		: entry.date_display
+	tweened.date = entry.date === weightStore.latestEntry?.date || entry.weight === weightStore.latestEntry?.weight ? 'Current Weight' : entry.date_display!
 
 	if (chart.value?.data.datasets[0]) {
 		chart.value.data.datasets[0].data.forEach((data) => {

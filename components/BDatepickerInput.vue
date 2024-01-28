@@ -1,4 +1,9 @@
 <script setup lang="ts">
+const { highlightedDates = {}, disabled = false } = defineProps<{
+	highlightedDates: Record<string, boolean>
+	disabled: boolean
+}>()
+
 const modelValue = defineModel<string>()
 const showDatepicker = ref(false)
 
@@ -21,6 +26,7 @@ const displayValue = computed(() => {
 		type="text"
 		label="Date"
 		readonly
+		:disabled="disabled"
 		@click="openDatepicker"
 	/>
 	<BDrawer
@@ -29,6 +35,7 @@ const displayValue = computed(() => {
 	>
 		<BDatepicker
 			v-model="modelValue"
+			:highlighted-dates="highlightedDates"
 			:disable-future-dates="true"
 			@set-date="onSetDate"
 		/>

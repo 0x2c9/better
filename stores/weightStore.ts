@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import type { IWeightEntry, IWeightEntryFormData, IWeightEntrySorted } from '~/types/weight'
+import type { WeightEntry } from '~/types/weight'
 
 export const useWeightStore = defineStore(
 	'Weight Store',
@@ -8,10 +8,10 @@ export const useWeightStore = defineStore(
 		const supaClient = useSupabase()
 		const authStore = useAuthStore()
 
-		const weightHistory = ref<IWeightEntry[]>([])
+		const weightHistory = ref<WeightEntry[]>([])
 
-		const parsedWeightHistory = computed<IWeightEntrySorted[]>(() => {
-			const history = [...weightHistory.value] as IWeightEntrySorted[]
+		const parsedWeightHistory = computed<WeightEntry[]>(() => {
+			const history = [...weightHistory.value] as WeightEntry[]
 
 			const parsedHistory = history.map((entry, index: number) => {
 				if (index === 0) {
@@ -19,7 +19,7 @@ export const useWeightStore = defineStore(
 					return entry
 				}
 
-				const lastEntry = weightHistory.value[index - 1] as IWeightEntrySorted
+				const lastEntry = weightHistory.value[index - 1] as WeightEntry
 
 				if (entry.weight > lastEntry.weight) {
 					lastEntry.progress = 'increase'
@@ -33,6 +33,16 @@ export const useWeightStore = defineStore(
 			})
 
 			return parsedHistory
+		})
+
+		const entryDates = computed(() => {
+			const dates = {} as Record<string, boolean>
+
+			for (const entry of weightHistory.value) {
+				dates[entry.date] = true
+			}
+
+			return dates
 		})
 
 		const latestEntry = computed(() => {
@@ -67,15 +77,16 @@ export const useWeightStore = defineStore(
 			weightHistory.value = data
 		}
 
-		async function upsertWeight(formData: IWeightEntryFormData, selectedWeigth: IWeightEntrySorted | null) {
+		async function upsertWeight(weightEntry: WeightEntry) {
 			const user_id = authStore.userId!
 
-			const payload = {
-				...formData,
+			const payload: WeightEntry = {
+				weight: weightEntry.weight,
+				date: weightEntry.date,
 				user_id,
-				user_date_id: `${user_id}-${formData.date}`,
-				date_display: dayjs(formData.date).format('ddd, DD.MM.YYYY'),
-				weight_display: `${formData.weight.toFixed(1)} kg`,
+				user_date_id: `${user_id}-${weightEntry.date}`,
+				date_display: dayjs(weightEntry.date).format('ddd, DD.MM.YYYY'),
+				weight_display: `${weightEntry.weight.toFixed(1)} kg`,
 			}
 
 			const { data, error } = await supaClient.from(DB_TABLE_NAME).upsert(payload, {
@@ -94,13 +105,21 @@ export const useWeightStore = defineStore(
 				return
 			}
 
-			const entryIndex = weightHistory.value.findIndex((entry) => entry.user_date_id === selectedWeigth?.user_date_id)
+			const entryIndex = weightHistory.value.findIndex((entry) => entry.user_date_id === data?.user_date_id)
 
-			if (entryIndex === -1) {
-				weightHistory.value.unshift(data)
-			} else {
+			if (entryIndex > -1) {
 				weightHistory.value[entryIndex] = data
+				return
 			}
+
+			const insertIndex = weightHistory.value.findIndex((entry) => dayjs(entry.date).isBefore(dayjs(data.date)))
+
+			if (insertIndex === -1) {
+				weightHistory.value.push(data)
+				return
+			}
+
+			weightHistory.value.splice(insertIndex, 0, data)
 		}
 
 		async function deleteWeight(entryId: string) {
@@ -117,6 +136,7 @@ export const useWeightStore = defineStore(
 			latestEntry,
 			firstEntry,
 			parsedWeightHistory,
+			entryDates,
 			fetchWeightHistory,
 			upsertWeight,
 			deleteWeight,

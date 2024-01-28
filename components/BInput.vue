@@ -1,10 +1,11 @@
 <script setup lang="ts">
-const { placeholder, type = 'text', labelCenter = false, readonly = false } = defineProps<{
+const { placeholder, type = 'text', labelCenter = false, readonly = false, disabled = false } = defineProps<{
 	label?: string
 	labelCenter?: boolean
 	placeholder?: string
 	type?: string
 	readonly?: boolean
+	disabled?: boolean
 }>()
 
 const modelValue = defineModel()
@@ -24,7 +25,12 @@ function onFocusOut() {
 </script>
 
 <template>
-	<label class="inline-block">
+	<label
+		class="inline-block"
+		:class="{
+			'opacity-20': disabled,
+		}"
+	>
 		<span
 			class="mb-1 inline-block w-full text-[11px] font-bold uppercase  tracking-widest text-neutral-400"
 			:class="{
@@ -56,6 +62,7 @@ function onFocusOut() {
 			:type="type"
 			:placeholder="placeholder"
 			:readonly="readonly"
+			:disabled="disabled"
 			@focusin="onFocusIn"
 			@focusout="onFocusOut"
 		>

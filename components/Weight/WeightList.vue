@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { IWeightEntrySorted } from '~/types/weight'
+import type { WeightEntry } from '~/types/weight'
 
 defineProps<{
-	items: IWeightEntrySorted[]
+	items: WeightEntry[]
 }>()
 
 const emits = defineEmits<{
-	'select-weight': [IWeightEntrySorted]
-	'delete-weight': [IWeightEntrySorted]
+	'select-weight': [WeightEntry]
+	'delete-weight': [WeightEntry]
 }>()
 </script>
 

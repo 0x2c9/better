@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import type { IWeightEntrySorted } from '~/types/weight'
+import type { WeightEntry } from '~/types/weight'
 
 const { selectedWeightEntry } = defineProps<{
-	selectedWeightEntry: IWeightEntrySorted | null
+	selectedWeightEntry: WeightEntry | null
 }>()
 
 const emits = defineEmits<{
@@ -12,15 +12,16 @@ const emits = defineEmits<{
 
 const weightStore = useWeightStore()
 
-const formWeight = ref(80)
-const date = ref(dayjs().format('YYYY-MM-DD'))
+const weightEntry = ref<WeightEntry>({
+	weight: 80,
+	date: dayjs().format('YYYY-MM-DD'),
+})
 
 watch(
 	() => selectedWeightEntry,
 	(selectedEntry) => {
 		if (selectedEntry) {
-			formWeight.value = selectedEntry.weight
-			date.value = selectedEntry.date
+			weightEntry.value = { ...selectedEntry }
 		}
 	},
 	{
@@ -28,22 +29,23 @@ watch(
 	},
 )
 
-async function onSubmit() {
+const showConfirmOverwrite = ref(false)
+async function onSubmit(_$event: Event, overwrite = false) {
+	if (weightStore.entryDates[weightEntry.value.date] && !overwrite) {
+		showConfirmOverwrite.value = true
+		return
+	}
+	showConfirmOverwrite.value = false
 	emits('submit')
 
-	const payload = {
-		weight: formWeight.value,
-		date: date.value,
-	}
-
-	await weightStore.upsertWeight(payload, selectedWeightEntry)
+	await weightStore.upsertWeight(weightEntry.value)
 }
 
 onMounted(() => {
 	if (weightStore.parsedWeightHistory.length && !selectedWeightEntry) {
 		const latestEntry = weightStore.parsedWeightHistory[0]
 
-		formWeight.value = latestEntry.weight
+		weightEntry.value.weight = latestEntry.weight
 	}
 })
 </script>
@@ -54,14 +56,15 @@ onMounted(() => {
 		@submit.prevent="onSubmit"
 	>
 		<BStepper
-			v-if="formWeight"
-			v-model="formWeight"
+			v-model="weightEntry.weight"
 			label="Weight"
-			:display-value="formWeight % 1 === 0 ? `${formWeight}.0` : formWeight"
+			:display-value="weightEntry.weight % 1 === 0 ? `${weightEntry.weight}.0` : weightEntry.weight"
 		/>
-		<div class="bg-gradient !mt-4" />
+
 		<BDatepickerInput
-			v-model="date"
+			v-model="weightEntry.date"
+			:highlighted-dates="weightStore.entryDates"
+			:disabled="!!selectedWeightEntry?.date"
 		/>
 		<BButton
 			type="submit"
@@ -69,5 +72,28 @@ onMounted(() => {
 		>
 			{{ selectedWeightEntry ? 'Update your weight' : 'Add new entry' }}
 		</BButton>
+		<BDrawer v-model="showConfirmOverwrite">
+			<p class="mb-6 text-lg font-medium text-neutral-400">
+				Are you sure you want to overwrite your existing entry from <span class="text-white">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
+			</p>
+
+			<div class="flex flex-col gap-y-4">
+				<BButton
+					type="button"
+					class="w-full"
+					@click="onSubmit($event, true)"
+				>
+					Yes, overwrite
+				</BButton>
+				<BButton
+					variant="secondary"
+					type="button"
+					class="w-full"
+					@click="showConfirmOverwrite = false"
+				>
+					No, cancel
+				</BButton>
+			</div>
+		</BDrawer>
 	</form>
 </template>
