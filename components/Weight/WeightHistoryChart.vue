@@ -1,9 +1,21 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import Chart from 'chart.js/auto'
+import type { ChartDataset, Plugin } from 'chart.js'
+import { CategoryScale, Chart, LineController, LineElement, LinearScale, PointElement, Tooltip } from 'chart.js'
 import gsap from 'gsap'
 
 import type { IWeightEntrySorted } from '~/types/weight'
+
+Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip)
+
+type DataPoint = {
+	x: string
+	y: number[]
+	entry: IWeightEntrySorted
+	selected: boolean
+}
+
+type TChart = Chart<'line', DataPoint[]>
 
 const weightStore = useWeightStore()
 
@@ -25,7 +37,7 @@ const timespanOptions = [
 const selectedTimespan = ref(0)
 const timespanChanging = ref(false)
 const chartRef = ref<HTMLCanvasElement>()
-const chart = shallowRef()
+const chart = shallowRef<TChart>()
 const selectedEntry = ref<IWeightEntrySorted | null>(weightStore.latestEntry)
 const tweened = reactive({
 	weight: 0,
@@ -37,6 +49,9 @@ const tweened = reactive({
 
 weightStore.$onAction((action) => {
 	action.after(() => {
+		if (!chart.value) {
+			return
+		}
 		if (action.name === 'deleteWeight' || action.name === 'upsertWeight') {
 			chart.value.data.datasets[0] = getChartDataset()
 			chart.value.update()
@@ -69,7 +84,6 @@ watch(selectedEntry, (entry) => {
 		: entry.date_display
 
 	if (chart.value?.data.datasets[0]) {
-		// @ts-expect-error - need to figure out chart.js types
 		chart.value.data.datasets[0].data.forEach((data) => {
 			data.selected = data.entry.date === entry.date
 		})
@@ -93,12 +107,10 @@ function getProgressColor() {
 
 	return '#0EA5E9'
 }
-function getChartDataset() {
+
+function getChartDataset(): ChartDataset<'line', DataPoint[]> {
 	const dataset = {
-		// @ts-expect-error - need to figure out chart.js types
-		pointBackgroundColor: (ctx) => {
-			return ctx?.raw?.selected ? getProgressColor() : 'transparent'
-		},
+		pointBackgroundColor: getProgressColor(),
 		borderColor: getProgressColor(),
 		borderWidth: 2,
 		pointRadius: 1,
@@ -107,6 +119,7 @@ function getChartDataset() {
 
 	return dataset
 }
+
 function getChartDataPoints() {
 	const timespan = timespanOptions[selectedTimespan.value].content
 
@@ -127,6 +140,9 @@ function getChartDataPoints() {
 watch(
 	() => selectedTimespan.value,
 	() => {
+		if (!chart.value) {
+			return
+		}
 		timespanChanging.value = true
 		chart.value.data.datasets[0] = getChartDataset()
 		chart.value.update()
@@ -141,12 +157,12 @@ onMounted(() => {
 	if (!chartRef.value) {
 		return
 	}
-	const intersectingVerticalLine = {
+	const intersectingVerticalLine: Plugin<'line'> = {
 		id: 'intersectDataVerticalLine',
-		// @ts-expect-error - need to figure out chart.js types
 		beforeDraw: (chart) => {
-			if (chart.getActiveElements().length) {
-				const activePoint = chart.getActiveElements()[0]
+			const activeElements = chart.getActiveElements()
+			if (activeElements.length) {
+				const activePoint = activeElements[0]
 				const chartArea = chart.chartArea
 				const ctx = chart.ctx
 				ctx.save()
@@ -161,7 +177,7 @@ onMounted(() => {
 		},
 	}
 
-	chart.value = new Chart(
+	chart.value = new Chart<'line', DataPoint[]>(
 		chartRef.value,
 		{
 			type: 'line',
@@ -182,8 +198,8 @@ onMounted(() => {
 							if (timespanChanging.value) {
 								return
 							}
-							// @ts-expect-error - need to figure out chart.js types
-							selectedEntry.value = ctx.tooltip.dataPoints[0].raw.entry
+							const raw = ctx.tooltip.dataPoints[0].raw as DataPoint
+							selectedEntry.value = raw.entry
 						},
 					},
 				},
