@@ -22,8 +22,9 @@ onMounted(async () => {
 		id="__layout"
 		class="flex h-full w-full flex-col overflow-hidden"
 	>
-		<SvgSprite />
-		<main class="flex flex-col flex-1 overflow-y-scroll px-4 pt-8 pb-20">
+		<main
+			class="flex flex-col flex-1 overflow-y-scroll px-4 pt-8 pb-20"
+		>
 			<slot class="flex-1" />
 		</main>
 		<AppNavigation />
