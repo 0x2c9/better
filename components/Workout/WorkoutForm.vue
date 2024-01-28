@@ -112,6 +112,11 @@ function updateSelectedExercise(exercise: Exercise) {
 						@click="openExerciseList"
 					/>
 				</div>
+				<BStepper
+					v-model="workout.workout_sets"
+					label="Workout Sets"
+					:steps="1"
+				/>
 				<BButton
 					class="w-full"
 					variant="primary"
