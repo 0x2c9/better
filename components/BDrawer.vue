@@ -285,7 +285,7 @@ const sluts = useSlots()
 				<div
 					ref="slotEl"
 					:class="{
-						'overflow-y-auto overflow-x-hidden flex-1': fullscreen,
+						'overflow-y-auto overflow-x-hidden flex-1 py-4': fullscreen,
 						'px-8': narrow && !fullscreen,
 						'px-4': !narrow || fullscreen,
 					}"
