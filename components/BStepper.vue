@@ -97,7 +97,6 @@ const computedDisplayValue = computed(() => {
 
 		<div class="flex items-center justify-between text-4xl">
 			<BButton
-				class="-ml-1"
 				type="button"
 				variant="primary"
 				size="small"
@@ -115,7 +114,6 @@ const computedDisplayValue = computed(() => {
 				<slot />
 			</div>
 			<BButton
-				class="-mr-1"
 				type="button"
 				variant="primary"
 				size="small"
