@@ -19,9 +19,9 @@ const emits = defineEmits<{
 		@delete="emits('delete-weight', $event)"
 	>
 		<template #content="{ item }">
-			<div class="min-h-10 flex items-center w-full">
+			<div class="flex min-h-10 w-full items-center">
 				<div
-					class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r flex items-center pl-2 "
+					class="absolute inset-y-0 left-0 flex w-16 items-center bg-gradient-to-r pl-2"
 					:class="{
 						'from-green/40 via-green/10': item.progress === 'increase',
 						'from-red/40 via-red/10 ': item.progress === 'decrease',
@@ -48,10 +48,10 @@ const emits = defineEmits<{
 					/>
 				</div>
 
-				<h2 class="ml-12 font-semibold text-xl">
+				<h2 class="ml-12 text-xl font-semibold">
 					{{ item.weight_display }}
 				</h2>
-				<h3 class="ml-auto text-neutral-400 text-sm tabular-nums">
+				<h3 class="ml-auto text-sm tabular-nums text-neutral-400">
 					{{ item.date_display }}
 				</h3>
 			</div>

@@ -26,7 +26,7 @@ function onFocusOut() {
 <template>
 	<label class="inline-block">
 		<span
-			class="w-full inline-block text-[11px] uppercase tracking-widest font-bold  text-neutral-400 mb-1"
+			class="mb-1 inline-block w-full text-[11px] font-bold uppercase  tracking-widest text-neutral-400"
 			:class="{
 				'text-center': labelCenter,
 			}"
@@ -36,14 +36,14 @@ function onFocusOut() {
 		<input
 			v-model="modelValue"
 			class="
+				h-12
+				w-full
+				rounded-md
+				border
 				border-neutral-600
 				bg-transparent
-				border
-				rounded-md
 				px-4
 				py-2
-				w-full
-				h-12
 				text-lg
 				font-medium
 				text-white
@@ -51,7 +51,7 @@ function onFocusOut() {
 			"
 			:class="{
 				'border-neutral-400': !hasFocus,
-				'ring-blue ring-2 outline-none focus:border-transparent': hasFocus,
+				'outline-none ring-2 ring-blue focus:border-transparent': hasFocus,
 			}"
 			:type="type"
 			:placeholder="placeholder"

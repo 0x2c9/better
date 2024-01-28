@@ -87,7 +87,7 @@ const computedWorkoutExercises = computed(() => {
 </script>
 
 <template>
-	<article class="relative flex flex-col h-full">
+	<article class="relative flex h-full flex-col">
 		<div class="flex-1 overflow-y-auto px-4 py-6">
 			<WorkoutExerciseList
 				v-if="selectedWorkout"
@@ -114,9 +114,9 @@ const computedWorkoutExercises = computed(() => {
 				@done="onDoneTimer"
 			/>
 		</Teleport>
-		<footer class="px-4 border border-t-2 border-neutral-700/50">
+		<footer class="border border-t-2 border-neutral-700/50 px-4">
 			<nav
-				class="py-2 z-50 b-box flex flex-col justify-center px-4 my-6 "
+				class="b-box z-50 my-6 flex flex-col justify-center px-4 py-2"
 			>
 				<BStepper
 					v-model="activeSet"

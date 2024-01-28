@@ -41,7 +41,7 @@ async function onDeleteEntry(weightEntry: IWeightEntrySorted) {
 <template>
 	<article class="relative">
 		<LazyWeightHistoryChart v-if="weightStore.weightHistory.length" />
-		<div class="flex justify-end items-center mb-6">
+		<div class="mb-6 flex items-center justify-end">
 			<BButton
 				variant="secondary"
 				small

@@ -131,7 +131,7 @@ function getDayClass(dayObj: IDay) {
 				<h1 class="tracking-wide">
 					{{ monthLabels[month] }} - {{ year }}
 				</h1>
-				<div class="flex items-center space-x-5 ">
+				<div class="flex items-center space-x-5">
 					<button
 						type="button"
 						@click="previousMonth"

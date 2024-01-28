@@ -41,7 +41,7 @@ function onStartExercise(item: TimeExercise) {
 	>
 		<template #content="{ item }">
 			<div class="flex-1">
-				<div class="flex items-center justify-between mb-1">
+				<div class="mb-1 flex items-center justify-between">
 					<h2 class="text-lg font-medium">
 						{{ item.exercise_name }}
 					</h2>

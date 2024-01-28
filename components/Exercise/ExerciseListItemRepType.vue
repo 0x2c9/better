@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-	<div class="flex space-x-2 items-center text-neutral-400">
+	<div class="flex items-center space-x-2 text-neutral-400">
 		<BIcon name="material-symbols-rotate-right-rounded" />
 		<span>{{ item.exercise_repetitions }} Repetions</span>
 	</div>

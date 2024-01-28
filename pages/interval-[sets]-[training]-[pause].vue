@@ -172,23 +172,23 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-	<article class="flex flex-1 relative">
+	<article class="relative flex flex-1">
 		<Transition name="fade">
 			<div
 				v-if="!timer?.isActive.value && currentPhase !== TimerPhase.Done && showTimerOverlay"
-				class="fixed z-50 inset-0 bg-neutral-950/50 pointer-events-none backdrop-blur-[3px]"
+				class="pointer-events-none fixed inset-0 z-50 bg-neutral-950/50 backdrop-blur-[3px]"
 			/>
 		</Transition>
 		<Transition name="fade">
 			<div
 				v-if="currentPhase !== TimerPhase.Done"
-				class="absolute z-[51] inset-0 transition-opacity duration-500 flex flex-col"
+				class="absolute inset-0 z-[51] flex flex-col transition-opacity duration-500"
 				:class="{
 					'opacity-100': showTimerOverlay,
-					'opacity-0 pointer-events-none': !showTimerOverlay,
+					'pointer-events-none opacity-0': !showTimerOverlay,
 				}"
 			>
-				<div class="mt-auto flex items-center w-full">
+				<div class="mt-auto flex w-full items-center">
 					<TimerIntervalStopButton @stop="onStop" />
 
 					<BButton
@@ -200,10 +200,10 @@ onBeforeUnmount(() => {
 				</div>
 			</div>
 		</Transition>
-		<div class="w-full h-full flex flex-col relative">
+		<div class="relative flex size-full flex-col">
 			<div class="my-auto select-none">
 				<span
-					class="text-5xl tabular-nums font-bold block uppercase text-center "
+					class="block text-center text-5xl font-bold uppercase tabular-nums"
 					:class="{
 						'opacity-100': currentPhase === TimerPhase.Training || currentPhase === TimerPhase.Pause,
 						'opacity-0': currentPhase !== TimerPhase.Training && currentPhase !== TimerPhase.Pause,
@@ -214,12 +214,12 @@ onBeforeUnmount(() => {
 				<span
 					v-if="currentPhase !== TimerPhase.Done"
 					:key="currentPhase"
-					class="tabular-nums text-[30vw] leading-none font-bold block text-center my-4"
+					class="my-4 block text-center text-[30vw] font-bold tabular-nums leading-none"
 				>
 					{{ secondsIntoMinutes(timeLeft) }}
 				</span>
 
-				<span class="text-5xl font-bold block uppercase text-center text-neutral-400">
+				<span class="block text-center text-5xl font-bold uppercase text-neutral-400">
 					{{ computedPhaseConfig.phase }}
 				</span>
 			</div>
@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
 			<Transition name="fade">
 				<div
 					v-if="currentPhase === TimerPhase.Done"
-					class="space-y-4 flex flex-col absolute bottom-0 w-full"
+					class="absolute bottom-0 flex w-full flex-col space-y-4"
 				>
 					<BButton
 						variant="secondary"

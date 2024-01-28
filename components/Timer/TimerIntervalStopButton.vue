@@ -17,17 +17,17 @@ function onTransitionEnd() {
 		class="
       relative
       overflow-hidden
-			active:bg-neutral-800
-      before:pointer-events-none
+			before:pointer-events-none
       before:absolute
       before:inset-0
-      before:bg-neutral-600
+      before:z-0
+      before:origin-left
       before:scale-x-0
       before:transform
-      before:origin-left
+      before:bg-neutral-600
       before:transition-transform
       before:ease-linear
-      before:z-0
+      active:bg-neutral-800
     "
 		:class="buttonIsActive ? 'before:scale-x-100 before:duration-500' : 'before:scale-x-0 before:duration-200'"
 		@mousedown="buttonIsActive = true"

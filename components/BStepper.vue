@@ -91,7 +91,7 @@ const computedDisplayValue = computed(() => {
 			'opacity-50': disabled,
 		}"
 	>
-		<h1 class="text text-center text-xs uppercase tracking-widest font-medium  text-neutral-400">
+		<h1 class="text text-center text-xs font-medium uppercase tracking-widest  text-neutral-400">
 			{{ label }}
 		</h1>
 

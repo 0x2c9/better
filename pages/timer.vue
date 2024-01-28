@@ -42,13 +42,13 @@ function toggleQuickStartForm() {
 <template>
 	<article class="relative">
 		<div
-			class="b-box px-5 pt-6 pb-4 mb-6 transition-[height] duration-300 ease-in-out"
+			class="b-box mb-6 px-5 pb-4 pt-6 transition-[height] duration-300 ease-in-out"
 			:class="{
 				'h-20 overflow-hidden': !globalStateStore.showQuickStartForm,
 				'h-auto': globalStateStore.showQuickStartForm,
 			}"
 		>
-			<div class="flex items-center justify-between mb-6">
+			<div class="mb-6 flex items-center justify-between">
 				<h1 class="text-xl font-semibold">
 					Quick Start
 				</h1>
@@ -61,7 +61,7 @@ function toggleQuickStartForm() {
 			</div>
 			<TimerForm />
 		</div>
-		<div class="flex justify-end items-center mb-6">
+		<div class="mb-6 flex items-center justify-end">
 			<BButton
 				variant="secondary"
 				small

@@ -31,7 +31,7 @@ function startWorkout(workoutId: string) {
 	>
 		<template #content="{ item }">
 			<div class="flex-1">
-				<div class="flex justify-between items-center mb-4">
+				<div class="mb-4 flex items-center justify-between">
 					<h2 class="text-xl font-medium">
 						{{ item.workout_name }}
 					</h2>
@@ -45,7 +45,7 @@ function startWorkout(workoutId: string) {
 					<ExerciseListItem
 						v-for="(workoutExercise, index) of item.workout_exercises"
 						:key="`${workoutExercise.id}-${index}`"
-						class="border border-neutral-600/40 rounded-md p-4"
+						class="rounded-md border border-neutral-600/40 p-4"
 						:item="workoutExercise"
 					/>
 				</ul>

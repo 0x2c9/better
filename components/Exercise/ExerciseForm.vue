@@ -59,7 +59,7 @@ function onSubmitExercise(exercise: Exercise) {
 	>
 		<button
 			v-if="exerciseType && !selectedExercise"
-			class="mb-6 "
+			class="mb-6"
 			type="button"
 			@click="goBackToTypeSelection"
 		>
@@ -69,7 +69,7 @@ function onSubmitExercise(exercise: Exercise) {
 			/>
 		</button>
 		<section v-if="!exerciseType">
-			<h2 class="text-lg font-medium mb-6">
+			<h2 class="mb-6 text-lg font-medium">
 				Select Exercise Type
 			</h2>
 			<div class="grid grid-cols-2 gap-6">

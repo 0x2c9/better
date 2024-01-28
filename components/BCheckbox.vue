@@ -17,11 +17,11 @@ function onLabelClick() {
 
 <template>
 	<div
-		class="absolute inset-y-0 right-0 flex items-center select-none"
+		class="absolute inset-y-0 right-0 flex select-none items-center"
 		@click.stop="onLabelClick"
 	>
 		<div
-			class="w-10 h-full shrink-0 text-neutral-900 relative transition-colors duration-200 bg-gradient-to-tr"
+			class="relative h-full w-10 shrink-0 bg-gradient-to-tr text-neutral-900 transition-colors duration-200"
 			:class="{
 				'from-green to-green/5': isChecked,
 				'from-neutral-600 to-neutral-600/5': !isChecked,
@@ -39,13 +39,13 @@ function onLabelClick() {
 			>
 				<BIcon
 					v-if="isChecked"
-					class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-white"
 					size="24"
 					name="material-symbols-check-circle-rounded"
 				/>
 				<BIcon
 					v-else
-					class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-neutral-500"
+					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-neutral-500"
 					size="24"
 					name="material-symbols-check-circle-outline-rounded"
 				/>

@@ -63,11 +63,11 @@ function onDelete() {
 
 <template>
 	<li
-		class="relative w-full flex"
+		class="relative flex w-full"
 	>
 		<div
 			ref="itemEl"
-			class="relative b-box border-none outline outline-1 outline-neutral-500/30 -outline-offset-1 flex-1 z-10 flex items-center overflow-hidden rounded-xl px-4 py-2 transition-transform duration-300 ease-in-out select-none"
+			class="b-box relative z-10 flex flex-1 select-none items-center overflow-hidden rounded-xl border-none px-4 py-2 outline outline-1 -outline-offset-1 outline-neutral-500/30 transition-transform duration-300 ease-in-out"
 			:style="{
 				transform: `translateX(${xValue}px)`,
 			}"
@@ -88,7 +88,7 @@ function onDelete() {
 				enter-to-class="opacity-100"
 				leave-active-class="transition duration-300 ease-in"
 				leave-from-class="opacity-100"
-				leave-to-class="opacity-0 scale-[0.8] "
+				leave-to-class="opacity-0 scale-[0.8]"
 				mode="out-in"
 			>
 				<BButton

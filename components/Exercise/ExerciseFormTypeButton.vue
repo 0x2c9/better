@@ -7,15 +7,15 @@ const { label, iconName } = defineProps<{
 
 <template>
 	<BButton
-		class="flex flex-col items-center justify-center min-h-32 rounded-xl relative overflow-hidden"
+		class="relative flex min-h-32 flex-col items-center justify-center overflow-hidden rounded-xl"
 		type="button"
 		small
 	>
 		<BIcon
-			class="text-neutral-700/50 absolute -top-1 -left-3 z-0 transform rotate-12"
+			class="absolute -left-3 -top-1 z-0 rotate-12 transform text-neutral-700/50"
 			size="120"
 			:name="iconName"
 		/>
-		<span class="font-bold text-xl text-neutral-100 z-10">{{ label }}</span>
+		<span class="z-10 text-xl font-bold text-neutral-100">{{ label }}</span>
 	</BButton>
 </template>

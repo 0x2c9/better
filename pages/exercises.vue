@@ -28,7 +28,7 @@ function onDeleteExercise(exercise: Exercise) {
 
 <template>
 	<article class="relative">
-		<div class="flex justify-end items-center mb-6">
+		<div class="mb-6 flex items-center justify-end">
 			<BButton
 				variant="secondary"
 				small

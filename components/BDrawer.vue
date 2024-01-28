@@ -237,7 +237,7 @@ const sluts = useSlots()
 				v-if="modelValue"
 				ref="dropdownEl"
 				:data-drawer-index="localDropdownCounter"
-				class="absolute b-box inset-4 z-[1020] rounded-3xl border-t border-transparent   will-change-transform overflow-hidden flex flex-col"
+				class="b-box absolute inset-4 z-[1020] flex flex-col overflow-hidden   rounded-3xl border-t border-transparent will-change-transform"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
 					'pb-8': !sluts.footer,
@@ -256,12 +256,12 @@ const sluts = useSlots()
 					}"
 				>
 					<template v-if="!fullscreen">
-						<div class="flex flex-col justify-center items-center">
+						<div class="flex flex-col items-center justify-center">
 							<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
 						</div>
 					</template>
 					<template v-else>
-						<div class="flex items-center relative min-h-6">
+						<div class="relative flex min-h-6 items-center">
 							<button
 								class="absolute left-0"
 								type="button"
@@ -274,7 +274,7 @@ const sluts = useSlots()
 							</button>
 							<div
 								v-if="title"
-								class="text-neutral-200 mx-auto font-medium text-lg"
+								class="mx-auto text-lg font-medium text-neutral-200"
 							>
 								{{ title }}
 							</div>
@@ -285,14 +285,14 @@ const sluts = useSlots()
 				<div
 					ref="slotEl"
 					:class="{
-						'overflow-y-auto overflow-x-hidden flex-1 py-4': fullscreen,
+						'flex-1 overflow-y-auto overflow-x-hidden py-4': fullscreen,
 						'px-8': narrow && !fullscreen,
 						'px-4': !narrow || fullscreen,
 					}"
 				>
 					<slot name="default" />
 				</div>
-				<footer class="empty:hidden z-50 bg-neutral-900 p-4 border-t border-t-neutral-600/60">
+				<footer class="z-50 border-t border-t-neutral-600/60 bg-neutral-900 p-4 empty:hidden">
 					<slot name="footer" />
 				</footer>
 			</div>

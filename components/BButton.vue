@@ -18,14 +18,14 @@ const isIconButton = computed(() => !!iconName)
 
 <template>
 	<button
-		class="border-2 border-neutral-700 text-white rounded-full active:enabled:bg-neutral-700 font-semibold select-none flex items-center justify-center"
+		class="flex select-none items-center justify-center rounded-full border-2 border-neutral-700 font-semibold text-white active:enabled:bg-neutral-700"
 		:class="{
 			'bg-neutral-800 ': variant === 'primary',
 			'bg-transparent ': variant === 'secondary',
 			'shrink-0': isIconButton,
-			'w-12 h-12': isIconButton && !small,
-			'w-11 h-11': isIconButton && small,
-			'h-12 text-lg px-6 ': !isIconButton && !small,
+			'size-12': isIconButton && !small,
+			'size-11': isIconButton && small,
+			'h-12 px-6 text-lg ': !isIconButton && !small,
 			'h-10 px-5': !isIconButton && small,
 		}"
 		:disabled="disabled"

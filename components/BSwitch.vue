@@ -52,22 +52,22 @@ onUnmounted(() => {
 
 <template>
 	<div
-		class="w-full border border-neutral-500 rounded-2xl px-2 py-[6px] grid gap-x-3 relative z-50"
+		class="relative z-50 grid w-full gap-x-3 rounded-2xl border border-neutral-500 px-2 py-[6px]"
 		:style="{
 			'grid-template-columns': `repeat(${options.length}, 1fr)`,
 		}"
 	>
 		<div
 			ref="markerRef"
-			class="absolute
-			bg-neutral-800
-			border-2
-			border-neutral-700
-			text-white
+			class="pointer-events-none
+			absolute
+			-z-10
 			h-full
 			rounded-xl
-			pointer-events-none
-			-z-10
+			border-2
+			border-neutral-700
+			bg-neutral-800
+			text-white
 			transition-all
 			"
 		/>
@@ -76,7 +76,7 @@ onUnmounted(() => {
 			:key="option.content"
 			ref="btnRefs"
 			type="button"
-			class="h-9 py-2 flex items-center justify-center rounded-xl select-none text-neutral-500 tabular-nums font-semibold"
+			class="flex h-9 select-none items-center justify-center rounded-xl py-2 font-semibold tabular-nums text-neutral-500"
 			:class="{
 				'text-white': options[modelValue].content === option.content,
 			}"

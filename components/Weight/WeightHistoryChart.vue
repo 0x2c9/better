@@ -241,11 +241,11 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="pt-12 pb-8 mb-6 relative overflow-hidden -mx-4 -mt-12">
-		<div class="absolute h-44 bottom-0 inset-x-0 bg-gradient-to-t from-neutral-950 z-50" />
+	<div class="relative -mx-4 -mt-12 mb-6 overflow-hidden pb-8 pt-12">
+		<div class="absolute inset-x-0 bottom-0 z-50 h-44 bg-gradient-to-t from-neutral-950" />
 		<div
 			v-if="weightStore.latestEntry"
-			class="absolute inset-0 pointer-events-none bg-gradient-to-tl"
+			class="pointer-events-none absolute inset-0 bg-gradient-to-tl"
 			:class="{
 				'from-green/40 via-green/5': weightStore.latestEntry.progress === 'increase',
 				'from-red/40 via-red/5 ': weightStore.latestEntry.progress === 'decrease',
@@ -259,7 +259,7 @@ onMounted(() => {
 				:options="timespanOptions"
 			/>
 		</div>
-		<div class="flex flex-col mx-auto items-center mb-5">
+		<div class="mx-auto mb-5 flex flex-col items-center">
 			<Transition
 				name="fade"
 				mode="out-in"
@@ -272,13 +272,13 @@ onMounted(() => {
 				</span>
 			</Transition>
 			<div class="flex flex-col items-center">
-				<span class="text-white text-4xl font-semibold tabular-nums mb-2">{{ tweened.weight.toFixed(1) }} kg</span>
+				<span class="mb-2 text-4xl font-semibold tabular-nums text-white">{{ tweened.weight.toFixed(1) }} kg</span>
 				<span
 					class="rounded-full border px-2 py-0.5 text-xs font-semibold"
 					:class="{
-						'bg-green/20 text-green border border-green': tweened.weightDiffProgress === 'increase',
-						'bg-red/20 text-red border border-red ': tweened.weightDiffProgress === 'decrease',
-						'bg-blue/20 text-blue border border-blue ': tweened.weightDiffProgress === 'same',
+						'border border-green bg-green/20 text-green': tweened.weightDiffProgress === 'increase',
+						'border border-red bg-red/20 text-red ': tweened.weightDiffProgress === 'decrease',
+						'border border-blue bg-blue/20 text-blue ': tweened.weightDiffProgress === 'same',
 					}"
 				>
 					overall
@@ -287,7 +287,7 @@ onMounted(() => {
 				</span>
 			</div>
 		</div>
-		<div class="z-50 relative px-3">
+		<div class="relative z-50 px-3">
 			<canvas ref="chartRef" />
 		</div>
 	</div>
