@@ -1,4 +1,4 @@
-import type { Workout } from '@/types/workout'
+import type { Workout, WorkoutEntry } from '@/types/workout'
 
 export const useWorkoutStore = defineStore(
 	'Workout Store',
@@ -65,17 +65,10 @@ export const useWorkoutStore = defineStore(
 			}
 		}
 
-		async function saveWorkoutEntry(workoutEntry: Workout) {
-			// Todo: check if workoutEntry is "valid" - show check if some exercises are not done
+		async function saveWorkoutEntry(workoutEntry: WorkoutEntry) {
+			workoutEntry.user_id = authStore.userId!
 
-			const dbWorkoutEntry: Workout = {
-				workout_name: workoutEntry.workout_name,
-				workout_exercises: workoutEntry.workout_exercises,
-				workout_sets: workoutEntry.workout_sets,
-				user_id: authStore.userId!,
-			}
-
-			const { error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).insert(dbWorkoutEntry)
+			const { error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).insert(workoutEntry)
 
 			if (error) {
 				throw new Error(error.message)
