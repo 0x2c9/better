@@ -13,7 +13,7 @@ const emits = defineEmits(['setDate'])
 
 dayjs.extend(weekday)
 
-interface IDay {
+type IDay = {
 	date: Dayjs
 	dateOfMonth: number
 	isDisabled: boolean

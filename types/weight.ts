@@ -1,4 +1,4 @@
-export interface IWeightEntry {
+export type IWeightEntry = {
 	date: string
 	id: string
 	user_date_id: string
@@ -8,7 +8,7 @@ export interface IWeightEntry {
 	weight_display: string
 }
 
-export interface IWeightEntryFormData {
+export type IWeightEntryFormData = {
 	date: string
 	weight: number
 	id?: string

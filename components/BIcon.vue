@@ -1,5 +1,5 @@
 <script setup lang="ts">
-interface IBaseIcon {
+type IBaseIcon = {
 	name: keyof typeof ICONS
 	size?: string
 }

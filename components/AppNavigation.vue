@@ -1,5 +1,5 @@
 <script setup lang="ts">
-interface IMenuItem {
+type IMenuItem = {
 	title: string
 	link: string
 	iconBase: keyof typeof ICONS

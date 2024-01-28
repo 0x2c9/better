@@ -2,7 +2,6 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@supabase/supabase-js'
 
 import { useNuxtApp, useRuntimeConfig } from '#imports'
-import type { Database } from '~/types/supabase'
 
 export function useSupabase() {
 	const nuxtApp = useNuxtApp()
@@ -22,5 +21,5 @@ export function useSupabase() {
 		nuxtApp._supabaseClient = supabaseClient
 	}
 
-	return nuxtApp._supabaseClient as SupabaseClient<Database>
+	return nuxtApp._supabaseClient as SupabaseClient
 }

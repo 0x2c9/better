@@ -1,9 +1,9 @@
 <script setup lang="ts">
-interface IBSwitchOption {
+type IBSwitchOption = {
 	content: any
 	label: string
 }
-interface IBSwitchProps {
+type IBSwitchProps = {
 	options: IBSwitchOption[]
 }
 

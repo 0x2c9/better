@@ -1,7 +1,7 @@
 import type { Session } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
 
-interface UserCredentials {
+type UserCredentials = {
 	email?: string
 	password?: string
 }

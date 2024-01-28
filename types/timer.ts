@@ -1,4 +1,4 @@
-export interface ITimer {
+export type ITimer = {
 	id?: string
 	name: string
 	sets: number
@@ -9,7 +9,7 @@ export interface ITimer {
 	created_at?: string
 }
 
-export interface IInterval {
+export type IInterval = {
 	sets: number
 	training_time: number
 	pause_time: number
