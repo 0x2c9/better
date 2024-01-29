@@ -246,8 +246,8 @@ onMounted(() => {
 			class="pointer-events-none absolute inset-0 bg-gradient-to-tl"
 			:class="{
 				'from-green/40 via-green/5': weightStore.latestEntry.progress === 'increase',
-				'from-red/40 via-red/5 ': weightStore.latestEntry.progress === 'decrease',
-				'from-blue/40 via-blue/5 ': weightStore.latestEntry.progress === 'same',
+				'from-red/40 via-red/5': weightStore.latestEntry.progress === 'decrease',
+				'from-blue/40 via-blue/5': weightStore.latestEntry.progress === 'same',
 			}"
 		/>
 		<div class="px-4">
@@ -275,8 +275,8 @@ onMounted(() => {
 					class="rounded-full border px-2 py-0.5 text-xs font-semibold"
 					:class="{
 						'border border-green bg-green/20 text-green': tweened.weightDiffProgress === 'increase',
-						'border border-red bg-red/20 text-red ': tweened.weightDiffProgress === 'decrease',
-						'border border-blue bg-blue/20 text-blue ': tweened.weightDiffProgress === 'same',
+						'border border-red bg-red/20 text-red': tweened.weightDiffProgress === 'decrease',
+						'border border-blue bg-blue/20 text-blue': tweened.weightDiffProgress === 'same',
 					}"
 				>
 					overall

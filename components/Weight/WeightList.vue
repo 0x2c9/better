@@ -24,8 +24,8 @@ const emits = defineEmits<{
 					class="absolute inset-y-0 left-0 flex w-16 items-center bg-gradient-to-r pl-2"
 					:class="{
 						'from-green/40 via-green/10': item.progress === 'increase',
-						'from-red/40 via-red/10 ': item.progress === 'decrease',
-						'from-blue/40 via-blue/10 ': item.progress === 'same' || item.progress === undefined,
+						'from-red/40 via-red/10': item.progress === 'decrease',
+						'from-blue/40 via-blue/10': item.progress === 'same' || item.progress === undefined,
 					}"
 				>
 					<BIcon
