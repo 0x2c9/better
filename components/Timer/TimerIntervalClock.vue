@@ -109,7 +109,7 @@ function initTimer() {
 			currentPhase.value = TimerPhase.Done
 			emits('done', exercise)
 		}
-	}, 333)
+	}, 1000)
 }
 
 let timer: Pausable | null = null
