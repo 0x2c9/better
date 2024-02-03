@@ -7,9 +7,9 @@ window.addEventListener('contextmenu', (event) => {
 </script>
 
 <template>
+	<NuxtPwaManifest />
+	<SvgSprite />
 	<NuxtLayout>
 		<NuxtPage />
 	</NuxtLayout>
-	<SvgSprite />
-	<NuxtPwaManifest />
 </template>

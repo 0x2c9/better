@@ -22,6 +22,7 @@ onMounted(async () => {
 		id="__layout"
 		class="flex size-full flex-col overflow-hidden"
 	>
+		<PwaPrompts />
 		<main
 			class="flex flex-1 flex-col overflow-y-scroll px-4 pb-20 pt-8"
 		>

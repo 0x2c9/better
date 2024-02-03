@@ -51,6 +51,9 @@ export default defineNuxtConfig({
 	devtools: {
 		enabled: false,
 	},
+	experimental: {
+		payloadExtraction: true,
+	},
 	imports: {
 		dirs: [
 			'icons',
@@ -72,9 +75,11 @@ export default defineNuxtConfig({
 		scope: '/',
 		srcDir: './service-worker',
 		strategies: 'generateSW',
+		registerType: 'prompt',
 		devOptions: {
 			enabled: true,
 			type: 'module',
+			suppressWarnings: true,
 		},
 		manifest: {
 			name: 'better - Track your weight loss and fitness journey',
