@@ -70,7 +70,7 @@ export default defineNuxtConfig({
 		},
 	},
 	pwa: {
-		mode: 'development',
+		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		disable: false,
 		scope: '/',
 		srcDir: './service-worker',

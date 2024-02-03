@@ -10,19 +10,6 @@ onMounted(() => {
 		console.log('App is not installed')
 	}
 })
-
-async function onInstallApp() {
-	if (!$pwa) {
-		console.error('PWA is not available')
-		return
-	}
-	$pwa.showInstallPrompt = true
-	// await $pwa.install()
-}
-
-window.addEventListener('beforeinstallprompt', (e) => {
-	console.log('beforeinstallprompt event fired')
-})
 </script>
 
 <template>
@@ -43,18 +30,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
 					Reload
 				</BButton>
 			</div>
-			<!-- <div
-				v-if="!$pwa.isPWAInstalled"
-				class="b-box z-50 flex flex-col p-4"
-			>
-				<p class="mb-8 text-lg font-medium">
-					Install the app to your device for a better experience and offline support.
-				</p>
-
-				<BButton @click="onInstallApp">
-					Install App
-				</BButton>
-			</div> -->
 		</div>
 	</Teleport>
 </template>
