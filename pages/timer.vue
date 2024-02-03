@@ -61,19 +61,15 @@ function toggleQuickStartForm() {
 			</div>
 			<TimerForm />
 		</div>
-		<div class="mb-6 flex items-center justify-end">
-			<BButton
-				variant="secondary"
-				small
-				@click="openDropdown"
-			>
-				<BIcon
-					name="material-symbols-add-rounded"
-					class="-ml-2 mr-2"
-				/>
-				Create Interval
-			</BButton>
-		</div>
+
+		<BPageActionButton @click="openDropdown">
+			<BIcon
+				name="material-symbols-add-rounded"
+				class="-ml-2 mr-2"
+			/>
+			Create Interval
+		</BPageActionButton>
+
 		<TimerList
 			:items="timerStore.timers"
 			@select-timer="onSelectTimer"

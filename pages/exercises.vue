@@ -28,19 +28,13 @@ function onDeleteExercise(exercise: Exercise) {
 
 <template>
 	<article class="relative">
-		<div class="mb-6 flex items-center justify-end">
-			<BButton
-				variant="secondary"
-				small
-				@click="openExercise"
-			>
-				<BIcon
-					name="material-symbols-add-rounded"
-					class="-ml-2 mr-2"
-				/>
-				Create Exercise
-			</BButton>
-		</div>
+		<BPageActionButton @click="openExercise">
+			<BIcon
+				name="material-symbols-add-rounded"
+				class="-ml-2 mr-2"
+			/>
+			Create Exercise
+		</BPageActionButton>
 
 		<ExerciseList
 			:items="exerciseStore.exercises"

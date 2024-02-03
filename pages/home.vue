@@ -32,20 +32,16 @@ async function onDeleteEntry(weightEntry: WeightEntry) {
 
 <template>
 	<article class="relative">
+		<BPageActionButton @click="onOpenWeightForm">
+			<BIcon
+				name="material-symbols-add-rounded"
+				class="-ml-2 mr-2"
+			/>
+			Add weight entry
+		</BPageActionButton>
+
 		<LazyWeightHistoryChart v-if="weightStore.weightHistory.length" />
-		<div class="mb-6 flex items-center justify-end">
-			<BButton
-				variant="secondary"
-				small
-				@click="onOpenWeightForm"
-			>
-				<BIcon
-					name="material-symbols-add-rounded"
-					class="-ml-2 mr-2"
-				/>
-				Add weight entry
-			</BButton>
-		</div>
+
 		<WeightList
 			:items="weightStore.parsedWeightHistory"
 			@select-weight="onSelectEntry"

@@ -24,7 +24,7 @@ onMounted(async () => {
 	>
 		<PwaPrompts />
 		<main
-			class="flex flex-1 flex-col overflow-y-scroll px-4 pb-20 pt-8"
+			class="flex flex-1 flex-col overflow-y-scroll px-4 pb-[132px] pt-8"
 		>
 			<slot class="flex-1" />
 		</main>
