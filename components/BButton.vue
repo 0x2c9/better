@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type IButtonProps = {
 	iconName?: keyof typeof ICONS
-	variant?: 'primary' | 'secondary' | 'error'
+	variant?: 'primary' | 'secondary' | 'action'
 	small?: boolean
 	disabled?: boolean
 }
@@ -18,15 +18,16 @@ const isIconButton = computed(() => !!iconName)
 
 <template>
 	<button
-		class="flex select-none items-center justify-center rounded-full border-2 border-neutral-700 font-semibold text-white active:enabled:bg-neutral-700"
+		class="flex select-none items-center justify-center rounded-full font-semibold"
 		:class="{
-			'bg-neutral-800': variant === 'primary',
-			'bg-transparent': variant === 'secondary',
+			'border-2 border-neutral-700 bg-neutral-800 text-white active:enabled:bg-neutral-700': variant === 'primary',
+			'border-2 border-neutral-700 bg-transparent text-white active:enabled:bg-neutral-700': variant === 'secondary',
+			'bg-primary text-neutral-950': variant === 'action',
 			'shrink-0': isIconButton,
 			'size-12': isIconButton && !small,
 			'size-11': isIconButton && small,
 			'h-12 px-6 text-lg': !isIconButton && !small,
-			'h-10 px-5': !isIconButton && small,
+			'h-9 px-5': !isIconButton && small,
 		}"
 		:disabled="disabled"
 	>
