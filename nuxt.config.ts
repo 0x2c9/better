@@ -77,7 +77,7 @@ export default defineNuxtConfig({
 		strategies: 'generateSW',
 		registerType: 'prompt',
 		devOptions: {
-			enabled: true,
+			enabled: process.env.PWA_DEV === 'true',
 			type: 'module',
 			suppressWarnings: true,
 		},
