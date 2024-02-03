@@ -99,7 +99,7 @@ const computedDisplayValue = computed(() => {
 			<BButton
 				type="button"
 				variant="primary"
-				size="small"
+				small
 				:disabled="disabled || modelValue <= min"
 				icon-name="material-symbols-remove-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'minus')"
@@ -116,7 +116,7 @@ const computedDisplayValue = computed(() => {
 			<BButton
 				type="button"
 				variant="primary"
-				size="small"
+				small
 				:disabled="disabled || !!(max && modelValue >= max)"
 				icon-name="material-symbols-add-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'plus')"
