@@ -11,4 +11,5 @@ window.addEventListener('contextmenu', (event) => {
 		<NuxtPage />
 	</NuxtLayout>
 	<SvgSprite />
+	<NuxtPwaManifest />
 </template>

@@ -1,5 +1,5 @@
 {
-	"name": "nuxt-app",
+	"name": "better",
 	"type": "module",
 	"private": true,
 	"scripts": {
@@ -9,7 +9,8 @@
 		"typecheck": "nuxt typecheck",
 		"lint": "eslint .",
 		"lint:fix": "eslint --fix .",
-		"postinstall": "nuxt prepare"
+		"postinstall": "nuxt prepare",
+		"icon:generate": "pwa-assets-generator --preset minimal-2023 public/better-logo.svg"
 	},
 	"dependencies": {
 		"@supabase/supabase-js": "^2.39.3",
@@ -25,6 +26,8 @@
 		"@nuxt/kit": "^3.10.0",
 		"@pinia/nuxt": "^0.5.1",
 		"@types/howler": "^2.2.11",
+		"@vite-pwa/assets-generator": "^0.2.3",
+		"@vite-pwa/nuxt": "^0.4.0",
 		"@vueuse/core": "^10.7.2",
 		"@vueuse/nuxt": "^10.7.2",
 		"cheerio": "1.0.0-rc.12",
