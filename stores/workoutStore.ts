@@ -46,6 +46,13 @@ export const useWorkoutStore = defineStore(
 		}
 
 		async function getWorkoutById(workoutId: string): Promise<Workout> {
+			if (workouts.value.length > 0) {
+				const workout = workouts.value.find((workout) => workout.id === workoutId)
+
+				if (workout) {
+					return workout
+				}
+			}
 			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS).select().match({ id: workoutId }).single()
 
 			if (error) {

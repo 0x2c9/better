@@ -14,14 +14,18 @@ const selectedWorkout = ref<Workout>()
 const workoutExercises = ref<Exercise[][]>([])
 
 onMounted(async () => {
-	selectedWorkout.value = await workoutStore.getWorkoutById(route.params.workoutId as string)
-	for (let i = 0; i < selectedWorkout.value.workout_sets; i++) {
-		const duplicatedExercises = JSON.parse(JSON.stringify(selectedWorkout.value.workout_exercises)) as Exercise[]
-		workoutExercises.value[i] = duplicatedExercises.map((exercise) => {
-			exercise.listId = `${exercise.listId}-${i}`
+	try {
+		selectedWorkout.value = await workoutStore.getWorkoutById(route.params.workoutId as string)
+		for (let i = 0; i < selectedWorkout.value.workout_sets; i++) {
+			const duplicatedExercises = JSON.parse(JSON.stringify(selectedWorkout.value.workout_exercises)) as Exercise[]
+			workoutExercises.value[i] = duplicatedExercises.map((exercise) => {
+				exercise.listId = `${exercise.listId}-${i}`
 
-			return exercise
-		})
+				return exercise
+			})
+		}
+	} catch (error) {
+		console.log(error)
 	}
 })
 
