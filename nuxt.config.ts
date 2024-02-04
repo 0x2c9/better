@@ -48,6 +48,7 @@ export default defineNuxtConfig({
 		'@/assets/fonts/geist.css',
 		'@/assets/styles.css',
 	],
+	debug: false,
 	devtools: {
 		enabled: false,
 	},
