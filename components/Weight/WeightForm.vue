@@ -72,28 +72,30 @@ onMounted(() => {
 		>
 			{{ selectedWeightEntry ? 'Update your weight' : 'Add new entry' }}
 		</BButton>
-		<BDrawer v-model="showConfirmOverwrite">
-			<p class="mb-6 text-lg font-medium text-neutral-400">
-				Are you sure you want to overwrite your existing entry from <span class="text-white">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
-			</p>
+		<ClientOnly>
+			<LazyBDrawer v-model="showConfirmOverwrite">
+				<p class="mb-6 text-lg font-medium text-neutral-400">
+					Are you sure you want to overwrite your existing entry from <span class="text-white">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
+				</p>
 
-			<div class="flex flex-col gap-y-4">
-				<BButton
-					type="button"
-					class="w-full"
-					@click="onSubmit($event, true)"
-				>
-					Yes, overwrite
-				</BButton>
-				<BButton
-					variant="secondary"
-					type="button"
-					class="w-full"
-					@click="showConfirmOverwrite = false"
-				>
-					No, cancel
-				</BButton>
-			</div>
-		</BDrawer>
+				<div class="flex flex-col gap-y-4">
+					<BButton
+						type="button"
+						class="w-full"
+						@click="onSubmit($event, true)"
+					>
+						Yes, overwrite
+					</BButton>
+					<BButton
+						variant="secondary"
+						type="button"
+						class="w-full"
+						@click="showConfirmOverwrite = false"
+					>
+						No, cancel
+					</BButton>
+				</div>
+			</LazyBDrawer>
+		</ClientOnly>
 	</form>
 </template>

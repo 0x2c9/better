@@ -76,13 +76,14 @@ function toggleQuickStartForm() {
 			@delete-timer="onDeleteTimer"
 			@start-timer="onStartTimer"
 		/>
-
-		<BDrawer v-model="showDropdown">
-			<TimerForm
-				mode="form"
-				:selected-timer="selectedTimer"
-				@submit="onSubmit"
-			/>
-		</BDrawer>
+		<ClientOnly>
+			<BDrawer v-model="showDropdown">
+				<TimerForm
+					mode="form"
+					:selected-timer="selectedTimer"
+					@submit="onSubmit"
+				/>
+			</BDrawer>
+		</ClientOnly>
 	</article>
 </template>

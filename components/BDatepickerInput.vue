@@ -29,15 +29,17 @@ const displayValue = computed(() => {
 		:disabled="disabled"
 		@click="openDatepicker"
 	/>
-	<BDrawer
-		v-model="showDatepicker"
-		:narrow="false"
-	>
-		<BDatepicker
-			v-model="modelValue"
-			:highlighted-dates="highlightedDates"
-			:disable-future-dates="true"
-			@set-date="onSetDate"
-		/>
-	</BDrawer>
+	<ClientOnly>
+		<LazyBDrawer
+			v-model="showDatepicker"
+			:narrow="false"
+		>
+			<BDatepicker
+				v-model="modelValue"
+				:highlighted-dates="highlightedDates"
+				:disable-future-dates="true"
+				@set-date="onSetDate"
+			/>
+		</LazyBDrawer>
+	</ClientOnly>
 </template>
