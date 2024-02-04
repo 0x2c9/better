@@ -77,6 +77,7 @@ export default defineNuxtConfig({
 		strategies: 'generateSW',
 		registerType: 'prompt',
 		workbox: {
+			navigateFallbackDenylist: [/^\/workout/],
 			globPatterns: [
 				'**/*.{js,css,html,svg,ico,woff,woff2,json,ogg}',
 			],
