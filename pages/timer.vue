@@ -77,13 +77,13 @@ function toggleQuickStartForm() {
 			@start-timer="onStartTimer"
 		/>
 		<ClientOnly>
-			<BDrawer v-model="showDropdown">
+			<LazyBDrawer v-model="showDropdown">
 				<TimerForm
 					mode="form"
 					:selected-timer="selectedTimer"
 					@submit="onSubmit"
 				/>
-			</BDrawer>
+			</LazyBDrawer>
 		</ClientOnly>
 	</article>
 </template>
