@@ -1,9 +1,11 @@
 <script setup lang="ts">
-window.addEventListener('contextmenu', (event) => {
-	if ((event as PointerEvent).pointerType === 'touch') {
-		event.preventDefault()
-	}
-})
+if (import.meta.client) {
+	window.addEventListener('contextmenu', (event) => {
+		if ((event as PointerEvent).pointerType === 'touch') {
+			event.preventDefault()
+		}
+	})
+}
 </script>
 
 <template>
