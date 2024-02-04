@@ -77,6 +77,11 @@ export default defineNuxtConfig({
 		srcDir: './service-worker',
 		strategies: 'generateSW',
 		registerType: 'prompt',
+		workbox: {
+			globPatterns: [
+				'**/*.{js,css,html,svg,ico,woff,woff2,json,ogg}',
+			],
+		},
 		devOptions: {
 			enabled: process.env.PWA_DEV === 'true',
 			type: 'module',
