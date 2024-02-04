@@ -68,6 +68,7 @@ const computedPhaseConfig = computed(() => {
 
 const currentSet = ref(0)
 const intervals = ref<number[]>([])
+const INTERVAL_TIME = import.meta.dev ? 333 : 1000
 
 function initTimer() {
 	currentPhase.value = TimerPhase.Countdown
@@ -109,7 +110,7 @@ function initTimer() {
 			currentPhase.value = TimerPhase.Done
 			emits('done', exercise)
 		}
-	}, 1000)
+	}, INTERVAL_TIME)
 }
 
 let timer: Pausable | null = null
