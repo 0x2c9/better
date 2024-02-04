@@ -74,7 +74,6 @@ export default defineNuxtConfig({
 		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		disable: false,
 		scope: '/',
-		srcDir: './service-worker',
 		strategies: 'generateSW',
 		registerType: 'prompt',
 		workbox: {
