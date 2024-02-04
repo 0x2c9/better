@@ -6,6 +6,10 @@ const { placeholder, type = 'text', labelCenter = false, readonly = false, disab
 	type?: string
 	readonly?: boolean
 	disabled?: boolean
+	required?: boolean
+	error?: string
+	id?: string
+	minlength?: string
 }>()
 
 const modelValue = defineModel()
@@ -26,6 +30,7 @@ function onFocusOut() {
 
 <template>
 	<label
+		:for="id"
 		class="inline-block"
 		:class="{
 			'opacity-20': disabled,
@@ -40,31 +45,35 @@ function onFocusOut() {
 			{{ label }}
 		</span>
 		<input
+			:id="id"
 			v-model="modelValue"
 			class="
 				h-12
 				w-full
 				rounded-md
 				border
-				border-neutral-600
+				border-neutral-500
 				bg-transparent
 				px-4
 				py-2
 				text-lg
 				font-medium
-				text-white
+				text-neutral-200
 				placeholder:text-neutral-600
 			"
 			:class="{
 				'border-neutral-400': !hasFocus,
-				'outline-none ring-2 ring-blue focus:border-transparent': hasFocus,
+				'outline-none ring-1 ring-primary focus:border-transparent': hasFocus,
 			}"
 			:type="type"
 			:placeholder="placeholder"
 			:readonly="readonly"
 			:disabled="disabled"
+			:required="required"
+			:minlength="minlength"
 			@focusin="onFocusIn"
 			@focusout="onFocusOut"
 		>
+		<span v-if="error">{{ error }}</span>
 	</label>
 </template>
