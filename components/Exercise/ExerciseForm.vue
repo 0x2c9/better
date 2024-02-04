@@ -56,7 +56,6 @@ function onSubmitExercise(exercise: Exercise) {
 	<ClientOnly>
 		<LazyBDrawer
 			v-model="openExerciseForm"
-			:enable-mutation-observer="true"
 		>
 			<button
 				v-if="exerciseType && !selectedExercise"
