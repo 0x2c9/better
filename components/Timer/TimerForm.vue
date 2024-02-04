@@ -72,7 +72,7 @@ async function onSubmit() {
 
 <template>
 	<form
-		class="mb-4 flex flex-col items-center space-y-4"
+		class="flex flex-col items-center space-y-4"
 		@submit.prevent="onEnter"
 	>
 		<BInput
