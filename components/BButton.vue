@@ -4,6 +4,7 @@ type IButtonProps = {
 	variant?: 'primary' | 'secondary' | 'action'
 	small?: boolean
 	disabled?: boolean
+	to?: string
 }
 
 const {
@@ -11,14 +12,25 @@ const {
 	iconName = null,
 	small = false,
 	disabled = false,
+	to = null,
 } = defineProps<IButtonProps>()
 
 const isIconButton = computed(() => !!iconName)
+
+const component = computed(() => {
+	if (to) {
+		return resolveComponent('NuxtLink')
+	}
+
+	return 'button'
+})
 </script>
 
 <template>
-	<button
-		class="flex select-none items-center justify-center rounded-full font-semibold"
+	<component
+		:is="component"
+		:to="to"
+		class="flex select-none items-center justify-center rounded-full font-bold"
 		:class="{
 			'border-2 border-neutral-700 bg-neutral-800 text-white active:enabled:bg-neutral-700': variant === 'primary',
 			'border-2 border-neutral-700 bg-transparent text-white active:enabled:bg-neutral-700': variant === 'secondary',
@@ -37,5 +49,5 @@ const isIconButton = computed(() => !!iconName)
 			size="28"
 		/>
 		<slot />
-	</button>
+	</component>
 </template>
