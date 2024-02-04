@@ -6,11 +6,11 @@ export default defineNuxtConfig({
 			},
 			charset: 'utf-8',
 			viewport: 'width=device-width, initial-scale=1.0, user-scalable=no',
-			title: 'better - Track your weight loss and fitness journey',
+			title: 'better - Track your weight loss and fitness journey with ease.',
 			meta: [
 				{
 					name: 'description',
-					content: 'better helps you monitor your weight, exercise and nutrition to achieve your fitness goals.',
+					content: 'Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with Better.',
 				},
 				{
 					name: 'theme-color',
@@ -88,9 +88,9 @@ export default defineNuxtConfig({
 			suppressWarnings: true,
 		},
 		manifest: {
-			name: 'better - Track your weight loss and fitness journey',
+			name: 'better - Track your weight loss and fitness journey with ease.',
 			short_name: 'better',
-			description: 'better helps you monitor your weight, exercise and nutrition to achieve your fitness goals.',
+			description: 'Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with Better',
 			theme_color: '#0B0B0A',
 			background_color: '#0B0B0A',
 			display: 'standalone',

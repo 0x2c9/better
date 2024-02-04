@@ -1,43 +1,30 @@
-<script setup lang="ts">
-const authStore = useAuthStore()
-
-const email = ref('')
-const password = ref('')
-
-async function onSubmit() {
-	if (authStore.isAuthenticated) {
-		navigateTo('/home')
-		return
-	}
-	await authStore.signIn({
-		email: email.value,
-		password: password.value,
-	})
-}
-</script>
-
 <template>
-	<div class="mx-auto mt-12 flex w-full max-w-7xl flex-col">
-		<form
-			class="flex flex-col space-y-4"
-			@submit.prevent="onSubmit"
+	<article class="relative mx-auto mt-12 flex w-full max-w-7xl flex-col">
+		<div class="mx-auto max-w-20">
+			<BetterLogoIcon />
+		</div>
+		<div class="mx-auto w-full max-w-48">
+			<BetterLogoFont />
+		</div>
+		<h1 class="mt-8 text-center text-2xl font-semibold">
+			Track your weight loss and fitness journey with ease.
+		</h1>
+		<p class="mt-4 text-center text-lg text-neutral-400">
+			Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with <span class="font-semibold">Better</span>.
+		</p>
+		<BButton
+			variant="action"
+			class="mt-auto font-bold"
+			to="/signup"
 		>
-			<input
-				v-model="email"
-				class="rounded-lg bg-white px-2 py-3 text-black"
-				type="email"
-				placeholder="email"
-			>
-			<input
-				v-model="password"
-				class="rounded-lg bg-white px-2 py-3 text-black"
-				type="password"
-				placeholder="password"
-			>
-
-			<button type="submit">
-				Sign In
-			</button>
-		</form>
-	</div>
+			Start your journey
+		</BButton>
+		<BButton
+			variant="secondary"
+			class="mb-12 mt-4"
+			to="/login"
+		>
+			Sign in
+		</BButton>
+	</article>
 </template>
