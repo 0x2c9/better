@@ -57,8 +57,8 @@ function onStopTimer() {
 
 function onDoneTimer(exercise: Exercise) {
 	timedExercise.value = null
-	for (const workoutExercise of selectedWorkout.value!.workout_exercises) {
-		if (workoutExercise.id === exercise.id) {
+	for (const workoutExercise of workoutExercises.value[activeSet.value - 1]) {
+		if (workoutExercise.listId === exercise.listId) {
 			workoutExercise.done = true
 		}
 	}
@@ -122,6 +122,7 @@ const computedWorkoutExercises = computed(() => {
 					v-model="activeSet"
 					label="Current Set"
 					:max="selectedWorkout?.workout_sets"
+					:min="1"
 					:steps="1"
 					:computed-display-value="`${activeSet}/${selectedWorkout?.workout_sets}`"
 				/>
