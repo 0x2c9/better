@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const { title = null, narrow = true, enableMutationObserver = false, fullscreen = false } = defineProps<{
+const { title = null, narrow = true, fullscreen = false } = defineProps<{
 	title?: string
 	narrow?: boolean
 	fullscreen?: boolean
-	enableMutationObserver?: boolean
 }>()
 
 const emits = defineEmits(['close'])
@@ -127,9 +126,9 @@ const mutationObserver = new MutationObserver((_mutations, _observer) => {
 	const dropdownElPaddingBottom = Number.parseInt(computedStyle.getPropertyValue('padding-bottom'))
 	const swipeElHeight = swipeEl.value?.clientHeight ?? 0
 	const slotElHeight = slotEl.value?.clientHeight ?? 0
-	const sum = dropdownElPaddingBottom + swipeElHeight + slotElHeight
 
-	targetHeight.value = sum
+	targetHeight.value = dropdownElPaddingBottom + swipeElHeight + slotElHeight
+
 	if (currentState.value === 'auto') {
 		setToInitialState()
 	}
@@ -146,7 +145,7 @@ watch(
 			return
 		}
 
-		if (enableMutationObserver) {
+		if (!fullscreen) {
 			mutationObserver.observe(newElement, {
 				subtree: true,
 				childList: true,
