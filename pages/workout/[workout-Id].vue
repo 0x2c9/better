@@ -88,6 +88,42 @@ const computedWorkoutExercises = computed(() => {
 
 <template>
 	<article class="relative flex h-full flex-col">
+		<audio
+			preload="auto"
+			aria-hidden="true"
+		>
+			<source
+				src="/sounds/2x-beep.ogg"
+				type="audio/ogg"
+			>
+		</audio>
+		<audio
+			preload="auto"
+			aria-hidden="true"
+		>
+			<source
+				src="/sounds/3x-beep.ogg"
+				type="audio/ogg"
+			>
+		</audio>
+		<audio
+			preload="auto"
+			aria-hidden="true"
+		>
+			<source
+				src="/sounds/long-beep.ogg"
+				type="audio/ogg"
+			>
+		</audio>
+		<audio
+			preload="auto"
+			aria-hidden="true"
+		>
+			<source
+				src="/sounds/short-beep.ogg"
+				type="audio/ogg"
+			>
+		</audio>
 		<div class="flex-1 overflow-y-auto px-4 py-6">
 			<WorkoutExerciseList
 				v-if="selectedWorkout"
