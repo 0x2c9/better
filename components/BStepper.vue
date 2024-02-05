@@ -19,17 +19,25 @@ const {
 
 const modelValue = defineModel<number>({ required: true })
 
-const fasterIntervalTimeout = ref<NodeJS.Timeout>()
 const currentInterval = ref<NodeJS.Timeout>()
 const currentTimeout = ref<NodeJS.Timeout>()
+const increaseStepTimeout = ref<NodeJS.Timeout>()
+const useIncreasedStep = ref(false)
 
 const initialTouchStart = ref({ x: 0, y: 0 })
+
+function clearStepper() {
+	clearInterval(currentInterval.value)
+	clearTimeout(currentTimeout.value)
+	clearTimeout(increaseStepTimeout.value)
+	useIncreasedStep.value = false
+}
 
 function increaseValue() {
 	if (max && modelValue.value! >= max)
 		return
 
-	const newValue = (modelValue.value as number) + steps
+	const newValue = (modelValue.value as number) + (useIncreasedStep.value ? 1 : steps)
 
 	modelValue.value = Number.parseFloat(newValue.toFixed(2))
 }
@@ -38,7 +46,7 @@ function decreaseValue() {
 	if (modelValue.value! <= min)
 		return
 
-	const newValue = (modelValue.value as number) - steps
+	const newValue = (modelValue.value as number) - (useIncreasedStep.value ? 1 : steps)
 
 	modelValue.value = Number.parseFloat(newValue.toFixed(2))
 }
@@ -48,6 +56,10 @@ function onTouchStart(event: TouchEvent, type: string) {
 		x: event.touches[0].clientX,
 		y: event.touches[0].clientY,
 	}
+
+	increaseStepTimeout.value = setTimeout(() => {
+		useIncreasedStep.value = true
+	}, 2000)
 
 	currentTimeout.value = setTimeout(() => {
 		currentInterval.value = setInterval(() => {
@@ -63,16 +75,8 @@ function onTouchMove(event: TouchEvent) {
 	const yDiff = Math.abs(initialTouchStart.value.y - clientY)
 
 	if (xDiff > 100 || yDiff > 100) {
-		clearInterval(currentInterval.value)
-		clearTimeout(currentTimeout.value)
-		clearTimeout(fasterIntervalTimeout.value)
+		clearStepper()
 	}
-}
-
-function onTouchEnd() {
-	clearInterval(currentInterval.value)
-	clearTimeout(currentTimeout.value)
-	clearTimeout(fasterIntervalTimeout.value)
 }
 
 const computedDisplayValue = computed(() => {
@@ -103,7 +107,7 @@ const computedDisplayValue = computed(() => {
 				:disabled="disabled || modelValue <= min"
 				icon-name="material-symbols-remove-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'minus')"
-				@touchend="onTouchEnd"
+				@touchend="clearStepper"
 				@touchmove.stop.passive="onTouchMove"
 				@click="decreaseValue"
 			/>
@@ -120,7 +124,7 @@ const computedDisplayValue = computed(() => {
 				:disabled="disabled || !!(max && modelValue >= max)"
 				icon-name="material-symbols-add-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'plus')"
-				@touchend="onTouchEnd"
+				@touchend="clearStepper"
 				@touchmove.stop.passive="onTouchMove"
 				@click="increaseValue"
 			/>
