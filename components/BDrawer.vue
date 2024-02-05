@@ -163,8 +163,11 @@ watch(
 					emits('close')
 				}
 			})
-
-			setToInitialState()
+			if (fullscreen) {
+				setToFullState()
+			} else {
+				setToInitialState()
+			}
 		}
 	},
 )
@@ -204,7 +207,7 @@ function onBackdropClick() {
 	emits('close')
 }
 
-const sluts = useSlots()
+const slots = useSlots()
 </script>
 
 <template>
@@ -236,10 +239,10 @@ const sluts = useSlots()
 				v-if="modelValue"
 				ref="dropdownEl"
 				:data-drawer-index="localDropdownCounter"
-				class="b-box absolute inset-4 z-[1020] flex flex-col overflow-hidden   rounded-3xl border-t border-transparent will-change-transform"
+				class="b-box absolute inset-4 z-[1020] flex flex-col overflow-hidden rounded-3xl border-t will-change-transform"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
-					'pb-8': !sluts.footer,
+					'pb-8': !slots.footer,
 				}"
 				:style="{
 					top,
@@ -248,7 +251,7 @@ const sluts = useSlots()
 			>
 				<div
 					ref="swipeEl"
-					class="pb-6 pt-4"
+					class="py-4"
 					:class="{
 						'px-8': narrow && !fullscreen,
 						'px-4': !narrow || fullscreen,
@@ -284,7 +287,7 @@ const sluts = useSlots()
 				<div
 					ref="slotEl"
 					:class="{
-						'flex-1 overflow-y-auto overflow-x-hidden py-4': fullscreen,
+						'flex-1 overflow-y-auto overflow-x-hidden pb-4': fullscreen,
 						'px-8': narrow && !fullscreen,
 						'px-4': !narrow || fullscreen,
 					}"
