@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('Authentication', () => {
 			return
 		}
 
-		await navigateTo('/home')
+		await navigateTo('/home?onboarding=true')
 	}
 
 	async function signOut() {

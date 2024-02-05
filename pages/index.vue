@@ -17,7 +17,7 @@
 			class="mt-auto font-bold"
 			to="/signup"
 		>
-			Start your journey
+			Start my journey
 		</BButton>
 		<BButton
 			variant="secondary"
