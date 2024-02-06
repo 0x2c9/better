@@ -7,8 +7,8 @@ const { selectedExercise, preventSubmit = false } = defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'submitForm': [void]
-	'submitExercise': [exercise: TimeExercise]
+	submitForm: [void]
+	submitExercise: [exercise: TimeExercise]
 }>()
 
 const exerciseStore = useExerciseStore()
@@ -25,6 +25,17 @@ const exercise = ref<TimeExercise>({
 })
 
 watch(
+	() => selectedExercise,
+	(newExercise) => {
+		if (newExercise) {
+			exercise.value = JSON.parse(JSON.stringify(newExercise))
+			console.log(exercise.value)
+		}
+	},
+	{ immediate: true },
+)
+
+watch(
 	() => exercise.value.exercise_sets,
 	(newSets, oldSets) => {
 		if (newSets === 1) {
@@ -34,21 +45,6 @@ watch(
 		if (oldSets === 1 && newSets > 1) {
 			exercise.value.exercise_pause_time = 5
 		}
-	},
-	{
-		immediate: true,
-	},
-)
-
-watch(
-	() => selectedExercise,
-	(newExercise) => {
-		if (newExercise) {
-			exercise.value = { ...newExercise }
-		}
-	},
-	{
-		immediate: true,
 	},
 )
 
