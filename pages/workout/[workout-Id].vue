@@ -69,6 +69,20 @@ function onDoneTimer(exercise: Exercise) {
 }
 
 const showConfirmLeaveModal = ref(false)
+
+function beforeUnloadHandler(event: BeforeUnloadEvent) {
+	event.preventDefault()
+	event.returnValue = ''
+}
+
+if (import.meta.client) {
+	window.addEventListener('beforeunload', beforeUnloadHandler)
+}
+
+onBeforeRouteLeave(() => {
+	window.removeEventListener('beforeunload', beforeUnloadHandler)
+})
+
 function onGoBack() {
 	showConfirmLeaveModal.value = true
 }
