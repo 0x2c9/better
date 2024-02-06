@@ -70,7 +70,6 @@ function onDoneTimer(exercise: Exercise) {
 
 const showConfirmLeaveModal = ref(false)
 function onGoBack() {
-	// TODO: show confirm modal
 	showConfirmLeaveModal.value = true
 }
 
