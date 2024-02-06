@@ -14,12 +14,6 @@ const menuItems: IMenuItem[] = [
 		iconActive: 'material-symbols-home-rounded',
 	},
 	{
-		title: 'Timer',
-		link: '/timer',
-		iconBase: 'material-symbols-alarm-outline-rounded',
-		iconActive: 'material-symbols-alarm-rounded',
-	},
-	{
 		title: 'Workouts',
 		link: '/workouts',
 		iconBase: 'ion-fitness-outline',
@@ -30,6 +24,12 @@ const menuItems: IMenuItem[] = [
 		link: '/exercises',
 		iconBase: 'material-symbols-exercise-outline',
 		iconActive: 'material-symbols-exercise',
+	},
+	{
+		title: 'Settings',
+		link: '/settings',
+		iconBase: 'material-symbols-settings-outline-rounded',
+		iconActive: 'material-symbols-settings-rounded',
 	},
 ]
 </script>

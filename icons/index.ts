@@ -1,6 +1,6 @@
 export const ICONS = {
-	'material-symbols-alternate-email-rounded': 'material-symbols-alternate-email-rounded',
-	'material-symbols-password-rounded': 'material-symbols-password-rounded',
+	'material-symbols-settings-rounded': 'material-symbols-settings-rounded',
+	'material-symbols-settings-outline-rounded': 'material-symbols-settings-outline-rounded',
 	'material-symbols-visibility-outline-rounded': 'material-symbols-visibility-outline-rounded',
 	'material-symbols-visibility-off-outline-rounded': 'material-symbols-visibility-off-outline-rounded',
 	'material-symbols-exercise': 'material-symbols-exercise',
