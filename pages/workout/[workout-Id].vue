@@ -68,9 +68,17 @@ function onDoneTimer(exercise: Exercise) {
 	}
 }
 
+const showConfirmLeaveModal = ref(false)
 function onGoBack() {
 	// TODO: show confirm modal
+	showConfirmLeaveModal.value = true
+}
+
+function leaveCurrentWorkout() {
 	navigateTo('/workouts')
+}
+function stayOnWorkout() {
+	showConfirmLeaveModal.value = false
 }
 
 function onSaveWorkout() {
@@ -181,5 +189,34 @@ const computedWorkoutExercises = computed(() => {
 				</div>
 			</nav>
 		</footer>
+
+		<ClientOnly>
+			<LazyBDrawer
+				v-model="showConfirmLeaveModal"
+			>
+				<section class="flex flex-col">
+					<h1 class="text-xl font-semibold">
+						Do you want to leave your current workout?
+					</h1>
+					<p class="mt-2 text-lg">
+						You are about to lose your current progress in your workout.
+					</p>
+					<BButton
+						class="mt-8"
+						variant="action"
+						@click="leaveCurrentWorkout"
+					>
+						Confirm and leave
+					</BButton>
+					<BButton
+						class="mt-4"
+						variant="secondary"
+						@click="stayOnWorkout"
+					>
+						Stay
+					</BButton>
+				</section>
+			</LazyBDrawer>
+		</ClientOnly>
 	</article>
 </template>
