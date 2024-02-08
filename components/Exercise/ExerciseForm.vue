@@ -7,7 +7,7 @@ const { selectedExercise, preventSubmit = false } = defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'submitExercise': [exercise: Exercise]
+	submitExercise: [exercise: Exercise]
 }>()
 
 const openExerciseForm = defineModel<boolean>({ required: true, default: false })

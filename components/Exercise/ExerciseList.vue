@@ -8,8 +8,8 @@ const { disableDelete = false, keyField = 'id' } = defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'selectExercise': [item: Exercise]
-	'deleteExercise': [item: Exercise]
+	selectExercise: [item: Exercise]
+	deleteExercise: [item: Exercise]
 }>()
 
 function onSelectExercise(item: Exercise) {

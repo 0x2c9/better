@@ -7,8 +7,8 @@ const { selectedExercise, preventSubmit = false } = defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'submitForm': [void]
-	'submitExercise': [exercise: RepsExercise]
+	submitForm: [void]
+	submitExercise: [exercise: RepsExercise]
 }>()
 
 const exerciseStore = useExerciseStore()

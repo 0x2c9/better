@@ -6,8 +6,8 @@ defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'selectWorkout': [item: Workout]
-	'deleteWorkout': [item: Workout]
+	selectWorkout: [item: Workout]
+	deleteWorkout: [item: Workout]
 }>()
 
 function selectWorkout(item: Workout) {

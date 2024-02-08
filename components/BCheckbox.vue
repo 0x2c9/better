@@ -4,7 +4,7 @@ defineProps<{
 }>()
 
 const emits = defineEmits<{
-	'checked': [boolean]
+	checked: [boolean]
 }>()
 
 const isChecked = defineModel<boolean>({ default: false })
