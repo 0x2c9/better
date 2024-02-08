@@ -68,8 +68,6 @@ function onDoneTimer(exercise: Exercise) {
 	}
 }
 
-const showConfirmLeaveModal = ref(false)
-
 function beforeUnloadHandler(event: BeforeUnloadEvent) {
 	event.preventDefault()
 	event.returnValue = ''
@@ -83,6 +81,9 @@ onBeforeRouteLeave(() => {
 	window.removeEventListener('beforeunload', beforeUnloadHandler)
 })
 
+const showConfirmLeaveModal = ref(false)
+const showConfirmSaveModal = ref(false)
+
 function onGoBack() {
 	showConfirmLeaveModal.value = true
 }
@@ -92,9 +93,25 @@ function leaveCurrentWorkout() {
 }
 function stayOnWorkout() {
 	showConfirmLeaveModal.value = false
+	showConfirmSaveModal.value = false
 }
 
+const undoneWorkouts = ref<Exercise[]>([])
+
 function onSaveWorkout() {
+	undoneWorkouts.value = []
+	showConfirmSaveModal.value = true
+
+	for (const workoutSet of workoutExercises.value) {
+		for (const workoutExercise of workoutSet) {
+			if (!workoutExercise.done) {
+				undoneWorkouts.value.push(workoutExercise)
+			}
+		}
+	}
+}
+
+async function saveWorkoutAndLeave() {
 	if (!selectedWorkout.value) {
 		return
 	}
@@ -103,7 +120,8 @@ function onSaveWorkout() {
 		workout_exercises: workoutExercises.value,
 		workout_sets: selectedWorkout.value.workout_sets,
 	}
-	workoutStore.saveWorkoutEntry(payload)
+	await workoutStore.saveWorkoutEntry(payload)
+	navigateTo('/workouts')
 }
 
 const computedWorkoutExercises = computed(() => {
@@ -204,9 +222,7 @@ const computedWorkoutExercises = computed(() => {
 		</footer>
 
 		<ClientOnly>
-			<LazyBDrawer
-				v-model="showConfirmLeaveModal"
-			>
+			<LazyBDrawer v-model="showConfirmLeaveModal">
 				<section class="flex flex-col">
 					<h1 class="text-xl font-semibold">
 						Do you want to leave your current workout?
@@ -220,6 +236,40 @@ const computedWorkoutExercises = computed(() => {
 						@click="leaveCurrentWorkout"
 					>
 						Confirm and leave
+					</BButton>
+					<BButton
+						class="mt-4"
+						variant="secondary"
+						@click="stayOnWorkout"
+					>
+						Stay
+					</BButton>
+				</section>
+			</LazyBDrawer>
+			<LazyBDrawer v-model="showConfirmSaveModal">
+				<section class="flex flex-col">
+					<h1 class="text-xl font-semibold">
+						<template v-if="undoneWorkouts.length === 0">
+							You are done with your workout!
+						</template>
+						<template v-else>
+							Not all exercises are finished.
+						</template>
+					</h1>
+					<p class="mt-2 text-lg">
+						<template v-if="undoneWorkouts.length === 0">
+							You are about to save your finished workout. You'll be redirected to the workout list.
+						</template>
+						<template v-else>
+							You have some exercises that are not finished yet. Do you want to save your current workout anyway?
+						</template>
+					</p>
+					<BButton
+						class="mt-8"
+						variant="action"
+						@click="saveWorkoutAndLeave"
+					>
+						Confirm and save
 					</BButton>
 					<BButton
 						class="mt-4"
