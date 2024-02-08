@@ -202,7 +202,15 @@ watch(activeElement, (el) => {
 	}
 })
 
-function onBackdropClick() {
+function onBackdropClick(e: MouseEvent) {
+	if (e.clientY + 10 > Number.parseInt(top.value) || fullscreen) {
+		return
+	}
+
+	closeDrawer()
+}
+
+function closeDrawer() {
 	modelValue.value = false
 	emits('close')
 }
@@ -267,7 +275,7 @@ const slots = useSlots()
 							<button
 								class="absolute left-0"
 								type="button"
-								@click="onBackdropClick"
+								@click="closeDrawer"
 							>
 								<BIcon
 									name="material-symbols-arrow-back-rounded"
