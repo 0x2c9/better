@@ -8,7 +8,7 @@
 			variant="action"
 			small
 		>
-			<slot />
+			<slot></slot>
 		</BButton>
 	</div>
 </template>

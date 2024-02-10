@@ -36,10 +36,7 @@ function onDelete(item: T) {
 				@delete="onDelete(item)"
 			>
 				<template #content>
-					<slot
-						name="content"
-						:item="item"
-					/>
+					<slot name="content" :item="item"></slot>
 				</template>
 			</BGenericListItem>
 		</TransitionGroup>

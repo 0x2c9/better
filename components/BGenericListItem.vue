@@ -73,10 +73,7 @@ function onDelete() {
 			}"
 			@click="onSelect"
 		>
-			<slot
-				name="content"
-				:item="item"
-			/>
+			<slot name="content" :item="item"></slot>
 		</div>
 
 		<div

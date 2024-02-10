@@ -56,7 +56,9 @@ function onLabelClick() {
 			type="checkbox"
 			hidden
 		>
-		<span v-if="!label"><slot /></span>
+		<span v-if="!label">
+			<slot></slot>
+		</span>
 		<span v-else>{{ label }}</span>
 	</div>
 </template>

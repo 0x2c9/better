@@ -115,7 +115,7 @@ const computedDisplayValue = computed(() => {
 				<span class="text-4xl font-semibold">
 					{{ computedDisplayValue }}
 				</span>
-				<slot />
+				<slot></slot>
 			</div>
 			<BButton
 				type="button"

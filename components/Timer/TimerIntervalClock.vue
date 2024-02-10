@@ -182,7 +182,7 @@ onBeforeUnmount(() => {
 			<div
 				v-if="!timer?.isActive.value && currentPhase !== TimerPhase.Done && showTimerOverlay"
 				class="pointer-events-none fixed inset-0 z-50 bg-neutral-950/50 backdrop-blur-[3px]"
-			/>
+			></div>
 		</Transition>
 		<Transition name="fade">
 			<div

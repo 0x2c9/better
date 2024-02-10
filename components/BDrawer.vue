@@ -231,7 +231,7 @@ const slots = useSlots()
 					zIndex: 1010 + localDropdownCounter,
 				}"
 				@click="onBackdropClick"
-			/>
+			></div>
 		</Transition>
 		<Transition
 			appear
@@ -267,7 +267,7 @@ const slots = useSlots()
 				>
 					<template v-if="!fullscreen">
 						<div class="flex flex-col items-center justify-center">
-							<div class="h-1.5 w-12 rounded-full bg-neutral-200" />
+							<div class="h-1.5 w-12 rounded-full bg-neutral-200"></div>
 						</div>
 					</template>
 					<template v-else>
@@ -300,10 +300,10 @@ const slots = useSlots()
 						'px-4': !narrow || fullscreen,
 					}"
 				>
-					<slot name="default" />
+					<slot name="default"></slot>
 				</div>
 				<footer class="z-50 border-t border-t-neutral-600/60 bg-neutral-900 p-4 empty:hidden">
-					<slot name="footer" />
+					<slot name="footer"></slot>
 				</footer>
 			</div>
 		</Transition>

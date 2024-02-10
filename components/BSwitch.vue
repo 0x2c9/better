@@ -70,7 +70,7 @@ onUnmounted(() => {
 			text-white
 			transition-all
 			"
-		/>
+		></div>
 		<button
 			v-for="(option, index) of options"
 			:key="option.content"

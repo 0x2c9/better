@@ -48,6 +48,6 @@ const component = computed(() => {
 			:name="iconName"
 			size="28"
 		/>
-		<slot />
+		<slot></slot>
 	</component>
 </template>
