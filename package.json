@@ -21,7 +21,7 @@
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^2.6.4",
-		"@eslint/eslintrc": "^3.0.0",
+		"@eslint/eslintrc": "^3.0.1",
 		"@nuxt/devtools": "^1.0.8",
 		"@nuxt/kit": "^3.10.1",
 		"@pinia/nuxt": "^0.5.1",

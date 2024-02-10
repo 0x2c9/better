@@ -10,14 +10,6 @@ export default antfu(
 			quotes: 'single',
 			indent: 'tab',
 		},
-		typescript: {
-			tsconfigPath: 'tsconfig.json',
-			parserOptions: {
-				extraFileExtensions: ['.vue'],
-			},
-		},
-		typescript: true,
-		vue: true,
 	},
 	{
 		rules: {
