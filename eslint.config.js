@@ -21,13 +21,23 @@ export default antfu(
 				'error',
 				{
 					singleline: {
-						max: 1,
+						max: 2,
 					},
 					multiline: {
 						max: 1,
 					},
 				},
 			],
+			'vue/html-self-closing': ['error', {
+				html: {
+					void: 'never',
+					normal: 'never',
+					component: 'always',
+				},
+				svg: 'always',
+				math: 'always',
+			}],
+
 			'node/prefer-global/process': 'off',
 			'ts/consistent-type-definitions': 'off',
 		},
