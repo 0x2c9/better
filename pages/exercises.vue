@@ -27,7 +27,7 @@ function onDeleteExercise(exercise: Exercise) {
 </script>
 
 <template>
-	<article class="relative h-full">
+	<article class="relative">
 		<BPageActionButton @click="openExercise">
 			<BIcon
 				name="material-symbols-add-rounded"
@@ -38,7 +38,7 @@ function onDeleteExercise(exercise: Exercise) {
 
 		<div
 			v-if="!exerciseStore.exercises?.length"
-			class="absolute inset-x-0 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
+			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
 		>
 			<p>There are no exercises yet.</p>
 			<p>Add your first exercises to get started.</p>

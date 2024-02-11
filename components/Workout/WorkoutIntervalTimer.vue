@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import type { Pausable } from '@vueuse/core'
 import { Howl } from 'howler'
+import type { TimeExercise } from '~/types/exercise'
+
+const { exercise } = defineProps<{
+	exercise: TimeExercise
+}>()
+
+const emits = defineEmits<{
+	stop: [void]
+	done: [TimeExercise]
+}>()
+
+const sets = exercise.exercise_sets
+const training = exercise.exercise_training_time
+const pause = exercise.exercise_pause_time
 
 const shortbeep = new Howl({ src: ['/sounds/short-beep.ogg'] })
 const longBeep = new Howl({ src: ['/sounds/long-beep.ogg'] })
 const doubleBeep = new Howl({ src: ['/sounds/2x-beep.ogg'] })
 const tripleBeep = new Howl({ src: ['/sounds/3x-beep.ogg'] })
-
-definePageMeta({
-	layout: 'app',
-	auth: true,
-})
-
-const route = useRoute()
-
-const sets = Number.parseInt(route.params.sets as string)
-const training = Number.parseInt(route.params.training as string)
-const pause = Number.parseInt(route.params.pause as string)
 
 const TimerPhase = {
 	Countdown: 'Countdown',
@@ -65,6 +68,7 @@ const computedPhaseConfig = computed(() => {
 
 const currentSet = ref(0)
 const intervals = ref<number[]>([])
+const INTERVAL_TIME = import.meta.dev ? 333 : 1000
 
 function initTimer() {
 	currentPhase.value = TimerPhase.Countdown
@@ -104,8 +108,9 @@ function initTimer() {
 		} else {
 			tripleBeep.play()
 			currentPhase.value = TimerPhase.Done
+			emits('done', exercise)
 		}
-	}, 1000)
+	}, INTERVAL_TIME)
 }
 
 let timer: Pausable | null = null
@@ -127,12 +132,11 @@ watch(
 	},
 )
 
-// Controll overlay which holds the timer controls
 const showTimerOverlay = ref(false)
 
-let timeoutId: NodeJS.Timeout = setTimeout(() => {}, 0)
+let timeoutId: NodeJS.Timeout = setTimeout(() => { }, 0)
 
-function onTouchStart() {
+function toggleTimerOverlay() {
 	clearTimeout(timeoutId)
 	if (currentPhase.value === TimerPhase.Done) {
 		return
@@ -159,20 +163,18 @@ function toggleTimer() {
 	}
 }
 
-async function onStop() {
-	timer?.pause()
-	await navigateTo('/timer')
+const buttonIsActive = ref(false)
+
+function stopTimer() {
+	if (buttonIsActive.value) {
+		timer?.pause()
+		emits('stop')
+	}
 }
-
-window.addEventListener('touchstart', onTouchStart, { passive: true })
-
-onBeforeUnmount(() => {
-	window.removeEventListener('touchstart', onTouchStart)
-})
 </script>
 
 <template>
-	<article class="relative flex flex-1">
+	<article class="absolute inset-0 z-50 flex flex-1 bg-neutral-950" @click="toggleTimerOverlay">
 		<Transition name="fade">
 			<div
 				v-if="!timer?.isActive.value && currentPhase !== TimerPhase.Done && showTimerOverlay"
@@ -182,14 +184,39 @@ onBeforeUnmount(() => {
 		<Transition name="fade">
 			<div
 				v-if="currentPhase !== TimerPhase.Done"
-				class="absolute inset-0 z-[51] flex flex-col transition-opacity duration-500"
+				class="absolute inset-0 z-[51] flex flex-col px-4 pb-16 transition-opacity duration-500"
 				:class="{
 					'opacity-100': showTimerOverlay,
 					'pointer-events-none opacity-0': !showTimerOverlay,
 				}"
 			>
 				<div class="mt-auto flex w-full items-center">
-					<TimerIntervalStopButton @stop="onStop" />
+					<BButton
+						variant="secondary"
+						class="
+							relative
+							overflow-hidden
+							before:pointer-events-none
+							before:absolute
+							before:inset-0
+							before:z-0
+							before:origin-left
+							before:scale-x-0
+							before:transform
+							before:bg-neutral-800
+							before:transition-transform
+							before:ease-linear
+							active:enabled:bg-transparent
+						"
+						:class="buttonIsActive ? 'before:scale-x-100 before:duration-500' : 'before:scale-x-0 before:duration-200'"
+						@mousedown="buttonIsActive = true"
+						@mouseup="buttonIsActive = false"
+						@touchstart.passive="buttonIsActive = true"
+						@touchend="buttonIsActive = false"
+						@transitionend="stopTimer"
+					>
+						<span class="relative z-20">Hold to Stop</span>
+					</BButton>
 
 					<BButton
 						class="ml-auto"
@@ -225,18 +252,9 @@ onBeforeUnmount(() => {
 			</div>
 
 			<Transition name="fade">
-				<div
-					v-if="currentPhase === TimerPhase.Done"
-					class="absolute bottom-0 flex w-full flex-col space-y-4"
-				>
-					<BButton
-						variant="secondary"
-						@click="repeatTimer"
-					>
-						<BIcon
-							name="material-symbols-replay-rounded"
-							class="mr-2"
-						/>
+				<div v-if="currentPhase === TimerPhase.Done" class="absolute bottom-0 flex w-full flex-col space-y-4">
+					<BButton variant="secondary" @click="repeatTimer">
+						<BIcon name="material-symbols-replay-rounded" class="mr-2" />
 						Repeat
 					</BButton>
 					<BButton to="/timer">

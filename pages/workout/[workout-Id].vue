@@ -186,17 +186,17 @@ const computedWorkoutExercises = computed(() => {
 		/>
 
 		<Teleport to="body">
-			<TimerIntervalClock
-				v-if="timedExercise"
-				:exercise="timedExercise"
-				@stop="onStopTimer"
-				@done="onDoneTimer"
-			/>
+			<Transition name="fade">
+				<LazyWorkoutIntervalTimer
+					v-if="timedExercise"
+					:exercise="timedExercise"
+					@stop="onStopTimer"
+					@done="onDoneTimer"
+				/>
+			</Transition>
 		</Teleport>
 		<footer class="border border-t-2 border-neutral-700/50 px-4">
-			<nav
-				class="b-box z-50 my-6 flex flex-col justify-center px-4 py-2"
-			>
+			<nav class="b-box z-50 my-6 flex flex-col justify-center px-4 py-2">
 				<BStepper
 					v-model="activeSet"
 					label="Current Set"

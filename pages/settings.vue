@@ -11,12 +11,15 @@ function logout() {
 </script>
 
 <template>
-	<article class="relative">
-		<BButton
-			variant="action"
-			@click="logout"
-		>
-			Logout
-		</BButton>
+	<article class="relative flex flex-1 flex-col">
+		<footer class="mt-auto">
+			<BButton
+				class="w-full"
+				variant="action"
+				@click="logout"
+			>
+				Logout
+			</BButton>
+		</footer>
 	</article>
 </template>

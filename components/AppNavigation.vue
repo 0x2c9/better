@@ -8,10 +8,16 @@ type IMenuItem = {
 
 const menuItems: IMenuItem[] = [
 	{
-		title: 'Home',
-		link: '/home',
-		iconBase: 'material-symbols-home-outline-rounded',
-		iconActive: 'material-symbols-home-rounded',
+		title: 'Daily',
+		link: '/daily',
+		iconBase: 'material-symbols-today-outline-rounded',
+		iconActive: 'material-symbols-today-rounded',
+	},
+	{
+		title: 'Weight',
+		link: '/weight',
+		iconBase: 'ion-scale-outline',
+		iconActive: 'ion-scale',
 	},
 	{
 		title: 'Workouts',
@@ -36,7 +42,7 @@ const menuItems: IMenuItem[] = [
 
 <template>
 	<nav
-		class="fixed inset-x-0 bottom-0 z-50 grid h-[72px] grid-cols-4 items-center justify-center rounded-t-3xl border-t-2 border-neutral-700/50 bg-neutral-950/85 px-4 backdrop-blur"
+		class="fixed inset-x-0 bottom-0 z-50 grid h-[72px] grid-cols-5 items-center justify-center rounded-t-3xl border-t-2 border-neutral-700/50 bg-neutral-950/85 px-4 backdrop-blur"
 	>
 		<NuxtLink
 			v-for="item in menuItems"

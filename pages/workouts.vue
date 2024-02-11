@@ -38,7 +38,7 @@ watch(
 </script>
 
 <template>
-	<article class="relative h-full">
+	<article class="relative">
 		<BPageActionButton @click="openWorkout">
 			<BIcon
 				name="material-symbols-add-rounded"
@@ -49,7 +49,7 @@ watch(
 
 		<div
 			v-if="!workoutStore.workouts?.length"
-			class="absolute inset-x-0 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
+			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
 		>
 			<p>There are no workouts yet.</p>
 			<p>Create exercises and add your first workout.</p>
