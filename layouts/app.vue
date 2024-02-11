@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const authStore = useAuthStore()
-const timerStore = useTimerStore()
 const weightStore = useWeightStore()
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
@@ -10,7 +9,6 @@ onMounted(async () => {
 		return
 	}
 
-	await timerStore.getTimers()
 	await weightStore.fetchWeightHistory()
 	await exerciseStore.getExercises()
 	await workoutStore.getWorkouts()
