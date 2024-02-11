@@ -9,48 +9,63 @@ onMounted(() => {
 		console.log('App is not installed')
 	}
 })
+
+const loading = ref(false)
+
+async function updateServiceWorker() {
+	loading.value = true
+	await $pwa?.updateServiceWorker(false)
+	loading.value = false
+}
 </script>
 
 <template>
 	<Teleport to="body">
-		<div
-			v-if="$pwa?.isPWAInstalled && $pwa.needRefresh"
-			class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-neutral-950/50 before:backdrop-blur-[4px] empty:hidden"
-		>
-			<div class="b-box relative z-50 flex w-full items-center rounded-lg p-4">
-				<BIcon
-					class="star-icon absolute left-[6px] top-[44px]"
-					name="mdi-star-four-points"
-					size="14"
-				/>
-				<BIcon
-					class="star-icon absolute left-[55px] top-[44px]"
-					name="mdi-star-four-points"
-					size="14"
-				/>
-				<BIcon
-					class="star-icon absolute left-[107px] top-[1px]"
-					name="mdi-star-four-points"
-					size="14"
-				/>
-				<BIcon
-					class="star-icon absolute left-[200px] top-[8px]"
-					name="mdi-star-four-points"
-					size="20"
-				/>
-				<p class="shining relative text-lg font-medium">
-					New version available
-				</p>
+		<Transition name="fade">
+			<div
+				v-if="$pwa?.isPWAInstalled && $pwa.needRefresh"
+				class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-neutral-950/50 before:backdrop-blur-[4px] empty:hidden"
+			>
+				<div class="b-box relative z-50 flex w-full items-center rounded-lg p-4">
+					<BIcon
+						class="star-icon absolute left-[6px] top-[44px]"
+						name="mdi-star-four-points"
+						size="14"
+					/>
+					<BIcon
+						class="star-icon absolute left-[55px] top-[44px]"
+						name="mdi-star-four-points"
+						size="14"
+					/>
+					<BIcon
+						class="star-icon absolute left-[107px] top-[1px]"
+						name="mdi-star-four-points"
+						size="14"
+					/>
+					<BIcon
+						class="star-icon absolute left-[200px] top-[8px]"
+						name="mdi-star-four-points"
+						size="20"
+					/>
+					<p class="shining relative text-lg font-medium">
+						New version available
+					</p>
 
-				<BButton
-					small
-					class="ml-auto"
-					@click="$pwa.updateServiceWorker()"
-				>
-					Refresh
-				</BButton>
+					<BButton
+						small
+						class="ml-auto"
+						@click="updateServiceWorker"
+					>
+						<BIcon
+							v-if="loading"
+							name="eos-icons-three-dots-loading"
+							size="16"
+						/>
+						<span v-else>Refresh</span>
+					</BButton>
+				</div>
 			</div>
-		</div>
+		</Transition>
 	</Teleport>
 </template>
 

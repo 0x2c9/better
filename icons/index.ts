@@ -1,4 +1,5 @@
 export const ICONS = {
+	'eos-icons-three-dots-loading': 'eos-icons-three-dots-loading',
 	'mdi-star-four-points': 'mdi-star-four-points',
 	'material-symbols-today-outline-rounded': 'material-symbols-today-outline-rounded',
 	'material-symbols-today-rounded': 'material-symbols-today-rounded',
