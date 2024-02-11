@@ -53,15 +53,17 @@ async function updateServiceWorker() {
 
 					<BButton
 						small
-						class="ml-auto"
+						class="relative ml-auto"
 						@click="updateServiceWorker"
 					>
-						<BIcon
-							v-if="loading"
-							name="eos-icons-three-dots-loading"
-							size="16"
-						/>
-						<span v-else>Refresh</span>
+						<div v-if="loading" class="absolute inset-0 flex items-center justify-center">
+							<div class="loader">
+								<span class="inner1"></span>
+								<span class="inner2"></span>
+								<span class="inner3"></span>
+							</div>
+						</div>
+						<span :class="{ 'opacity-0': loading }">Refresh</span>
 					</BButton>
 				</div>
 			</div>
@@ -124,5 +126,48 @@ async function updateServiceWorker() {
 		transform: scale(1);
 		opacity: 1
 	}
+}
+.loader {
+  display: block;
+  width: 5em;
+  margin: 10% auto;
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: translateY(0%);
+  }
+  30% {
+    -webkit-transform: translateY(-0.25em);
+  }
+  50% {
+    -webkit-transform: translateY(0%);
+  }
+  70% {
+    -webkit-transform: translateY(0.25em);
+  }
+}
+.loader {
+  display: block;
+}
+.loader .inner1, .loader .inner2, .loader .inner3 {
+  display: inline-block;
+  margin: 0.125em;
+  width: 0.5em;
+  height: 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 1em;
+  background-color: lightgray;
+  transform-origin: 50%;
+  animation-duration: 0.75s;
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.loader .inner2 {
+  animation-delay: 0.1875s;
+}
+.loader .inner3 {
+  animation-delay: 0.375s;
 }
 </style>
