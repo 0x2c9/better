@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const { title = null, narrow = true, fullscreen = false } = defineProps<{
+const { title = null, narrow = true, fullscreen = false, locked = false } = defineProps<{
 	title?: string
 	narrow?: boolean
 	fullscreen?: boolean
+	locked?: boolean
 }>()
 
 const emits = defineEmits(['close'])
@@ -50,7 +51,7 @@ function setToCloseState() {
 const { direction, isSwiping, lengthY } = useSwipe(dropdownEl, {
 	threshold: 10,
 	onSwipe() {
-		if (isInputFocused.value || fullscreen) {
+		if (isInputFocused.value || fullscreen || locked) {
 			return
 		}
 		if (windowHeight.value && targetHeight.value) {
@@ -203,7 +204,7 @@ watch(activeElement, (el) => {
 })
 
 function onBackdropClick(e: MouseEvent) {
-	if (e.clientY + 10 > Number.parseInt(top.value) || fullscreen) {
+	if (e.clientY + 10 > Number.parseInt(top.value) || fullscreen || locked) {
 		return
 	}
 
