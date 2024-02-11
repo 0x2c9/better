@@ -7,6 +7,5 @@ definePageMeta({
 
 <template>
 	<article class="relative">
-		yo
 	</article>
 </template>
