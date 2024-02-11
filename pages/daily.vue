@@ -7,6 +7,6 @@ definePageMeta({
 
 <template>
 	<article class="relative">
-		adding content to test new update prompt
+		remove old content to test new prompt
 	</article>
 </template>
