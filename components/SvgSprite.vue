@@ -6,6 +6,7 @@
 		xmlns:xlink="http://www.w3.org/1999/xlink"
 	>
 		<defs>
+			<symbol id="mdi-star-four-points" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1L9 9l-8 3l8 3l3 8l3-8l8-3l-8-3z" /></symbol>
 			<symbol id="material-symbols-today-outline-rounded" viewBox="0 0 24 24">
 				<path
 					fill="currentColor"

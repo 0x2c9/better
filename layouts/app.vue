@@ -20,14 +20,15 @@ onMounted(async () => {
 		id="__layout"
 		class="flex size-full flex-col overflow-hidden"
 	>
-		<ClientOnly>
-			<PwaPrompts />
-		</ClientOnly>
 		<main
 			class="flex flex-1 flex-col overflow-y-scroll px-4 pb-[132px] pt-8"
 		>
 			<slot class="flex-1"></slot>
 		</main>
 		<AppNavigation />
+		<ClientOnly>
+			<LazyAppUpdatePrompt />
+			<LazyAppOnboarding />
+		</ClientOnly>
 	</div>
 </template>

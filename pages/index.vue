@@ -1,10 +1,10 @@
 <template>
 	<article class="relative mx-auto mt-12 flex w-full max-w-7xl flex-col">
 		<div class="mx-auto max-w-20">
-			<BetterLogoIcon />
+			<AppBetterLogoIcon />
 		</div>
 		<div class="mx-auto w-full max-w-48">
-			<BetterLogoFont />
+			<AppBetterLogoText />
 		</div>
 		<h1 class="mt-8 text-center text-2xl font-semibold">
 			Track your weight loss and fitness journey with ease.
