@@ -1,19 +1,19 @@
 <script setup lang="ts">
-type IButtonProps = {
-	iconName?: keyof typeof ICONS
+const {
+	variant = 'primary',
+	small = false,
+	disabled = false,
+	to = null,
+	iconName = null,
+	iconSize = '28',
+} = defineProps<{
 	variant?: 'primary' | 'secondary' | 'action'
 	small?: boolean
 	disabled?: boolean
 	to?: string
-}
-
-const {
-	variant = 'primary',
-	iconName = null,
-	small = false,
-	disabled = false,
-	to = null,
-} = defineProps<IButtonProps>()
+	iconName?: keyof typeof ICONS
+	iconSize?: string
+}>()
 
 const isIconButton = computed(() => !!iconName)
 
@@ -46,7 +46,7 @@ const component = computed(() => {
 		<BIcon
 			v-if="iconName"
 			:name="iconName"
-			size="28"
+			:size="iconSize"
 		/>
 		<slot></slot>
 	</component>
