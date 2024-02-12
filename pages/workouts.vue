@@ -7,6 +7,7 @@ definePageMeta({
 })
 
 const workoutStore = useWorkoutStore()
+const globalState = useGlobalState()
 
 const showWorkoutForm = ref(false)
 const selectedWorkout = ref<Workout | null>(null)
@@ -48,7 +49,7 @@ watch(
 		</BPageActionButton>
 
 		<div
-			v-if="!workoutStore.workouts?.length"
+			v-if="!workoutStore.workouts?.length && globalState.loaded"
 			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
 		>
 			<p>There are no workouts yet.</p>

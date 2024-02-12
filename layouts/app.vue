@@ -3,6 +3,7 @@ const authStore = useAuthStore()
 const weightStore = useWeightStore()
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
+const globalState = useGlobalState()
 
 onMounted(async () => {
 	if (!authStore.isAuthenticated) {
@@ -12,6 +13,8 @@ onMounted(async () => {
 	await weightStore.fetchWeightHistory()
 	await exerciseStore.getExercises()
 	await workoutStore.getWorkouts()
+
+	globalState.loaded = true
 })
 </script>
 

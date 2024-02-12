@@ -7,6 +7,7 @@ definePageMeta({
 })
 
 const exerciseStore = useExerciseStore()
+const globalState = useGlobalState()
 
 const selectedExercise = ref<Exercise | null>(null)
 const openExerciseForm = ref(false)
@@ -37,7 +38,7 @@ function onDeleteExercise(exercise: Exercise) {
 		</BPageActionButton>
 
 		<div
-			v-if="!exerciseStore.exercises?.length"
+			v-if="!exerciseStore.exercises?.length && globalState.loaded"
 			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-neutral-600"
 		>
 			<p>There are no exercises yet.</p>

@@ -3,12 +3,12 @@ export const useGlobalState = defineStore(
 	() => {
 		const currentOpenItem = ref<string | null>(null)
 		const dropdownCounter = ref(0)
-		const showQuickStartForm = useLocalStorage('showQuickStartForm', true)
+		const loaded = ref(false)
 
 		return {
 			dropdownCounter,
 			currentOpenItem,
-			showQuickStartForm,
+			loaded,
 		}
 	},
 )
