@@ -15,7 +15,9 @@ const loading = ref(false)
 async function updateServiceWorker() {
 	loading.value = true
 	await $pwa?.updateServiceWorker(false)
-	loading.value = false
+	setTimeout(() => {
+		loading.value = false
+	}, 3000)
 }
 </script>
 
