@@ -25,7 +25,7 @@ async function updateServiceWorker() {
 	<Teleport to="body">
 		<Transition name="fade">
 			<div
-				v-if="true"
+				v-if="$pwa?.isPWAInstalled && $pwa.needRefresh"
 				class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-neutral-950/50 before:backdrop-blur-[4px] empty:hidden"
 			>
 				<div class="b-box relative z-50 flex w-full items-center rounded-lg p-4">
