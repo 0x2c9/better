@@ -25,7 +25,7 @@ async function updateServiceWorker() {
 	<Teleport to="body">
 		<Transition name="fade">
 			<div
-				v-if="$pwa?.isPWAInstalled && $pwa.needRefresh"
+				v-if="true"
 				class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-neutral-950/50 before:backdrop-blur-[4px] empty:hidden"
 			>
 				<div class="b-box relative z-50 flex w-full items-center rounded-lg p-4">
@@ -78,8 +78,8 @@ async function updateServiceWorker() {
 	color: #fff;
 	display: inline-block;
 	position: relative;
-	-webkit-mask-image: linear-gradient(-75deg, rgba(0, 0, 0, .6) 30%, #000 50%, rgba(0, 0, 0, .6) 70%);
-	-webkit-mask-size: 200%;
+	mask-image: linear-gradient(-75deg, rgba(0, 0, 0, .6) 30%, #000 50%, rgba(0, 0, 0, .6) 70%);
+	mask-size: 200%;
 	animation: shine 2s linear infinite;
 }
 
@@ -94,7 +94,7 @@ async function updateServiceWorker() {
 }
 
 .star-icon {
-	animation: star 2s infinite ease-in-out alternate;
+	animation: star 2.5s infinite ease-in-out alternate;
 	color: rgba(255, 255, 255, 0.5);
 }
 .star-icon:nth-child(1) {
