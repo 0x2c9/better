@@ -1,9 +1,11 @@
 export const ICONS = {
+	'material-symbols-home-outline-rounded': 'material-symbols-home-outline-rounded',
+	'material-symbols-home-rounded': 'material-symbols-home-rounded',
 	'mdi-star-four-points': 'mdi-star-four-points',
 	'material-symbols-today-outline-rounded': 'material-symbols-today-outline-rounded',
 	'material-symbols-today-rounded': 'material-symbols-today-rounded',
-	'ion-scale': 'ion-scale',
-	'ion-scale-outline': 'ion-scale-outline',
+	'material-symbols-monitor-weight-outline': 'material-symbols-monitor-weight-outline',
+	'material-symbols-monitor-weight': 'material-symbols-monitor-weight',
 	'material-symbols-settings-rounded': 'material-symbols-settings-rounded',
 	'material-symbols-settings-outline-rounded': 'material-symbols-settings-outline-rounded',
 	'material-symbols-visibility-outline-rounded': 'material-symbols-visibility-outline-rounded',

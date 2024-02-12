@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('Authentication', () => {
 			return
 		}
 
-		await navigateTo('/daily')
+		await navigateTo('/home')
 	}
 
 	async function signUp(credentials: UserCredentials) {
@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('Authentication', () => {
 			return
 		}
 
-		await navigateTo('/daily?onboarding=true')
+		await navigateTo('/home?onboarding=true')
 	}
 
 	async function signOut() {

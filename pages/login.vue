@@ -6,7 +6,7 @@ const password = ref('')
 
 async function onSubmit() {
 	if (authStore.isAuthenticated) {
-		navigateTo('/daily')
+		navigateTo('/home')
 		return
 	}
 	await authStore.signIn({

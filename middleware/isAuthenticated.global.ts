@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware((to) => {
 		}
 
 		if (authStore.isAuthenticated && !to.meta.auth) {
-			return navigateTo('/daily')
+			return navigateTo('/home')
 		}
 	}
 })

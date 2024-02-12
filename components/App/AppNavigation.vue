@@ -8,16 +8,16 @@ type IMenuItem = {
 
 const menuItems: IMenuItem[] = [
 	{
-		title: 'Daily',
-		link: '/daily',
-		iconBase: 'material-symbols-today-outline-rounded',
-		iconActive: 'material-symbols-today-rounded',
+		title: 'Home',
+		link: '/home',
+		iconBase: 'material-symbols-home-outline-rounded',
+		iconActive: 'material-symbols-home-rounded',
 	},
 	{
 		title: 'Weight',
 		link: '/weight',
-		iconBase: 'ion-scale-outline',
-		iconActive: 'ion-scale',
+		iconBase: 'material-symbols-monitor-weight-outline',
+		iconActive: 'material-symbols-monitor-weight',
 	},
 	{
 		title: 'Workouts',
