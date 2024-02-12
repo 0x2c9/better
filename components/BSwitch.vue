@@ -1,13 +1,10 @@
 <script setup lang="ts">
-type IBSwitchOption = {
-	content: any
-	label: string
-}
-type IBSwitchProps = {
-	options: IBSwitchOption[]
-}
-
-const { options } = defineProps<IBSwitchProps>()
+const { options } = defineProps<{
+	options: {
+		content: any
+		label: string
+	}[]
+}>()
 
 const modelValue = defineModel<number>({ required: true })
 

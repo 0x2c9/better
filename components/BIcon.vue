@@ -1,10 +1,8 @@
 <script setup lang="ts">
-type IBaseIcon = {
+const { size = '20', name = '' } = defineProps<{
 	name: keyof typeof ICONS
 	size?: string
-}
-
-const { size = '20', name = '' } = defineProps<IBaseIcon>()
+}>()
 
 const computedIconName = computed(() => {
 	if (!name) {

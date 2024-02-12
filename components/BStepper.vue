@@ -1,13 +1,4 @@
 <script setup lang="ts">
-type BStepperProps = {
-	steps?: number
-	min?: number
-	max?: number
-	label?: string
-	displayValue?: string | number
-	disabled?: boolean
-}
-
 const {
 	steps = 0.1,
 	min = 0,
@@ -15,7 +6,14 @@ const {
 	label = null,
 	displayValue = null,
 	disabled = false,
-} = defineProps<BStepperProps>()
+} = defineProps<{
+	steps?: number
+	min?: number
+	max?: number
+	label?: string
+	displayValue?: string | number
+	disabled?: boolean
+}>()
 
 const modelValue = defineModel<number>({ required: true })
 
