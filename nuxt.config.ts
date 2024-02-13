@@ -1,9 +1,11 @@
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import pkg from './package.json'
 
 dayjs.locale('de')
+dayjs.extend(utc)
 
-const appVersion = `v${pkg.version}-${dayjs().format('DD.MM.YYYY_HH:mm:ss')}`
+const appVersion = `v${pkg.version}-${dayjs().utcOffset(1).format('DD.MM.YYYY_HH:mm:ss')}`
 
 export default defineNuxtConfig({
 	app: {
