@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import pkg from './package.json'
+
+const appVersion = `v${pkg.version}-${dayjs().format('DD.MM.YYYY_HH:mm:ss')}`
+
 export default defineNuxtConfig({
 	app: {
 		head: {
@@ -145,6 +150,7 @@ export default defineNuxtConfig({
 				url: '',
 				key: '',
 			},
+			appVersion,
 		},
 	},
 	typescript: {

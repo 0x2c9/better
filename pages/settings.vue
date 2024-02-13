@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AppVersionInfo from '~/components/App/AppVersionInfo.vue'
+
 definePageMeta({
 	layout: 'app',
 	auth: true,
@@ -21,5 +23,9 @@ function logout() {
 				Logout
 			</BButton>
 		</footer>
+
+		<section class="fixed inset-x-4 top-4 text-center text-sm text-neutral-600">
+			<AppVersionInfo />
+		</section>
 	</article>
 </template>
