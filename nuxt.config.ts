@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import pkg from './package.json'
 
+dayjs.locale('de')
+
 const appVersion = `v${pkg.version}-${dayjs().format('DD.MM.YYYY_HH:mm:ss')}`
 
 export default defineNuxtConfig({
