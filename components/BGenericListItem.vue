@@ -92,7 +92,7 @@ function onDelete() {
 					v-if="xValue === -100"
 					icon-name="material-symbols-delete-outline-rounded"
 					small
-					variant="action"
+					variant="danger"
 					@click="onDelete"
 				/>
 			</Transition>

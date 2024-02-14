@@ -7,7 +7,7 @@ const {
 	iconName = null,
 	iconSize = '28',
 } = defineProps<{
-	variant?: 'primary' | 'secondary' | 'action'
+	variant?: 'primary' | 'secondary' | 'action' | 'danger'
 	small?: boolean
 	disabled?: boolean
 	to?: string
@@ -34,6 +34,7 @@ const component = computed(() => {
 		:class="{
 			'border-2 border-neutral-700 bg-neutral-800 text-white active:enabled:bg-neutral-700': variant === 'primary',
 			'border-2 border-neutral-700 bg-transparent text-white active:enabled:bg-neutral-700': variant === 'secondary',
+			'border-red-700 border-2 bg-red/25 text-red active:enabled:bg-red/50': variant === 'danger',
 			'bg-primary text-neutral-950': variant === 'action',
 			'shrink-0': isIconButton,
 			'size-12': isIconButton && !small,
