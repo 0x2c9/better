@@ -9,10 +9,14 @@ onMounted(async () => {
 	if (!authStore.isAuthenticated) {
 		return
 	}
+	globalState.loaded = false
 
-	await weightStore.fetchWeightHistory()
-	await exerciseStore.getExercises()
-	await workoutStore.getWorkouts()
+	await Promise.all([
+		weightStore.fetchWeightHistory(),
+		exerciseStore.getExercises(),
+		workoutStore.getWorkouts(),
+		workoutStore.getWorkoutEntries(),
+	])
 
 	globalState.loaded = true
 })
