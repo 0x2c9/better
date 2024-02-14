@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import type { Workout, WorkoutEntry } from '@/types/workout'
 
 export const useWorkoutStore = defineStore(
@@ -9,6 +10,16 @@ export const useWorkoutStore = defineStore(
 		const authStore = useAuthStore()
 
 		const workouts = ref<Workout[]>([])
+		const workoutEntries = ref<WorkoutEntry[]>([])
+
+		const mappedEntryWorkouts = computed(() => {
+			const dates = {} as Record<string, WorkoutEntry>
+			for (const entry of workoutEntries.value) {
+				const date = dayjs(entry.created_at).format('YYYY-MM-DD')
+				dates[date] = entry
+			}
+			return dates
+		})
 
 		async function upsertWorkout(formData: Workout) {
 			try {
@@ -82,13 +93,25 @@ export const useWorkoutStore = defineStore(
 			}
 		}
 
+		async function getWorkoutEntries() {
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).select().order('created_at', { ascending: false })
+
+			if (error) {
+				throw new Error(error.message)
+			}
+
+			workoutEntries.value = data as WorkoutEntry[]
+		}
+
 		return {
 			workouts,
+			mappedEntryWorkouts,
 			upsertWorkout,
 			getWorkouts,
 			getWorkoutById,
 			deleteWorkout,
 			saveWorkoutEntry,
+			getWorkoutEntries,
 		}
 	},
 )
