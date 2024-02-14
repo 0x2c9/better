@@ -23,14 +23,14 @@
 		"gsap": "^3.12.5",
 		"howler": "^2.2.4",
 		"pinia": "^2.1.7",
-		"vue": "3.4.18",
+		"vue": "3.4.19",
 		"vue-router": "^4.2.5"
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^2.6.4",
 		"@eslint/eslintrc": "^3.0.1",
 		"@types/howler": "^2.2.11",
-		"@vite-pwa/nuxt": "^0.4.0",
+		"@vite-pwa/nuxt": "^0.5.0",
 		"changelogen": "^0.5.5",
 		"eslint": "^8.56.0",
 		"eslint-plugin-tailwindcss": "^3.14.2",
