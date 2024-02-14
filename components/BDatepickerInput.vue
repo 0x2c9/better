@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { highlightedDates = {}, disabled = false } = defineProps<{
-	highlightedDates: Record<string, boolean>
+const { highlightedDates = new Set(), disabled = false } = defineProps<{
+	highlightedDates: Set<string>
 	disabled: boolean
 }>()
 

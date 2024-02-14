@@ -31,7 +31,7 @@ watch(
 
 const showConfirmOverwrite = ref(false)
 async function onSubmit(_$event: Event, overwrite = false) {
-	if (weightStore.entryDates[weightEntry.value.date] && !overwrite) {
+	if (weightStore.entryDatesSet.has(weightEntry.value.date) && !overwrite) {
 		showConfirmOverwrite.value = true
 		return
 	}
@@ -63,7 +63,7 @@ onMounted(() => {
 
 		<BDatepickerInput
 			v-model="weightEntry.date"
-			:highlighted-dates="weightStore.entryDates"
+			:highlighted-dates="weightStore.entryDatesSet"
 			:disabled="!!selectedWeightEntry?.date"
 		/>
 		<BButton

@@ -35,14 +35,18 @@ export const useWeightStore = defineStore(
 			return parsedHistory
 		})
 
-		const entryDates = computed(() => {
-			const dates = {} as Record<string, boolean>
+		const mappedEntryDates = computed(() => {
+			const dates = {} as Record<string, WeightEntry>
 
 			for (const entry of weightHistory.value) {
-				dates[entry.date] = true
+				dates[entry.date] = entry
 			}
 
 			return dates
+		})
+
+		const entryDatesSet = computed(() => {
+			return new Set<string>(Object.keys(mappedEntryDates.value))
 		})
 
 		const latestEntry = computed(() => {
@@ -136,7 +140,8 @@ export const useWeightStore = defineStore(
 			latestEntry,
 			firstEntry,
 			parsedWeightHistory,
-			entryDates,
+			entryDatesSet,
+			mappedEntryDates,
 			fetchWeightHistory,
 			upsertWeight,
 			deleteWeight,

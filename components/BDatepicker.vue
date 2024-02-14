@@ -4,8 +4,8 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import 'dayjs/locale/de'
 
-const { disableFutureDates = false, blank = true, highlightedDates = {} } = defineProps<{
-	highlightedDates: Record<string, boolean>
+const { disableFutureDates = false, blank = true, highlightedDates = new Set() } = defineProps<{
+	highlightedDates: Set<string>
 	disableFutureDates?: boolean
 	blank?: boolean
 }>()
@@ -70,7 +70,7 @@ const days = computed(() => {
 				dateOfMonth, // index
 				isDisabled: false,
 				type: 'past',
-				highlight: highlightedDates[pastDate.format('YYYY-MM-DD')],
+				highlight: highlightedDates.has(pastDate.format('YYYY-MM-DD')),
 			})
 
 			continue
@@ -86,7 +86,7 @@ const days = computed(() => {
 				dateOfMonth,
 				isDisabled: isFuture && disableFutureDates,
 				type: 'future',
-				highlight: highlightedDates[futureDate.format('YYYY-MM-DD')],
+				highlight: highlightedDates.has(futureDate.format('YYYY-MM-DD')),
 			})
 			continue
 		}
@@ -99,7 +99,7 @@ const days = computed(() => {
 			dateOfMonth,
 			isDisabled: isFuture && disableFutureDates,
 			type: 'current',
-			highlight: highlightedDates[currentDate.format('YYYY-MM-DD')],
+			highlight: highlightedDates.has(currentDate.format('YYYY-MM-DD')),
 		})
 	}
 
