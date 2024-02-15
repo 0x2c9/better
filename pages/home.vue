@@ -60,11 +60,15 @@ const weekDays = computed(() => {
 	return days
 })
 
-function handleWeekChange(direction: 'prev' | 'next') {
+function handleWeekChange(direction: 'prev' | 'next' | 'current') {
 	if (direction === 'prev') {
 		selectedWeek.value -= 1
 	} else if (selectedWeek.value < currentWeek + 2) {
 		selectedWeek.value += 1
+	}
+
+	if (direction === 'current') {
+		selectedWeek.value = currentWeek
 	}
 }
 
@@ -102,12 +106,15 @@ function addActivityEntry(date: string) {
 						>
 							{{ weightStore.mappedEntryDates[day.date].weight_display }}
 						</span>
-						<span
-							v-if="workoutStore.mappedEntryWorkouts[day.date] && globalState.loaded"
-							class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
-						>
-							{{ workoutStore.mappedEntryWorkouts[day.date].workout_name }}
-						</span>
+						<template v-if="workoutStore.mappedEntryWorkouts[day.date] && globalState.loaded">
+							<span
+								v-for="workoutEntry in workoutStore.mappedEntryWorkouts[day.date]"
+								:key="workoutEntry.created_at"
+								class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
+							>
+								{{ workoutEntry.workout_name }}
+							</span>
+						</template>
 					</section>
 				</li>
 			</ul>
@@ -121,7 +128,7 @@ function addActivityEntry(date: string) {
 					icon-size="28"
 					@click="handleWeekChange('prev')"
 				/>
-				<div class="flex flex-col items-center">
+				<div class="flex flex-col items-center" @click="handleWeekChange('current')">
 					<span>{{ selectedWeekTimespanInfo.spanWeekStr }}</span>
 					<span class="tabular-nums text-neutral-400">{{ selectedWeekTimespanInfo.spanDateStr }}</span>
 				</div>

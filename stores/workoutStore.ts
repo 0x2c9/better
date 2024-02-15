@@ -13,10 +13,13 @@ export const useWorkoutStore = defineStore(
 		const workoutEntries = ref<WorkoutEntry[]>([])
 
 		const mappedEntryWorkouts = computed(() => {
-			const dates = {} as Record<string, WorkoutEntry>
+			const dates = {} as Record<string, WorkoutEntry[]>
 			for (const entry of workoutEntries.value) {
-				const date = dayjs(entry.created_at).format('YYYY-MM-DD')
-				dates[date] = entry
+				if (!dates[entry.workout_date]) {
+					dates[entry.workout_date] = [entry]
+				} else {
+					dates[entry.workout_date].push(entry)
+				}
 			}
 			return dates
 		})
