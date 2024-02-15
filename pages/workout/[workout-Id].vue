@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import type { Exercise, TimeExercise } from '~/types/exercise'
 import type { Workout, WorkoutEntry } from '~/types/workout'
 
@@ -9,6 +10,7 @@ definePageMeta({
 
 const workoutStore = useWorkoutStore()
 const route = useRoute()
+const { secondsIntoMinutes } = useUtils()
 
 const selectedWorkout = ref<Workout>()
 const workoutExercises = ref<Exercise[][]>([])
@@ -68,6 +70,28 @@ function onDoneTimer(exercise: Exercise) {
 	}
 }
 
+const workoutTimeInSeconds = ref(0)
+
+const { pause, resume, isActive } = useIntervalFn(() => {
+	workoutTimeInSeconds.value++
+}, 1000, {
+	immediate: false,
+	immediateCallback: true,
+})
+
+function resetWorkoutTimer() {
+	pause()
+	workoutTimeInSeconds.value = 0
+}
+
+function toggleWorkoutTimer() {
+	if (isActive.value) {
+		pause()
+	} else {
+		resume()
+	}
+}
+
 function beforeUnloadHandler(event: BeforeUnloadEvent) {
 	event.preventDefault()
 	event.returnValue = ''
@@ -115,10 +139,15 @@ async function saveWorkoutAndLeave() {
 	if (!selectedWorkout.value) {
 		return
 	}
+
+	pause()
+
 	const payload: WorkoutEntry = {
 		workout_name: selectedWorkout.value.workout_name,
 		workout_exercises: workoutExercises.value,
 		workout_sets: selectedWorkout.value.workout_sets,
+		workout_duration: workoutTimeInSeconds.value,
+		workout_date: dayjs().format('YYYY-MM-DD'),
 	}
 	await workoutStore.saveWorkoutEntry(payload)
 	navigateTo('/workouts')
@@ -168,6 +197,23 @@ const computedWorkoutExercises = computed(() => {
 			>
 		</audio>
 		<div class="flex-1 overflow-y-auto px-4 py-6">
+			<header class="mb-4 flex items-center justify-between">
+				<BButton
+					variant="secondary"
+					small
+					@click="onGoBack"
+				>
+					<BIcon name="material-symbols-arrow-back-rounded" class="-ml-2 mr-2" />
+					Leave Workout
+				</BButton>
+				<BButton
+					variant="action"
+					small
+					@click="onSaveWorkout"
+				>
+					Save Workout
+				</BButton>
+			</header>
 			<WorkoutExerciseList
 				v-if="selectedWorkout"
 				key-field="listId"
@@ -197,6 +243,40 @@ const computedWorkoutExercises = computed(() => {
 		</Teleport>
 		<footer class="border border-t-2 border-neutral-700/50 px-4">
 			<nav class="b-box z-50 my-6 flex flex-col justify-center px-4 py-2">
+				<div class="mb-4 flex justify-center">
+					<Transition name="quick-fade" mode="out-in">
+						<template v-if="workoutTimeInSeconds > 0">
+							<span class="inline-flex min-h-8 items-center text-xl">{{ secondsIntoMinutes(workoutTimeInSeconds) }}</span>
+						</template>
+						<template v-else>
+							<span class="inline-flex min-h-8 items-center text-sm text-neutral-500">Track how long your workout takes. (optional)</span>
+						</template>
+					</Transition>
+				</div>
+				<div class="mb-4 flex flex-row gap-x-4">
+					<BButton
+						v-if="workoutTimeInSeconds > 0"
+						class="flex-1"
+						small
+						variant="secondary"
+						@click="resetWorkoutTimer"
+					>
+						Reset Timer
+					</BButton>
+					<BButton
+						class="flex-1"
+						small
+						variant="primary"
+						@click="toggleWorkoutTimer"
+					>
+						<template v-if="isActive">
+							Pause Timer
+						</template>
+						<template v-else>
+							Start Timer
+						</template>
+					</BButton>
+				</div>
 				<BStepper
 					v-model="activeSet"
 					label="Current Set"
@@ -205,19 +285,6 @@ const computedWorkoutExercises = computed(() => {
 					:steps="1"
 					:computed-display-value="`${activeSet}/${selectedWorkout?.workout_sets}`"
 				/>
-				<div class="mt-6 flex gap-6">
-					<BButton
-						variant="secondary"
-						icon-name="material-symbols-arrow-back-rounded"
-						@click="onGoBack"
-					/>
-					<BButton
-						class="flex-1"
-						@click="onSaveWorkout"
-					>
-						Save Workout
-					</BButton>
-				</div>
 			</nav>
 		</footer>
 

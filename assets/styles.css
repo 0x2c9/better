@@ -59,6 +59,16 @@
   @apply transition-opacity duration-200 ease-linear;
 }
 
+.quick-fade-enter-active {
+  @apply transition-opacity duration-100 ease-linear;
+}
+
+.quick-fade-leave-active {
+  @apply transition-opacity duration-100 ease-linear;
+}
+
+.quick-fade-enter-from,
+.quick-fade-leave-to,
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

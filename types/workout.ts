@@ -14,6 +14,8 @@ export type WorkoutEntry = {
 	workout_name: string
 	workout_exercises: Exercise[][]
 	workout_sets: number
+	workout_duration?: number
+	workout_date: string
 	user_id?: string
 	created_at?: string
 }
