@@ -56,11 +56,15 @@ watch(
 			<p>Create exercises and add your first workout.</p>
 		</div>
 
-		<WorkoutList
-			:workouts="workoutStore.workouts"
-			@select-workout="onSelectWorkout"
-			@delete-workout="onDeleteWorkout"
-		/>
+		<BGenericList
+			:items="workoutStore.workouts"
+			@select="onSelectWorkout"
+			@delete="onDeleteWorkout"
+		>
+			<template #content="{ item }">
+				<WorkoutListItem :item="item" />
+			</template>
+		</BGenericList>
 
 		<WorkoutForm
 			v-model="showWorkoutForm"
