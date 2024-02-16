@@ -39,7 +39,7 @@ watch(
 </script>
 
 <template>
-	<article class="relative">
+	<article class="relative w-full">
 		<BPageActionButton @click="openWorkout">
 			<BIcon
 				name="material-symbols-add-rounded"
