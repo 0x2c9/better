@@ -17,7 +17,7 @@ export default {
 			red: '#DC2626',
 			orange: '#dd8b1d',
 			primary: '#D0FF01',
-			white: '#FFFFFF',
+			white: '#f3f4f5',
 			black: '#000000',
 			transparent: 'transparent',
 			neutral: {
