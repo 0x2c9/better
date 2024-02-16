@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
+import 'dayjs/locale/de'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 
-dayjs.locale('de')
 dayjs.extend(weekOfYear)
+dayjs.locale('de') // use locale
 
 definePageMeta({
 	layout: 'app',
@@ -15,6 +16,7 @@ const workoutStore = useWorkoutStore()
 const globalState = useGlobalState()
 
 const currentWeek = dayjs().week()
+
 const selectedWeek = ref<number>(currentWeek)
 
 const selectedWeekTimespanInfo = computed(() => {
@@ -49,8 +51,10 @@ const weekDays = computed(() => {
 	const days = []
 
 	for (let i = 0; i <= 6; i++) {
+		const dayjsDay = startOfWeek.add(i, 'day')
 		const day = {
-			date: startOfWeek.add(i, 'day').format('YYYY-MM-DD'),
+			date: dayjsDay.format('YYYY-MM-DD'),
+			dateFormatted: startOfWeek.add(i, 'day').format('ddd DD.MM.YYYY'),
 			dayInitial: dayInitials[i],
 		}
 
@@ -86,34 +90,33 @@ function addActivityEntry(date: string) {
 					:key="day.dayInitial"
 				>
 					<header class="flex items-center">
-						<div class="min-w-4 text-center text-lg font-bold">
-							{{ day.dayInitial }}
+						<div class="min-w-28 font-medium text-neutral-500">
+							{{ day.dateFormatted }}
 						</div>
-						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-neutral-600">
+						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-neutral-800">
 						</div>
-						<button @click="addActivityEntry(day.date)">
+						<button class="rounded border-2 border-primary  text-primary" @click="addActivityEntry(day.date)">
 							<BIcon
 								name="material-symbols-add-rounded"
-								size="28"
-								class="text-neutral-400"
+								size="18"
 							/>
 						</button>
 					</header>
-					<section class="flex gap-4">
-						<span
+					<section class="mt-2 flex gap-4">
+						<BPill
 							v-if="weightStore.mappedEntryDates[day.date] && globalState.loaded"
 							class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
 						>
 							{{ weightStore.mappedEntryDates[day.date].weight_display }}
-						</span>
+						</BPill>
 						<template v-if="workoutStore.mappedEntryWorkouts[day.date] && globalState.loaded">
-							<span
+							<BPill
 								v-for="workoutEntry in workoutStore.mappedEntryWorkouts[day.date]"
 								:key="workoutEntry.created_at"
 								class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
 							>
 								{{ workoutEntry.workout_name }}
-							</span>
+							</BPill>
 						</template>
 					</section>
 				</li>
