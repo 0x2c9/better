@@ -59,6 +59,7 @@ function onFocusOut() {
 				text-lg
 				font-medium
 				text-neutral-200
+				caret-primary
 				placeholder:text-neutral-600
 			"
 			:class="{
