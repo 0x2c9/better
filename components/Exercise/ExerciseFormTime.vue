@@ -29,7 +29,6 @@ watch(
 	(newExercise) => {
 		if (newExercise) {
 			exercise.value = JSON.parse(JSON.stringify(newExercise))
-			console.log(exercise.value)
 		}
 	},
 	{ immediate: true },
