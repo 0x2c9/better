@@ -106,6 +106,23 @@ export const useWorkoutStore = defineStore(
 			workoutEntries.value = data as WorkoutEntry[]
 		}
 
+		async function getWorkoutEntryById(workoutEntryId: string): Promise<WorkoutEntry> {
+			if (workoutEntries.value.length > 0) {
+				const workoutEntry = workoutEntries.value.find((workoutEntry) => workoutEntry.id === workoutEntryId)
+
+				if (workoutEntry) {
+					return workoutEntry
+				}
+			}
+			const { data, error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).select().match({ id: workoutEntryId }).single()
+
+			if (error) {
+				throw new Error(error.message)
+			}
+
+			return data
+		}
+
 		return {
 			workouts,
 			mappedEntryWorkouts,
@@ -115,6 +132,7 @@ export const useWorkoutStore = defineStore(
 			deleteWorkout,
 			saveWorkoutEntry,
 			getWorkoutEntries,
+			getWorkoutEntryById,
 		}
 	},
 )

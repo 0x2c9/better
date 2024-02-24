@@ -143,6 +143,8 @@ async function saveWorkoutAndLeave() {
 	pause()
 
 	const payload: WorkoutEntry = {
+		workout_id: selectedWorkout.value.id!,
+		workout_actual_exercises: selectedWorkout.value.workout_exercises,
 		workout_name: selectedWorkout.value.workout_name,
 		workout_exercises: workoutExercises.value,
 		workout_sets: selectedWorkout.value.workout_sets,

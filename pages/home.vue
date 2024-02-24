@@ -110,13 +110,18 @@ function addActivityEntry(date: string) {
 							{{ weightStore.mappedEntryDates[day.date].weight_display }}
 						</BPill>
 						<template v-if="workoutStore.mappedEntryWorkouts[day.date] && globalState.loaded">
-							<BPill
+							<NuxtLink
 								v-for="workoutEntry in workoutStore.mappedEntryWorkouts[day.date]"
 								:key="workoutEntry.created_at"
-								class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
+								:to="`/analytics/workout/${workoutEntry.id}`"
 							>
-								{{ workoutEntry.workout_name }}
-							</BPill>
+								<BPill
+
+									class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
+								>
+									{{ workoutEntry.workout_name }}
+								</BPill>
+							</NuxtLink>
 						</template>
 					</section>
 				</li>
