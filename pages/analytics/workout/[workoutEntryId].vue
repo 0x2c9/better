@@ -9,7 +9,6 @@ definePageMeta({
 
 const workoutStore = useWorkoutStore()
 const route = useRoute()
-console.log(route)
 const completedWorkout = ref<WorkoutEntry>()
 
 const completedExercises = ref<Exercise[][]>([])
@@ -91,7 +90,16 @@ const computedAnalytics = computed(() => {
 			<p>Loading...</p>
 		</section>
 		<section v-else>
-			<div class="flex items-center justify-between pb-4">
+			<div class="flex items-center gap-x-2 pb-4">
+				<NuxtLink
+
+					to="/home"
+				>
+					<BIcon
+						name="material-symbols-arrow-back-rounded"
+						size="24"
+					/>
+				</NuxtLink>
 				<h2 class="text-xl font-bold">
 					{{ completedWorkout?.workout_name }}
 				</h2>
