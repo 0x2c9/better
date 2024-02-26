@@ -16,6 +16,7 @@ export default {
 			green: '#059669',
 			red: '#DC2626',
 			orange: '#dd8b1d',
+			primary: '#D0FF01',
 			white: '#f3f4f5',
 			black: '#000000',
 			transparent: 'transparent',

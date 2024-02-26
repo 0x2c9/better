@@ -54,7 +54,7 @@ function onLeave(el: Element, done: () => void) {
 			<BButton
 				type="button"
 				small
-				variant="primary"
+				variant="outline"
 				class="mr-auto"
 				@click.stop="startWorkout(item.id!)"
 			>

@@ -1,5 +1,5 @@
 <template>
-	<span class="inline-block rounded-full bg-neutral-600 px-4 py-1 text-sm text-white">
+	<span class="inline-block rounded-full border border-neutral-600/40 bg-neutral-800 px-3 py-1 text-xs text-neutral-400">
 		<slot></slot>
 	</span>
 </template>

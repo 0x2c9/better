@@ -70,6 +70,7 @@ function onStartExercise(item: TimeExercise) {
 			<BButton
 				v-if="item.exercise_type === 'time'"
 				type="button"
+				variant="secondary"
 				icon-name="material-symbols-play-arrow-rounded"
 				@click.stop="onStartExercise(item)"
 			/>

@@ -201,7 +201,7 @@ const computedWorkoutExercises = computed(() => {
 		<div class="flex-1 overflow-y-auto px-4 py-6">
 			<header class="mb-4 flex items-center justify-between">
 				<BButton
-					variant="secondary"
+					variant="outline"
 					small
 					@click="onGoBack"
 				>
@@ -244,7 +244,7 @@ const computedWorkoutExercises = computed(() => {
 			</Transition>
 		</Teleport>
 		<footer class="border border-t-2 border-neutral-600/40 px-4">
-			<nav class="b-box z-50 my-6 flex flex-col justify-center px-4 pb-4 pt-3">
+			<nav class="b-box z-50 mb-4 mt-2 flex flex-col justify-center px-4 pb-4 pt-3">
 				<div class="mb-2 flex justify-center">
 					<Transition name="quick-fade" mode="out-in">
 						<template v-if="workoutTimeInSeconds > 0">
@@ -260,7 +260,7 @@ const computedWorkoutExercises = computed(() => {
 						v-if="workoutTimeInSeconds > 0"
 						class="flex-1"
 						small
-						variant="secondary"
+						variant="outline"
 						@click="resetWorkoutTimer"
 					>
 						Reset Timer
@@ -268,7 +268,7 @@ const computedWorkoutExercises = computed(() => {
 					<BButton
 						class="flex-1"
 						small
-						variant="primary"
+						variant="secondary"
 						@click="toggleWorkoutTimer"
 					>
 						<template v-if="isActive">

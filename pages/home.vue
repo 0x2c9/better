@@ -128,6 +128,7 @@ function addActivityEntry(date: string) {
 			<nav class="flex w-full items-center justify-between px-4">
 				<BButton
 					icon-name="material-symbols-chevron-left-rounded"
+					variant="outline"
 					icon-size="28"
 					@click="handleWeekChange('prev')"
 				/>
@@ -138,6 +139,7 @@ function addActivityEntry(date: string) {
 
 				<BButton
 					icon-name="material-symbols-chevron-right-rounded"
+					variant="outline"
 					icon-size="28"
 					@click="handleWeekChange('next')"
 				/>
