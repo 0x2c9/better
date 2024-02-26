@@ -23,7 +23,7 @@
 		"gsap": "^3.12.5",
 		"howler": "^2.2.4",
 		"pinia": "^2.1.7",
-		"vue": "3.4.19",
+		"vue": "3.4.20",
 		"vue-router": "^4.3.0"
 	},
 	"devDependencies": {
