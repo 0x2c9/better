@@ -6,10 +6,6 @@ defineProps<{
 	item: Workout
 }>()
 
-function startWorkout(workoutId: string) {
-	navigateTo(`/workout/${workoutId}`)
-}
-
 const showExerciseList = ref(false)
 
 function toggleExerciseList() {
@@ -56,7 +52,7 @@ function onLeave(el: Element, done: () => void) {
 				small
 				variant="outline"
 				class="mr-auto"
-				@click.stop="startWorkout(item.id!)"
+				:to="`/workout/${item.id!}`"
 			>
 				Start Workout
 			</BButton>

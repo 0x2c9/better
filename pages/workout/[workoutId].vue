@@ -112,9 +112,6 @@ function onGoBack() {
 	showConfirmLeaveModal.value = true
 }
 
-function leaveCurrentWorkout() {
-	navigateTo('/workouts')
-}
 function stayOnWorkout() {
 	showConfirmLeaveModal.value = false
 	showConfirmSaveModal.value = false
@@ -302,7 +299,7 @@ const computedWorkoutExercises = computed(() => {
 					<BButton
 						class="mt-8"
 						variant="primary"
-						@click="leaveCurrentWorkout"
+						to="/workouts"
 					>
 						Confirm and leave
 					</BButton>
