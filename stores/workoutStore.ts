@@ -123,6 +123,16 @@ export const useWorkoutStore = defineStore(
 			return data
 		}
 
+		async function deleteWorkoutEntry(workoutEntryId: string) {
+			const { error } = await supaClient.from(DB_TABLE_NAME_WORKOUTS_ENTRIES).delete().match({ id: workoutEntryId })
+
+			workoutEntries.value = workoutEntries.value.filter((workoutEntry) => workoutEntry.id !== workoutEntryId)
+
+			if (error) {
+				throw new Error(error.message)
+			}
+		}
+
 		return {
 			workouts,
 			mappedEntryWorkouts,
@@ -133,6 +143,7 @@ export const useWorkoutStore = defineStore(
 			saveWorkoutEntry,
 			getWorkoutEntries,
 			getWorkoutEntryById,
+			deleteWorkoutEntry,
 		}
 	},
 )

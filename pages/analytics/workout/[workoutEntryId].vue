@@ -12,6 +12,7 @@ const route = useRoute()
 const completedWorkout = ref<WorkoutEntry>()
 
 const completedExercises = ref<Exercise[][]>([])
+const showConfirmDeleteEntry = ref(false)
 
 const actualExercises = ref<Exercise[]>([])
 
@@ -82,6 +83,13 @@ const computedAnalytics = computed(() => {
 
 	return result
 })
+
+async function onDeleteWorkoutEntry() {
+	if (completedWorkout.value) {
+		await workoutStore.deleteWorkoutEntry(completedWorkout.value.id!)
+		navigateTo('/home')
+	}
+}
 </script>
 
 <template>
@@ -90,11 +98,8 @@ const computedAnalytics = computed(() => {
 			<p>Loading...</p>
 		</section>
 		<section v-else>
-			<div class="flex items-center gap-x-2 pb-4">
-				<NuxtLink
-
-					to="/home"
-				>
+			<div class="flex items-center gap-x-4 pb-4">
+				<NuxtLink to="/home">
 					<BIcon
 						name="material-symbols-arrow-back-rounded"
 						size="24"
@@ -103,6 +108,15 @@ const computedAnalytics = computed(() => {
 				<h2 class="text-xl font-bold">
 					{{ completedWorkout?.workout_name }}
 				</h2>
+
+				<BButton
+					class="ml-auto"
+					variant="danger"
+					small
+					@click="showConfirmDeleteEntry = true"
+				>
+					Delete
+				</BButton>
 			</div>
 
 			<section v-for="(exerciseSet, setIndex) in computedAnalytics" :key="setIndex">
@@ -151,5 +165,30 @@ const computedAnalytics = computed(() => {
 				</ul>
 			</section>
 		</section>
+
+		<LazyBDrawer v-model="showConfirmDeleteEntry">
+			<section v-if="completedWorkout" class="flex flex-col">
+				<h1 class="text-xl font-semibold">
+					Do you want to delete this workout entry?
+				</h1>
+				<p class="mt-2 text-lg">
+					This action cannot be undone.
+				</p>
+				<BButton
+					class="mt-8"
+					variant="primary"
+					@click="onDeleteWorkoutEntry"
+				>
+					Confirm and delete
+				</BButton>
+				<BButton
+					class="mt-4"
+					variant="secondary"
+					@click="showConfirmDeleteEntry = false"
+				>
+					Stay
+				</BButton>
+			</section>
+		</LazyBDrawer>
 	</article>
 </template>
