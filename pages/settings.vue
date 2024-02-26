@@ -17,7 +17,7 @@ function logout() {
 		<footer class="mt-auto">
 			<BButton
 				class="w-full"
-				variant="action"
+				variant="primary"
 				@click="logout"
 			>
 				Logout

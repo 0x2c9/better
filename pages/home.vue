@@ -95,17 +95,17 @@ function addActivityEntry(date: string) {
 						</div>
 						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-neutral-800">
 						</div>
-						<button class="rounded border-2 border-primary  text-primary" @click="addActivityEntry(day.date)">
-							<BIcon
-								name="material-symbols-add-rounded"
-								size="18"
-							/>
-						</button>
+						<BButton
+							icon-name="material-symbols-add-rounded"
+							icon-size="20"
+							small
+							variant="secondary"
+							@click="addActivityEntry(day.date)"
+						/>
 					</header>
 					<section class="mt-2 flex gap-4">
 						<BPill
 							v-if="weightStore.mappedEntryDates[day.date] && globalState.loaded"
-							class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
 						>
 							{{ weightStore.mappedEntryDates[day.date].weight_display }}
 						</BPill>
@@ -115,10 +115,7 @@ function addActivityEntry(date: string) {
 								:key="workoutEntry.created_at"
 								:to="`/analytics/workout/${workoutEntry.id}`"
 							>
-								<BPill
-
-									class=" inline-block rounded-full border border-neutral-700 bg-neutral-700/50 px-2 py-0.5 text-neutral-400"
-								>
+								<BPill>
 									{{ workoutEntry.workout_name }}
 								</BPill>
 							</NuxtLink>
@@ -131,8 +128,6 @@ function addActivityEntry(date: string) {
 			<nav class="flex w-full items-center justify-between px-4">
 				<BButton
 					icon-name="material-symbols-chevron-left-rounded"
-					variant="secondary"
-					small
 					icon-size="28"
 					@click="handleWeekChange('prev')"
 				/>
@@ -143,8 +138,6 @@ function addActivityEntry(date: string) {
 
 				<BButton
 					icon-name="material-symbols-chevron-right-rounded"
-					variant="secondary"
-					small
 					icon-size="28"
 					@click="handleWeekChange('next')"
 				/>

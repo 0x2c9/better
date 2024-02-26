@@ -303,7 +303,7 @@ const slots = useSlots()
 				>
 					<slot name="default"></slot>
 				</div>
-				<footer class="z-50 border-t border-t-neutral-600/60 bg-neutral-900 p-4 empty:hidden">
+				<footer class="z-50 border-t border-t-neutral-600/60 bg-neutral-800 p-4 empty:hidden">
 					<slot name="footer"></slot>
 				</footer>
 			</div>

@@ -4,10 +4,9 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import 'dayjs/locale/de'
 
-const { disableFutureDates = false, blank = true, highlightedDates = new Set() } = defineProps<{
+const { disableFutureDates = false, highlightedDates = new Set() } = defineProps<{
 	highlightedDates: Set<string>
 	disableFutureDates?: boolean
-	blank?: boolean
 }>()
 
 const emits = defineEmits(['setDate'])
@@ -116,75 +115,69 @@ function getDayClass(dayObj: IDay) {
 	return {
 		'm-[1px] flex aspect-square select-none items-center justify-center rounded tabular-nums font-medium relative': true,
 		'text-neutral-500': dayObj.type === 'past' || dayObj.type === 'future',
-		'border border-primary': isToday,
-		'bg-primary text-neutral-900 before:bg-neutral-950 border-primary': isSelected,
+		'border border-white': isToday,
+		'bg-white text-neutral-900 before:bg-neutral-950 border-white': isSelected,
 		'cursor-default text-neutral-500 line-through': dayObj.isDisabled,
 		'cursor-pointer': !dayObj.isDisabled,
 		'hover:bg-neutral-400 hover:text-neutral-950': !dayObj.isDisabled && !isSelected,
-		'before:absolute before:size-1 before:bg-primary before:rounded-full before:bottom-1': dayObj.highlight,
+		'before:absolute before:size-1 before:bg-white before:rounded-full before:bottom-1': dayObj.highlight,
 	}
 }
 </script>
 
 <template>
-	<div
-		:class="{
-			'rounded-xl bg-neutral-800 p-4': !blank,
-		}"
-	>
-		<div class="mx-auto min-w-[300px] max-w-[420px]">
-			<div class="mb-6 flex items-center justify-between pl-[10px] pr-2">
-				<h1 class="tracking-wide">
-					{{ monthLabels[month] }} - {{ year }}
-				</h1>
-				<div class="flex items-center space-x-5">
-					<button
-						type="button"
-						@click="previousMonth"
-					>
-						<BIcon
-							name="material-symbols-chevron-left-rounded"
-							size="24"
-						/>
-					</button>
-					<button
-						type="button"
-						@click="resetDate"
-					>
-						<BIcon
-							name="gg-calendar-today"
-							size="20"
-						/>
-					</button>
-					<button
-						type="button"
-						@click="nextMonth"
-					>
-						<BIcon
-							name="material-symbols-chevron-right-rounded"
-							size="24"
-						/>
-					</button>
-				</div>
-			</div>
-			<div class="border-prm grid grid-cols-7 border-b border-neutral-50/20 pb-2">
-				<div
-					v-for="dayLabel in dayLabels"
-					:key="dayLabel"
-					class="text-neutral text-center text-sm"
+	<div class="mx-auto min-w-[300px] max-w-[420px]">
+		<div class="mb-6 flex items-center justify-between pl-[10px] pr-2">
+			<h1 class="tracking-wide">
+				{{ monthLabels[month] }} - {{ year }}
+			</h1>
+			<div class="flex items-center space-x-5">
+				<button
+					type="button"
+					@click="previousMonth"
 				>
-					{{ dayLabel.slice(0, 2) }}
-				</div>
-			</div>
-			<div class="grid grid-cols-7">
-				<div
-					v-for="day in days"
-					:key="`${day.dateOfMonth} + -${day.type}`"
-					:class="day.computedClass"
-					@click="setDate(day)"
+					<BIcon
+						name="material-symbols-chevron-left-rounded"
+						size="24"
+					/>
+				</button>
+				<button
+					type="button"
+					@click="resetDate"
 				>
-					{{ day.dateOfMonth }}
-				</div>
+					<BIcon
+						name="gg-calendar-today"
+						size="20"
+					/>
+				</button>
+				<button
+					type="button"
+					@click="nextMonth"
+				>
+					<BIcon
+						name="material-symbols-chevron-right-rounded"
+						size="24"
+					/>
+				</button>
+			</div>
+		</div>
+		<div class="border-prm grid grid-cols-7 border-b border-neutral-600/40 pb-2">
+			<div
+				v-for="dayLabel in dayLabels"
+				:key="dayLabel"
+				class="text-neutral text-center text-sm"
+			>
+				{{ dayLabel.slice(0, 2) }}
+			</div>
+		</div>
+		<div class="grid grid-cols-7">
+			<div
+				v-for="day in days"
+				:key="`${day.dateOfMonth} + -${day.type}`"
+				:class="day.computedClass"
+				@click="setDate(day)"
+			>
+				{{ day.dateOfMonth }}
 			</div>
 		</div>
 	</div>

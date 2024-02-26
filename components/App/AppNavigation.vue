@@ -42,7 +42,7 @@ const menuItems: IMenuItem[] = [
 
 <template>
 	<nav
-		class="fixed inset-x-0 bottom-0 z-50 grid h-[72px] grid-cols-5 items-center justify-center rounded-t-3xl border-t-2 border-neutral-700/50 bg-neutral-950/85 px-4 backdrop-blur"
+		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-5 items-center justify-center border-t border-neutral-600/40 bg-neutral-900 px-4 backdrop-blur"
 	>
 		<NuxtLink
 			v-for="item in menuItems"

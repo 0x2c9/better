@@ -17,14 +17,14 @@ function onLabelClick() {
 
 <template>
 	<div
-		class="absolute inset-y-0 right-0 flex select-none items-center"
+		class="absolute inset-y-0 left-0 flex select-none items-center"
 		@click.stop="onLabelClick"
 	>
 		<div
-			class="relative h-full w-10 shrink-0 bg-gradient-to-tr text-neutral-900 transition-colors duration-200"
+			class="relative h-full w-10 shrink-0 bg-gradient-to-l text-neutral-900 transition-colors duration-200"
 			:class="{
-				'from-green to-green/5': isChecked,
-				'from-neutral-600 to-neutral-600/5': !isChecked,
+				'from-green to-green/20': isChecked,
+				'from-neutral-700 to-neutral-700/20': !isChecked,
 			}"
 		>
 			<Transition

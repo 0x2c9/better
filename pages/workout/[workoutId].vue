@@ -209,7 +209,7 @@ const computedWorkoutExercises = computed(() => {
 					Leave Workout
 				</BButton>
 				<BButton
-					variant="action"
+					variant="primary"
 					small
 					@click="onSaveWorkout"
 				>
@@ -243,7 +243,7 @@ const computedWorkoutExercises = computed(() => {
 				/>
 			</Transition>
 		</Teleport>
-		<footer class="border border-t-2 border-neutral-700/50 px-4">
+		<footer class="border border-t-2 border-neutral-600/40 px-4">
 			<nav class="b-box z-50 my-6 flex flex-col justify-center px-4 pb-4 pt-3">
 				<div class="mb-2 flex justify-center">
 					<Transition name="quick-fade" mode="out-in">
@@ -301,7 +301,7 @@ const computedWorkoutExercises = computed(() => {
 					</p>
 					<BButton
 						class="mt-8"
-						variant="action"
+						variant="primary"
 						@click="leaveCurrentWorkout"
 					>
 						Confirm and leave
@@ -335,7 +335,7 @@ const computedWorkoutExercises = computed(() => {
 					</p>
 					<BButton
 						class="mt-8"
-						variant="action"
+						variant="primary"
 						@click="saveWorkoutAndLeave"
 					>
 						Confirm and save

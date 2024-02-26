@@ -40,13 +40,13 @@ function onLeave(el: Element, done: () => void) {
 </script>
 
 <template>
-	<div class="flex-1">
+	<div class="flex-1 py-1">
 		<div class="flex flex-col">
 			<div class="flex items-center justify-between pb-4">
 				<h2 class="text-xl font-bold">
 					{{ item.workout_name }}
 				</h2>
-				<button class="text-neutral-500" @click.stop="toggleExerciseList">
+				<button class="white" @click.stop="toggleExerciseList">
 					<BIcon size="28" :name="showExerciseList ? 'material-symbols-keyboard-arrow-up-rounded' : 'material-symbols-keyboard-arrow-down-rounded'" />
 				</button>
 			</div>
@@ -71,7 +71,7 @@ function onLeave(el: Element, done: () => void) {
 					<ExerciseListItem
 						v-for="(workoutExercise, index) of item.workout_exercises"
 						:key="`${workoutExercise.id}-${index}`"
-						class="rounded-md border border-neutral-600/40 p-4"
+						class="rounded-lg border border-neutral-600/40 bg-neutral-600 px-4 py-2"
 						:item="workoutExercise"
 					/>
 				</ul>

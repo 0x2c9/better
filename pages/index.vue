@@ -13,7 +13,7 @@
 			Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with <span class="font-semibold">Better</span>.
 		</p>
 		<BButton
-			variant="action"
+			variant="primary"
 			class="mt-auto font-bold"
 			to="/signup"
 		>

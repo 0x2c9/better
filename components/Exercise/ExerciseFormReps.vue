@@ -82,7 +82,7 @@ async function onSubmit() {
 			class="!mt-10 w-full"
 			@click="onSubmit"
 		>
-			Save
+			Add Exercise To List
 		</BButton>
 	</form>
 </template>

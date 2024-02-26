@@ -50,7 +50,7 @@ function onFocusOut() {
 			class="
 				h-12
 				w-full
-				rounded-md
+				rounded-lg
 				border
 				border-neutral-500
 				bg-transparent
@@ -59,12 +59,12 @@ function onFocusOut() {
 				text-lg
 				font-medium
 				text-neutral-200
-				caret-primary
+				caret-white
 				placeholder:text-neutral-600
 			"
 			:class="{
 				'border-neutral-400': !hasFocus,
-				'outline-none ring-1 ring-primary focus:border-transparent': hasFocus,
+				'outline-none ring-1 ring-white focus:border-transparent': hasFocus,
 			}"
 			:type="type"
 			:placeholder="placeholder"

@@ -67,7 +67,7 @@ function onDelete() {
 	>
 		<div
 			ref="itemEl"
-			class="b-box relative z-10 flex flex-1 select-none items-center overflow-hidden rounded-xl border-none px-4 py-2 outline outline-1 -outline-offset-1 outline-neutral-500/30 transition-transform duration-300 ease-in-out"
+			class="b-box relative z-10 flex flex-1 select-none items-center overflow-hidden rounded-lg border-none px-4 py-2 outline outline-1 -outline-offset-1 outline-neutral-500/30 transition-transform duration-300 ease-in-out"
 			:style="{
 				transform: `translateX(${xValue}px)`,
 			}"
@@ -92,6 +92,7 @@ function onDelete() {
 					v-if="xValue === -100"
 					icon-name="material-symbols-delete-outline-rounded"
 					small
+					icon-size="20"
 					variant="danger"
 					@click="onDelete"
 				/>

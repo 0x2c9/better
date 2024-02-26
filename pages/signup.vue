@@ -50,7 +50,7 @@ async function onSubmit() {
 			<BButton
 				class="mt-8"
 				type="submit"
-				variant="action"
+				variant="primary"
 			>
 				Sign In
 			</BButton>
@@ -59,7 +59,7 @@ async function onSubmit() {
 			Already have an account?
 			<NuxtLink
 				to="/login"
-				class="text-primary"
+				class="text-white"
 			>
 				Login with your account
 			</NuxtLink>

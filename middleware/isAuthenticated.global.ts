@@ -1,5 +1,8 @@
 export default defineNuxtRouteMiddleware((to) => {
 	const authStore = useAuthStore()
+	if (to.path === '/story') {
+		return
+	}
 
 	if (import.meta.client) {
 		authStore.syncLocalStorage()

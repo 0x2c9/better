@@ -93,15 +93,14 @@ const computedDisplayValue = computed(() => {
 			'opacity-50': disabled,
 		}"
 	>
-		<h1 class="text text-center text-xs font-medium uppercase tracking-widest  text-neutral-400">
+		<label class="mb-1 inline-block w-full text-center text-[11px] font-bold uppercase tracking-widest text-neutral-400">
 			{{ label }}
-		</h1>
+		</label>
 
 		<div class="flex items-center justify-between text-4xl">
 			<BButton
 				type="button"
-				variant="primary"
-				small
+				variant="secondary"
 				:disabled="disabled || modelValue <= min"
 				icon-name="material-symbols-remove-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'minus')"
@@ -117,8 +116,7 @@ const computedDisplayValue = computed(() => {
 			</div>
 			<BButton
 				type="button"
-				variant="primary"
-				small
+				variant="secondary"
 				:disabled="disabled || !!(max && modelValue >= max)"
 				icon-name="material-symbols-add-rounded"
 				@touchstart.stop.passive="onTouchStart($event, 'plus')"

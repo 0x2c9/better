@@ -14,7 +14,7 @@
 
 
   body {
-    @apply bg-neutral-950 text-white font-inter overflow-x-hidden antialiased;
+    @apply bg-neutral-900 text-white font-inter overflow-x-hidden antialiased;
   }
 
   :focus-visible {
@@ -23,14 +23,14 @@
 }
 @layer components {
   .b-box {
-		background-color: theme('colors.neutral.900');
+		background-color: theme('colors.neutral.800');
 		border-width: 2px;
 		border-radius: 20px;
 		@apply border-neutral-600/40;
 	}
 
 	[data-drawer-index] .b-box {
-		background-color: theme('colors.neutral.800');
+		background-color: theme('colors.neutral.700');
 		@apply border-neutral-600/60;
 	}
 }

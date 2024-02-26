@@ -59,7 +59,7 @@ function onSubmitExercise(exercise: Exercise) {
 		>
 			<button
 				v-if="exerciseType && !selectedExercise"
-				class="mb-6"
+				class="mb-4"
 				type="button"
 				@click="goBackToTypeSelection"
 			>
@@ -72,17 +72,23 @@ function onSubmitExercise(exercise: Exercise) {
 				<h2 class="mb-6 text-lg font-medium">
 					Select Exercise Type
 				</h2>
-				<div class="grid grid-cols-2 gap-6">
-					<ExerciseFormTypeButton
-						label="Repetitions"
-						icon-name="material-symbols-rotate-right-rounded"
+				<div class="flex flex-col gap-y-4">
+					<BButton
+						class="flex items-start"
+						variant="secondary"
 						@click="selectExerciseType('reps')"
-					/>
-					<ExerciseFormTypeButton
-						label="Duration"
-						icon-name="material-symbols-timer-outline-rounded"
+					>
+						<BIcon name="material-symbols-rotate-right-rounded" class="-ml-2 mr-2" />
+						Repetitions
+					</BButton>
+					<BButton
+						class="flex items-start"
+						variant="secondary"
 						@click="selectExerciseType('time')"
-					/>
+					>
+						<BIcon name="material-symbols-timer-outline-rounded" class="-ml-2 mr-2" />
+						Duration
+					</BButton>
 				</div>
 			</section>
 			<section>

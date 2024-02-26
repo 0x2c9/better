@@ -239,8 +239,8 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="relative -mx-4 -mt-12 mb-6 overflow-hidden pb-8 pt-12">
-		<div class="absolute inset-x-0 bottom-0 z-50 h-44 bg-gradient-to-t from-neutral-950"></div>
+	<div class="relative -mx-4 -mt-12 overflow-hidden pb-8 pt-12">
+		<div class="absolute inset-x-0 bottom-0 z-50 h-44 bg-gradient-to-t from-neutral-900"></div>
 		<div
 			v-if="weightStore.latestEntry"
 			class="pointer-events-none absolute inset-0 bg-gradient-to-tl"

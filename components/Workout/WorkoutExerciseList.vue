@@ -40,7 +40,11 @@ function onStartExercise(item: TimeExercise) {
 		@delete="onDeleteExercise"
 	>
 		<template #content="{ item }">
-			<div class="flex-1">
+			<div class="flex-1 pl-11">
+				<BCheckbox
+					v-model="item.done"
+					@checked="onCheck($event, item)"
+				/>
 				<div class="mb-1 flex items-center justify-between">
 					<h2 class="text-lg font-medium">
 						{{ item.exercise_name }}
@@ -65,15 +69,9 @@ function onStartExercise(item: TimeExercise) {
 			</div>
 			<BButton
 				v-if="item.exercise_type === 'time'"
-				class="mr-10"
 				type="button"
 				icon-name="material-symbols-play-arrow-rounded"
 				@click.stop="onStartExercise(item)"
-			/>
-
-			<BCheckbox
-				v-model="item.done"
-				@checked="onCheck($event, item)"
 			/>
 		</template>
 	</BGenericList>

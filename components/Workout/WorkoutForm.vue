@@ -108,7 +108,7 @@ function updateSelectedExercise(exercise: Exercise) {
 							placeholder="Workout Name"
 						/>
 						<BButton
-							variant="secondary"
+							variant="primary"
 							icon-name="material-symbols-add-rounded"
 							@click="openExerciseList"
 						/>
