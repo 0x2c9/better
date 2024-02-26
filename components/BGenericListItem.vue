@@ -91,8 +91,7 @@ function onDelete() {
 				<BButton
 					v-if="xValue === -100"
 					icon-name="material-symbols-delete-outline-rounded"
-					small
-					icon-size="20"
+					icon-size="24"
 					variant="danger"
 					@click="onDelete"
 				/>
