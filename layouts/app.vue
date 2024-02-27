@@ -1,10 +1,14 @@
 <script setup lang="ts">
+const authStore = useAuthStore()
 const weightStore = useWeightStore()
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
 const globalState = useGlobalState()
 
 onMounted(async () => {
+	if (!authStore.isAuthenticated) {
+		return
+	}
 	globalState.loaded = false
 
 	await Promise.all([

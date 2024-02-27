@@ -1,11 +1,18 @@
 export default defineNuxtRouteMiddleware((to) => {
-	const user = useSupabaseUser()
-
-	if (user.value && !to.meta.auth) {
-		return navigateTo('/home')
+	const authStore = useAuthStore()
+	if (to.path === '/story') {
+		return
 	}
 
-	if (!user.value && to.meta.auth) {
-		return navigateTo('/login')
+	if (import.meta.client) {
+		authStore.syncLocalStorage()
+
+		if (!authStore.isAuthenticated && to.meta.auth) {
+			return navigateTo('/')
+		}
+
+		if (authStore.isAuthenticated && !to.meta.auth) {
+			return navigateTo('/home')
+		}
 	}
 })

@@ -5,7 +5,7 @@ export const useWeightStore = defineStore(
 	'Weight Store',
 	() => {
 		const DB_TABLE_NAME = 'weight_entries'
-		const supaClient = useSupabaseClient()
+		const supaClient = useSupabase()
 		const authStore = useAuthStore()
 
 		const weightHistory = ref<WeightEntry[]>([])

@@ -4,7 +4,7 @@ export const useExerciseStore = defineStore(
 	'Exercise Store',
 	() => {
 		const DB_TABLE_NAME = 'exercises'
-		const supaClient = useSupabaseClient()
+		const supaClient = useSupabase()
 		const authStore = useAuthStore()
 
 		const exercises = ref<Exercise[]>([])
