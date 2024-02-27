@@ -18,7 +18,6 @@ export default {
 			orange: '#dd8b1d',
 			primary: '#D0FF01',
 			white: '#f3f4f5',
-			black: '#000000',
 			transparent: 'transparent',
 			neutral: {
 				50: colors.neutral['50'],
@@ -30,7 +29,7 @@ export default {
 				600: '#404040',
 				700: '#323232',
 				800: '#222222',
-				900: '#101010',
+				900: '#171717',
 				950: '#0B0B0A',
 			},
 		},
