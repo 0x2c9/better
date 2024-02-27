@@ -245,9 +245,9 @@ onMounted(() => {
 			v-if="weightStore.latestEntry"
 			class="pointer-events-none absolute inset-0 bg-gradient-to-tl"
 			:class="{
-				'from-green/40 via-green/5': weightStore.latestEntry.progress === 'increase',
-				'from-red/40 via-red/5': weightStore.latestEntry.progress === 'decrease',
-				'from-blue/40 via-blue/5': weightStore.latestEntry.progress === 'same',
+				'from-green/20 via-green/5': weightStore.latestEntry.progress === 'increase',
+				'from-red/20 via-red/5': weightStore.latestEntry.progress === 'decrease',
+				'from-blue/20 via-blue/5': weightStore.latestEntry.progress === 'same',
 			}"
 		></div>
 		<div class="px-4">
