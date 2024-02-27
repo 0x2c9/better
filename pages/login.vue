@@ -5,10 +5,6 @@ const email = ref('')
 const password = ref('')
 
 async function onSubmit() {
-	if (authStore.isAuthenticated) {
-		navigateTo('/home')
-		return
-	}
 	await authStore.signIn({
 		email: email.value,
 		password: password.value,

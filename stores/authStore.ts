@@ -7,16 +7,14 @@ type UserCredentials = {
 }
 
 export const useAuthStore = defineStore('Authentication', () => {
-	const supaClient = useSupabase()
-	const userSession = ref<Session | null>(null)
-
-	const isAuthenticated = computed(() => !!userSession.value)
+	const supaClient = useSupabaseClient()
+	const supabaseUser = useSupabaseUser()
 
 	const userId = computed(() => {
-		if (!userSession.value)
+		if (!supabaseUser.value)
 			return null
 
-		return userSession.value.user.id
+		return supabaseUser.value.id
 	})
 
 	async function signIn(credentials: UserCredentials) {
@@ -69,27 +67,11 @@ export const useAuthStore = defineStore('Authentication', () => {
 
 	async function signOut() {
 		await supaClient.auth.signOut()
-		userSession.value = null
 		await navigateTo('/')
 	}
 
-	function syncLocalStorage() {
-		const storedSession = localStorage.getItem('supabase.auth.session')
-
-		if (!storedSession) {
-			return
-		}
-
-		const parsedSession = JSON.parse(storedSession) as Session
-
-		userSession.value = parsedSession
-	}
-
 	return {
-		userSession,
-		isAuthenticated,
 		userId,
-		syncLocalStorage,
 		signIn,
 		signUp,
 		signOut,
