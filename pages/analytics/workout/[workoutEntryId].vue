@@ -14,13 +14,13 @@ const completedWorkout = ref<WorkoutEntry>()
 const completedExercises = ref<Exercise[][]>([])
 const showConfirmDeleteEntry = ref(false)
 
-const actualExercises = ref<Exercise[]>([])
+const initialExercises = ref<Exercise[]>([])
 
 onMounted(async () => {
 	try {
 		completedWorkout.value = await workoutStore.getWorkoutEntryById(route.params.workoutEntryId as string)
 		completedExercises.value = completedWorkout.value.workout_exercises
-		actualExercises.value = completedWorkout.value.workout_actual_exercises
+		initialExercises.value = completedWorkout.value.workout_initial_exercises
 	} catch (error) {
 		console.log(error)
 	}
@@ -32,21 +32,21 @@ const computedAnalytics = computed(() => {
 	for (const exerciseSet of completedExercises.value) {
 		const set = []
 
-		for (const exercise of exerciseSet) {
-			const actualExercise = actualExercises.value.find((actual) => actual.id === exercise.id) as Exercise
+		for (const actualExercise of exerciseSet) {
+			const initialExercise = initialExercises.value.find((actual) => actual.id === actualExercise.id) as Exercise
 
-			if (actualExercise.exercise_type === 'reps' && exercise.exercise_type === 'reps') {
-				const actualRepetitions = exercise.exercise_repetitions
-				const expectedRepetitions = actualExercise.exercise_repetitions
+			if (initialExercise.exercise_type === 'reps' && actualExercise.exercise_type === 'reps') {
+				const actualRepetitions = actualExercise.exercise_repetitions
+				const expectedRepetitions = initialExercise.exercise_repetitions
 
-				const isCompleted = actualRepetitions === expectedRepetitions
+				const isCompleted = actualExercise.done
 				const isLess = actualRepetitions < expectedRepetitions
 				const isMore = actualRepetitions > expectedRepetitions
 
-				const percentage = (actualRepetitions / expectedRepetitions) * 100
+				const percentage = actualExercise.done ? (actualRepetitions / expectedRepetitions) * 100 : 0
 
 				set.push({
-					...exercise,
+					...actualExercise,
 					isCompleted,
 					isLess,
 					isMore,
@@ -56,18 +56,18 @@ const computedAnalytics = computed(() => {
 				})
 			}
 
-			if (actualExercise.exercise_type === 'time' && exercise.exercise_type === 'time') {
-				const actualTime = exercise.exercise_training_time * exercise.exercise_sets
-				const expectedTime = actualExercise.exercise_training_time * actualExercise.exercise_sets
+			if (initialExercise.exercise_type === 'time' && actualExercise.exercise_type === 'time') {
+				const actualTime = actualExercise.exercise_training_time * actualExercise.exercise_sets
+				const expectedTime = initialExercise.exercise_training_time * initialExercise.exercise_sets
 
-				const isCompleted = actualTime === expectedTime
+				const isCompleted = actualExercise.done
 				const isLess = actualTime < expectedTime
 				const isMore = actualTime > expectedTime
 
-				const percentage = (actualTime / expectedTime) * 100
+				const percentage = actualExercise.done ? (actualTime / expectedTime) * 100 : 0
 
 				set.push({
-					...exercise,
+					...actualExercise,
 					isCompleted,
 					isLess,
 					isMore,
