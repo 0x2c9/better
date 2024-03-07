@@ -86,6 +86,7 @@ const computedAnalytics = computed(() => {
 
 async function onDeleteWorkoutEntry() {
 	if (completedWorkout.value) {
+		showConfirmDeleteEntry.value = false
 		await workoutStore.deleteWorkoutEntry(completedWorkout.value.id!)
 		navigateTo('/home')
 	}

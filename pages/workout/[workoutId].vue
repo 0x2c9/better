@@ -132,11 +132,16 @@ function onSaveWorkout() {
 	}
 }
 
+function onConfirmAndLeave() {
+	showConfirmLeaveModal.value = false
+	navigateTo('/workouts')
+}
+
 async function saveWorkoutAndLeave() {
 	if (!selectedWorkout.value) {
 		return
 	}
-
+	showConfirmSaveModal.value = false
 	pause()
 
 	const payload: WorkoutEntry = {
@@ -299,7 +304,7 @@ const computedWorkoutExercises = computed(() => {
 					<BButton
 						class="mt-8"
 						variant="primary"
-						to="/workouts"
+						@click="onConfirmAndLeave"
 					>
 						Confirm and leave
 					</BButton>
