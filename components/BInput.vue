@@ -37,7 +37,7 @@ function onFocusOut() {
 		}"
 	>
 		<span
-			class="mb-1 inline-block w-full text-[11px] font-semibold uppercase  tracking-widest text-gray-medium"
+			class="mb-1 inline-block w-full text-[11px] font-semibold uppercase  tracking-widest text-gray-medium empty:hidden"
 			:class="{
 				'text-center': labelCenter,
 			}"
