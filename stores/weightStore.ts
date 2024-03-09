@@ -65,6 +65,23 @@ export const useWeightStore = defineStore(
 			return parsedWeightHistory.value[parsedWeightHistory.value.length - 1]
 		})
 
+		const overallProgress = computed(() => {
+			if (parsedWeightHistory.value.length < 2) {
+				return 'same'
+			}
+
+			const lastEntry = parsedWeightHistory.value[0]
+			const firstEntry = parsedWeightHistory.value[parsedWeightHistory.value.length - 1]
+
+			if (lastEntry.weight > firstEntry.weight) {
+				return 'increase'
+			} else if (lastEntry.weight < firstEntry.weight) {
+				return 'decrease'
+			} else {
+				return 'same'
+			}
+		})
+
 		async function fetchWeightHistory() {
 			const { data, error } = await supaClient.from(DB_TABLE_NAME).select('*').order('date', { ascending: false })
 
@@ -142,6 +159,7 @@ export const useWeightStore = defineStore(
 			parsedWeightHistory,
 			entryDatesSet,
 			mappedEntryDates,
+			overallProgress,
 			fetchWeightHistory,
 			upsertWeight,
 			deleteWeight,

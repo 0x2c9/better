@@ -21,16 +21,16 @@ const weightStore = useWeightStore()
 
 const timespanOptions = [
 	{
-		label: '7 days',
-		content: 7,
-	},
-	{
 		label: '30 days',
 		content: 30,
 	},
 	{
 		label: '90 days',
 		content: 90,
+	},
+	{
+		label: 'All time',
+		content: 2000,
 	},
 ]
 
@@ -92,18 +92,14 @@ watch(selectedEntry, (entry) => {
 })
 
 function getProgressColor() {
-	if (!weightStore.latestEntry) {
-		return 'black'
+	if (weightStore.overallProgress === 'increase') {
+		return '#e00'
+	}
+	if (weightStore.overallProgress === 'decrease') {
+		return '#20cda6'
 	}
 
-	if (weightStore.latestEntry.progress === 'increase') {
-		return '#059669'
-	}
-	if (weightStore.latestEntry.progress === 'decrease') {
-		return '#DC2626'
-	}
-
-	return '#0EA5E9'
+	return '#0070f3'
 }
 
 function getChartDataset(): ChartDataset<'line', DataPoint[]> {
@@ -168,7 +164,7 @@ onMounted(() => {
 				ctx.moveTo(activePoint.element.x, chartArea.top)
 				ctx.lineTo(activePoint.element.x, chartArea.bottom)
 				ctx.lineWidth = 1
-				ctx.strokeStyle = 'rgba(255,255,255, 0.4)'
+				ctx.strokeStyle = 'rgba(0,0,0, 0.4)'
 				ctx.stroke()
 				ctx.restore()
 			}
@@ -239,7 +235,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="relative -mx-4 -mt-12 overflow-hidden pb-8 pt-12">
+	<div class="relative mb-4 overflow-hidden rounded-lg bg-white py-4 shadow-better">
 		<div class="px-4">
 			<BSwitch
 				v-model="selectedTimespan"
