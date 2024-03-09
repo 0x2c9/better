@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const { title = null, narrow = true, fullscreen = false, locked = false } = defineProps<{
-	title?: string
-	narrow?: boolean
+const { fullscreen = false, locked = false } = defineProps<{
 	fullscreen?: boolean
 	locked?: boolean
 }>()
@@ -248,10 +246,12 @@ const slots = useSlots()
 				v-if="modelValue"
 				ref="dropdownEl"
 				:data-drawer-index="localDropdownCounter"
-				class="absolute inset-4 z-[1020] flex flex-col overflow-hidden rounded-2xl bg-white shadow-better will-change-transform"
+				class="absolute inset-3 z-[1020] flex flex-col overflow-hidden rounded-2xl shadow-better will-change-transform"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
 					'pb-8': !slots.footer,
+					'bg-dirty-white': slots.footer || slots.header,
+					'bg-white': !slots.footer && !slots.header,
 				}"
 				:style="{
 					top,
@@ -260,11 +260,7 @@ const slots = useSlots()
 			>
 				<div
 					ref="swipeEl"
-					class="py-4"
-					:class="{
-						'px-8': narrow && !fullscreen,
-						'px-4': !narrow || fullscreen,
-					}"
+					class="bg-white px-4 pb-2 pt-4"
 				>
 					<template v-if="!fullscreen">
 						<div class="flex flex-col items-center justify-center">
@@ -272,7 +268,10 @@ const slots = useSlots()
 						</div>
 					</template>
 					<template v-else>
-						<div class="relative flex min-h-6 items-center">
+						<header v-if="slots.header">
+							<slot name="header"></slot>
+						</header>
+						<div v-else class="relative flex min-h-6 items-center">
 							<button
 								class="absolute left-0"
 								type="button"
@@ -283,22 +282,16 @@ const slots = useSlots()
 									size="24"
 								/>
 							</button>
-							<div
-								v-if="title"
-								class="mx-auto text-lg font-semibold text-black"
-							>
-								{{ title }}
-							</div>
 						</div>
 					</template>
 				</div>
 
 				<div
 					ref="slotEl"
+					class="px-4"
 					:class="{
-						'flex-1 overflow-y-auto overflow-x-hidden pb-4 pt-1': fullscreen,
-						'px-8': narrow && !fullscreen,
-						'px-4': !narrow || fullscreen,
+						'flex-1 overflow-y-auto overflow-x-hidden pb-4 pt-2': fullscreen,
+						'border-t border-t-gray-light': slots.header,
 					}"
 				>
 					<slot name="default"></slot>

@@ -88,9 +88,22 @@ function updateSelectedExercise(exercise: Exercise) {
 <template>
 	<LazyBDrawer
 		v-model="openWorkoutForm"
-		title="Create Workout"
 		fullscreen
 	>
+		<template #header>
+			<div class="flex items-center gap-x-4">
+				<BInput
+					v-model="workout.workout_name"
+					class="w-full"
+					placeholder="Workout Name"
+				/>
+				<BButton
+					variant="primary"
+					icon-name="material-symbols-add-rounded"
+					@click="openExerciseList"
+				/>
+			</div>
+		</template>
 		<ExerciseList
 			key-field="listId"
 			:items="workout.workout_exercises"
@@ -100,30 +113,23 @@ function updateSelectedExercise(exercise: Exercise) {
 
 		<template #footer>
 			<div class="flex flex-col items-center gap-6">
-				<div class="flex items-end gap-4">
-					<BInput
-						v-model="workout.workout_name"
-						label="Workout Name"
-						placeholder="Workout Name"
-					/>
+				<div class="flex w-full flex-row items-center gap-x-4">
+					<BButton
+						variant="secondary"
+						small
+						@click="openWorkoutForm = false"
+					>
+						Cancel
+					</BButton>
 					<BButton
 						variant="primary"
-						icon-name="material-symbols-add-rounded"
-						@click="openExerciseList"
-					/>
+						small
+						class="flex-1"
+						@click="saveWorkout"
+					>
+						Save Workout
+					</BButton>
 				</div>
-				<BStepper
-					v-model="workout.workout_sets"
-					label="Workout Sets"
-					:steps="1"
-				/>
-				<BButton
-					class="w-full"
-					variant="primary"
-					@click="saveWorkout"
-				>
-					Save Workout
-				</BButton>
 			</div>
 		</template>
 
@@ -136,7 +142,6 @@ function updateSelectedExercise(exercise: Exercise) {
 
 		<LazyBDrawer
 			v-model="showExerciseList"
-			title="Select Exercise for Workout"
 			fullscreen
 		>
 			<ExerciseList
