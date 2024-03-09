@@ -49,7 +49,7 @@ async function updateServiceWorker() {
 						name="mdi-star-four-points"
 						size="20"
 					/>
-					<p class="shining relative text-lg font-medium">
+					<p class="shining relative text-lg font-semibold">
 						New version available
 					</p>
 

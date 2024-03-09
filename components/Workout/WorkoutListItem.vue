@@ -39,7 +39,7 @@ function onLeave(el: Element, done: () => void) {
 	<div class="flex-1 py-1">
 		<div class="flex flex-col">
 			<div class="flex items-center justify-between pb-4">
-				<h2 class="text-xl font-bold">
+				<h2 class="text-xl font-semibold">
 					{{ item.workout_name }}
 				</h2>
 				<button class="white" @click.stop="toggleExerciseList">

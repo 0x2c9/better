@@ -19,7 +19,7 @@ async function onSubmit() {
 <template>
 	<article class="w-full pt-8">
 		<form
-			class="b-box flex flex-col gap-y-4 p-4"
+			class="flex flex-col gap-y-4 rounded-lg bg-white p-4 shadow-better"
 			@submit.prevent="onSubmit"
 		>
 			<BInput
@@ -53,7 +53,7 @@ async function onSubmit() {
 			No account yet?
 			<NuxtLink
 				to="/signup"
-				class="text-white"
+				class="text-black"
 			>
 				Create an account now.
 			</NuxtLink>

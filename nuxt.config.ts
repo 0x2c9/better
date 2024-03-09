@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 				},
 				{
 					name: 'theme-color',
-					content: '#0B0B0A',
+					content: '#000000',
 				},
 			],
 			link: [
@@ -105,8 +105,8 @@ export default defineNuxtConfig({
 			name: 'better - Track your weight loss and fitness journey with ease.',
 			short_name: 'better',
 			description: 'Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with Better',
-			theme_color: '#0B0B0A',
-			background_color: '#0B0B0A',
+			theme_color: '#000000',
+			background_color: '#000000',
 			display: 'standalone',
 			orientation: 'portrait',
 			scope: '/',

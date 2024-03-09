@@ -93,7 +93,7 @@ const computedDisplayValue = computed(() => {
 			'opacity-20': disabled,
 		}"
 	>
-		<label class="mb-1 inline-block w-full text-center text-[11px] font-bold uppercase tracking-widest text-gray-medium">
+		<label class="mb-1 inline-block w-full text-center text-[11px] font-semibold uppercase tracking-widest text-gray-medium">
 			{{ label }}
 		</label>
 

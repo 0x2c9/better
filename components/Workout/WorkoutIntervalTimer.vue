@@ -229,7 +229,7 @@ function stopTimer(e: TransitionEvent) {
 		<div class="relative flex size-full flex-col">
 			<div class="my-auto select-none">
 				<span
-					class="block text-center text-5xl font-bold uppercase tabular-nums text-gray-medium"
+					class="block text-center text-5xl font-semibold uppercase tabular-nums text-gray-medium"
 					:class="{
 						'opacity-100': currentPhase === TimerPhase.Training || currentPhase === TimerPhase.Pause,
 						'opacity-0': currentPhase !== TimerPhase.Training && currentPhase !== TimerPhase.Pause,
@@ -240,12 +240,12 @@ function stopTimer(e: TransitionEvent) {
 				<span
 					v-if="currentPhase !== TimerPhase.Done"
 					:key="currentPhase"
-					class="my-4 block text-center text-[30vw] font-bold tabular-nums leading-none"
+					class="my-4 block text-center text-[30vw] font-semibold tabular-nums leading-none"
 				>
 					{{ secondsIntoMinutes(timeLeft) }}
 				</span>
 
-				<span class="block text-center text-5xl font-bold uppercase text-gray-medium">
+				<span class="block text-center text-5xl font-semibold uppercase text-gray-medium">
 					{{ computedPhaseConfig.phase }}
 				</span>
 			</div>

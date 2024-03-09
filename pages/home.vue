@@ -90,7 +90,7 @@ function addActivityEntry(date: string) {
 					:key="day.dayInitial"
 				>
 					<header class="flex items-center">
-						<div class="min-w-28 font-medium text-black">
+						<div class="min-w-28 font-semibold text-black">
 							{{ day.dateFormatted }}
 						</div>
 						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-black">

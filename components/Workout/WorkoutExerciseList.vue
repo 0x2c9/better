@@ -46,7 +46,7 @@ function onStartExercise(item: TimeExercise) {
 					@checked="onCheck($event, item)"
 				/>
 				<div class="mb-1 flex items-center justify-between">
-					<h2 class="text-lg font-medium">
+					<h2 class="text-lg font-semibold">
 						{{ item.exercise_name }}
 					</h2>
 				</div>

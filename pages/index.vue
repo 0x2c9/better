@@ -9,12 +9,12 @@
 		<h1 class="mt-8 text-center text-2xl font-semibold">
 			Track your weight loss and fitness journey with ease.
 		</h1>
-		<p class="mt-4 text-center text-lg text-gray-medium">
+		<p class="mt-4 text-center text-lg text-gray-dark">
 			Create and start your workouts with an integrated Timer, track your weight and archive your fitness goals with <span class="font-semibold">Better</span>.
 		</p>
 		<BButton
 			variant="primary"
-			class="mt-auto font-bold"
+			class="mt-auto font-semibold"
 			to="/signup"
 		>
 			Start my journey

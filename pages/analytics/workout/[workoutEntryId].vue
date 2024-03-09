@@ -106,7 +106,7 @@ async function onDeleteWorkoutEntry() {
 						size="24"
 					/>
 				</NuxtLink>
-				<h2 class="text-xl font-bold">
+				<h2 class="text-xl font-semibold">
 					{{ completedWorkout?.workout_name }}
 				</h2>
 
@@ -121,7 +121,7 @@ async function onDeleteWorkoutEntry() {
 			</div>
 
 			<section v-for="(exerciseSet, setIndex) in computedAnalytics" :key="setIndex">
-				<h3 class="mb-2 text-lg font-bold">
+				<h3 class="mb-2 text-lg font-semibold">
 					Set {{ setIndex + 1 }}
 				</h3>
 				<ul class="space-y-2">

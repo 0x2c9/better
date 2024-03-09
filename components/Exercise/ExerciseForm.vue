@@ -67,7 +67,7 @@ function onSubmitExercise(exercise: Exercise) {
 				@click="goBackToTypeSelection"
 			/>
 			<section v-if="!exerciseType">
-				<h2 class="mb-6 text-lg font-medium">
+				<h2 class="mb-6 text-lg font-semibold">
 					Select Exercise Type
 				</h2>
 				<div class="flex flex-col gap-y-4">

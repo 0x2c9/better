@@ -113,7 +113,7 @@ function getDayClass(dayObj: IDay) {
 	const isSelected = dayObj.date.isSame(initialDate.value, 'day')
 	const isToday = dayObj.date.isSame(dayjs(), 'day')
 	return {
-		'm-[1px] flex aspect-square select-none items-center justify-center rounded tabular-nums font-medium relative': true,
+		'm-[1px] flex aspect-square select-none items-center justify-center rounded tabular-nums font-semibold relative': true,
 		'text-gray-light': dayObj.type === 'past' || dayObj.type === 'future',
 		'border border-white': isToday,
 		'bg-black text-white before:bg-white border-white': isSelected,
