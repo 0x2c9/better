@@ -92,19 +92,9 @@ function toggleWorkoutTimer() {
 	}
 }
 
-function beforeUnloadHandler(event: BeforeUnloadEvent) {
-	event.preventDefault()
-	event.returnValue = ''
-}
-
-window.addEventListener('beforeunload', beforeUnloadHandler)
-
-onBeforeRouteLeave(() => {
-	window.removeEventListener('beforeunload', beforeUnloadHandler)
-})
-
 const showConfirmLeaveModal = ref(false)
 const showConfirmSaveModal = ref(false)
+const allowUnload = ref(false)
 
 function onGoBack() {
 	showConfirmLeaveModal.value = true
@@ -132,6 +122,7 @@ function onSaveWorkout() {
 
 function onConfirmAndLeave() {
 	showConfirmLeaveModal.value = false
+	allowUnload.value = true
 	navigateTo('/workouts')
 }
 
@@ -140,6 +131,7 @@ async function saveWorkoutAndLeave() {
 		return
 	}
 	showConfirmSaveModal.value = false
+	allowUnload.value = true
 	pause()
 
 	const payload: WorkoutEntry = {
@@ -157,6 +149,16 @@ async function saveWorkoutAndLeave() {
 
 const computedWorkoutExercises = computed(() => {
 	return workoutExercises.value[activeSet.value - 1]
+})
+
+onBeforeRouteLeave(() => {
+	if (!allowUnload.value) {
+		// eslint-disable-next-line no-alert
+		const answer = window.confirm('Do you really want to leave? Your progress will be lost.')
+		if (!answer) {
+			return false
+		}
+	}
 })
 </script>
 
