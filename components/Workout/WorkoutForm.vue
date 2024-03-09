@@ -86,66 +86,64 @@ function updateSelectedExercise(exercise: Exercise) {
 </script>
 
 <template>
-	<ClientOnly>
+	<LazyBDrawer
+		v-model="openWorkoutForm"
+		title="Create Workout"
+		fullscreen
+	>
+		<ExerciseList
+			key-field="listId"
+			:items="workout.workout_exercises"
+			@select-exercise="selectExerciseToUpdate"
+			@delete-exercise="deleteExerciseFromNewWorkout"
+		/>
+
+		<template #footer>
+			<div class="flex flex-col items-center gap-6">
+				<div class="flex items-end gap-4">
+					<BInput
+						v-model="workout.workout_name"
+						label="Workout Name"
+						placeholder="Workout Name"
+					/>
+					<BButton
+						variant="primary"
+						icon-name="material-symbols-add-rounded"
+						@click="openExerciseList"
+					/>
+				</div>
+				<BStepper
+					v-model="workout.workout_sets"
+					label="Workout Sets"
+					:steps="1"
+				/>
+				<BButton
+					class="w-full"
+					variant="primary"
+					@click="saveWorkout"
+				>
+					Save Workout
+				</BButton>
+			</div>
+		</template>
+
+		<ExerciseForm
+			v-model="showEditExerciseForm"
+			:selected-exercise="editedExercise"
+			:prevent-submit="true"
+			@submit-exercise="updateSelectedExercise"
+		/>
+
 		<LazyBDrawer
-			v-model="openWorkoutForm"
-			title="Create Workout"
+			v-model="showExerciseList"
+			title="Select Exercise for Workout"
 			fullscreen
 		>
 			<ExerciseList
-				key-field="listId"
-				:items="workout.workout_exercises"
-				@select-exercise="selectExerciseToUpdate"
-				@delete-exercise="deleteExerciseFromNewWorkout"
+				:items="exerciseStore.exercises"
+				:disable-delete="true"
+				@select-exercise="addExerciseToWorkout"
 			/>
-
-			<template #footer>
-				<div class="flex flex-col items-center gap-6">
-					<div class="flex items-end gap-4">
-						<BInput
-							v-model="workout.workout_name"
-							label="Workout Name"
-							placeholder="Workout Name"
-						/>
-						<BButton
-							variant="primary"
-							icon-name="material-symbols-add-rounded"
-							@click="openExerciseList"
-						/>
-					</div>
-					<BStepper
-						v-model="workout.workout_sets"
-						label="Workout Sets"
-						:steps="1"
-					/>
-					<BButton
-						class="w-full"
-						variant="primary"
-						@click="saveWorkout"
-					>
-						Save Workout
-					</BButton>
-				</div>
-			</template>
-
-			<ExerciseForm
-				v-model="showEditExerciseForm"
-				:selected-exercise="editedExercise"
-				:prevent-submit="true"
-				@submit-exercise="updateSelectedExercise"
-			/>
-
-			<LazyBDrawer
-				v-model="showExerciseList"
-				title="Select Exercise for Workout"
-				fullscreen
-			>
-				<ExerciseList
-					:items="exerciseStore.exercises"
-					:disable-delete="true"
-					@select-exercise="addExerciseToWorkout"
-				/>
-			</LazyBDrawer>
 		</LazyBDrawer>
-	</ClientOnly>
+	</LazyBDrawer>
 </template>

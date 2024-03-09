@@ -39,9 +39,8 @@ const isSettingsPage = useRoute().path === '/settings'
 			<slot class="flex-1"></slot>
 		</main>
 		<AppNavigation />
-		<ClientOnly>
-			<LazyAppUpdatePrompt />
-			<LazyAppOnboarding />
-		</ClientOnly>
+
+		<LazyAppUpdatePrompt />
+		<LazyAppOnboarding />
 	</div>
 </template>

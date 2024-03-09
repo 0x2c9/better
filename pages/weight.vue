@@ -49,13 +49,11 @@ async function onDeleteEntry(weightEntry: WeightEntry) {
 			@delete-weight="onDeleteEntry"
 		/>
 
-		<ClientOnly>
-			<LazyBDrawer v-model="showWeightForm">
-				<WeightForm
-					:selected-weight-entry="selectedWeightEntry"
-					@submit="onWeightFormSubmit"
-				/>
-			</LazyBDrawer>
-		</ClientOnly>
+		<LazyBDrawer v-model="showWeightForm">
+			<WeightForm
+				:selected-weight-entry="selectedWeightEntry"
+				@submit="onWeightFormSubmit"
+			/>
+		</LazyBDrawer>
 	</article>
 </template>

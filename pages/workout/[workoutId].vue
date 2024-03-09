@@ -292,65 +292,63 @@ const computedWorkoutExercises = computed(() => {
 			</nav>
 		</footer>
 
-		<ClientOnly>
-			<LazyBDrawer v-model="showConfirmLeaveModal">
-				<section class="flex flex-col">
-					<h1 class="text-xl font-semibold">
-						Do you want to leave your current workout?
-					</h1>
-					<p class="mt-2 text-lg">
-						You are about to lose your current progress in your workout.
-					</p>
-					<BButton
-						class="mt-8"
-						variant="primary"
-						@click="onConfirmAndLeave"
-					>
-						Confirm and leave
-					</BButton>
-					<BButton
-						class="mt-4"
-						variant="secondary"
-						@click="stayOnWorkout"
-					>
-						Stay
-					</BButton>
-				</section>
-			</LazyBDrawer>
-			<LazyBDrawer v-model="showConfirmSaveModal">
-				<section class="flex flex-col">
-					<h1 class="text-xl font-semibold">
-						<template v-if="undoneWorkouts.length === 0">
-							You are done with your workout!
-						</template>
-						<template v-else>
-							Not all exercises are finished.
-						</template>
-					</h1>
-					<p class="mt-2 text-lg">
-						<template v-if="undoneWorkouts.length === 0">
-							You are about to save your finished workout. You'll be redirected to the workout list.
-						</template>
-						<template v-else>
-							You have some exercises that are not finished yet. Do you want to save your current workout anyway?
-						</template>
-					</p>
-					<BButton
-						class="mt-8"
-						variant="primary"
-						@click="saveWorkoutAndLeave"
-					>
-						Confirm and save
-					</BButton>
-					<BButton
-						class="mt-4"
-						variant="secondary"
-						@click="stayOnWorkout"
-					>
-						Stay
-					</BButton>
-				</section>
-			</LazyBDrawer>
-		</ClientOnly>
+		<LazyBDrawer v-model="showConfirmLeaveModal">
+			<section class="flex flex-col">
+				<h1 class="text-xl font-semibold">
+					Do you want to leave your current workout?
+				</h1>
+				<p class="mt-2 text-lg">
+					You are about to lose your current progress in your workout.
+				</p>
+				<BButton
+					class="mt-8"
+					variant="primary"
+					@click="onConfirmAndLeave"
+				>
+					Confirm and leave
+				</BButton>
+				<BButton
+					class="mt-4"
+					variant="secondary"
+					@click="stayOnWorkout"
+				>
+					Stay
+				</BButton>
+			</section>
+		</LazyBDrawer>
+		<LazyBDrawer v-model="showConfirmSaveModal">
+			<section class="flex flex-col">
+				<h1 class="text-xl font-semibold">
+					<template v-if="undoneWorkouts.length === 0">
+						You are done with your workout!
+					</template>
+					<template v-else>
+						Not all exercises are finished.
+					</template>
+				</h1>
+				<p class="mt-2 text-lg">
+					<template v-if="undoneWorkouts.length === 0">
+						You are about to save your finished workout. You'll be redirected to the workout list.
+					</template>
+					<template v-else>
+						You have some exercises that are not finished yet. Do you want to save your current workout anyway?
+					</template>
+				</p>
+				<BButton
+					class="mt-8"
+					variant="primary"
+					@click="saveWorkoutAndLeave"
+				>
+					Confirm and save
+				</BButton>
+				<BButton
+					class="mt-4"
+					variant="secondary"
+					@click="stayOnWorkout"
+				>
+					Stay
+				</BButton>
+			</section>
+		</LazyBDrawer>
 	</article>
 </template>

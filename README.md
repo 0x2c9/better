@@ -1,7 +1,7 @@
 # Better
 
 - **[TODOS]**
-	- [ ] style: white mode only
+	- [x] style: white mode only
 	- [ ] style: Consistent color scheme and typograhpy
 
 	- [ ] feat: Rebuild Home into fully working Habit Tracker
@@ -18,6 +18,3 @@
 	- [ ] fix: Form Error Handling
 	- [ ] fix: utc time issue in workout entry date when its 0:52 -> 23:52
 	- [ ] fix: Figure out bug when opening site, while logged it, it will show the login page, then redirect to home but with hydration error
-
-- **[BACKLOG]**
-  - ??

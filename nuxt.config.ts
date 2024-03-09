@@ -162,6 +162,7 @@ export default defineNuxtConfig({
 			appVersion,
 		},
 	},
+	ssr: false,
 	typescript: {
 		strict: true,
 	},
