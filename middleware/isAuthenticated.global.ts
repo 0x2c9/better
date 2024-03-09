@@ -4,15 +4,13 @@ export default defineNuxtRouteMiddleware((to) => {
 		return
 	}
 
-	if (import.meta.client) {
-		authStore.syncLocalStorage()
+	authStore.syncLocalStorage()
 
-		if (!authStore.isAuthenticated && to.meta.auth) {
-			return navigateTo('/')
-		}
+	if (!authStore.isAuthenticated && to.meta.auth) {
+		return navigateTo('/')
+	}
 
-		if (authStore.isAuthenticated && !to.meta.auth) {
-			return navigateTo('/home')
-		}
+	if (authStore.isAuthenticated && !to.meta.auth) {
+		return navigateTo('/home')
 	}
 })

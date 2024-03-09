@@ -97,9 +97,7 @@ function beforeUnloadHandler(event: BeforeUnloadEvent) {
 	event.returnValue = ''
 }
 
-if (import.meta.client) {
-	window.addEventListener('beforeunload', beforeUnloadHandler)
-}
+window.addEventListener('beforeunload', beforeUnloadHandler)
 
 onBeforeRouteLeave(() => {
 	window.removeEventListener('beforeunload', beforeUnloadHandler)
