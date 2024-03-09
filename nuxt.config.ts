@@ -64,7 +64,7 @@ export default defineNuxtConfig({
 		enabled: false,
 	},
 	experimental: {
-		payloadExtraction: true,
+		payloadExtraction: false,
 	},
 	imports: {
 		dirs: [
@@ -90,7 +90,7 @@ export default defineNuxtConfig({
 		workbox: {
 			navigateFallbackDenylist: [
 				/^\/workout/,
-				/^\/analytics/,
+				/^\/analytics\/workout/,
 			],
 			globPatterns: [
 				'**/*.{js,css,html,svg,ico,woff,woff2,json,ogg}',
