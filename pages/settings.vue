@@ -24,7 +24,7 @@ function logout() {
 			</BButton>
 		</footer>
 
-		<section class="fixed inset-x-4 top-4 text-center text-sm text-gray-medium">
+		<section class="fixed inset-x-4 bottom-20 text-center text-sm text-gray-medium">
 			<AppVersionInfo />
 		</section>
 	</article>
