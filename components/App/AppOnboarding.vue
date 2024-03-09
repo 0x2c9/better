@@ -33,7 +33,7 @@ async function submitInitialWeight() {
 		<h1 class=" text-center text-2xl font-bold">
 			Welcome to Better
 		</h1>
-		<ul class="mb-8 mt-4 flex list-decimal flex-col gap-y-2 text-lg font-medium text-neutral-300">
+		<ul class="mb-8 mt-4 flex list-decimal flex-col gap-y-2 text-lg font-medium text-gray-dark">
 			<li>Enter your current weight. (You can edit it later on too)</li>
 			<li>Add a collection of exercises</li>
 			<li>Create your first workout and get started!</li>

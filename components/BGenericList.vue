@@ -24,7 +24,7 @@ function onDelete(item: T) {
 		<TransitionGroup
 			name="list"
 			tag="ul"
-			class="flex flex-col gap-y-2"
+			class="flex flex-col gap-y-3"
 		>
 			<BGenericListItem
 				v-for="item of items"

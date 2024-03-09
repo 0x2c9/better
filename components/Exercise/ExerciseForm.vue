@@ -57,17 +57,15 @@ function onSubmitExercise(exercise: Exercise) {
 		<LazyBDrawer
 			v-model="openExerciseForm"
 		>
-			<button
+			<BButton
 				v-if="exerciseType && !selectedExercise"
+				icon-name="material-symbols-arrow-back-rounded"
+				variant="outline"
+				small
+				icon-size="20"
 				class="mb-4"
-				type="button"
 				@click="goBackToTypeSelection"
-			>
-				<BIcon
-					name="material-symbols-arrow-back-rounded"
-					size="24"
-				/>
-			</button>
+			/>
 			<section v-if="!exerciseType">
 				<h2 class="mb-6 text-lg font-medium">
 					Select Exercise Type

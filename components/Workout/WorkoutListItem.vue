@@ -50,7 +50,7 @@ function onLeave(el: Element, done: () => void) {
 			<BButton
 				type="button"
 				small
-				variant="outline"
+				variant="secondary"
 				class="mr-auto"
 				:to="`/workout/${item.id!}`"
 			>
@@ -63,11 +63,11 @@ function onLeave(el: Element, done: () => void) {
 				@enter="onEnter"
 				@leave="onLeave"
 			>
-				<ul v-show="showExerciseList" class="mt-4 space-y-2 overflow-hidden">
+				<ul v-show="showExerciseList" class="mt-4 space-y-3 overflow-hidden p-[1px]">
 					<ExerciseListItem
 						v-for="(workoutExercise, index) of item.workout_exercises"
 						:key="`${workoutExercise.id}-${index}`"
-						class="rounded-lg border border-neutral-600/40 bg-neutral-600 px-4 py-2"
+						class="rounded-lg px-4 py-2 shadow-better "
 						:item="workoutExercise"
 					/>
 				</ul>

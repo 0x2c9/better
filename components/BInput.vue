@@ -33,11 +33,11 @@ function onFocusOut() {
 		:for="id"
 		class="inline-block"
 		:class="{
-			'opacity-20': disabled,
+			'opacity-50': disabled,
 		}"
 	>
 		<span
-			class="mb-1 inline-block w-full text-[11px] font-bold uppercase  tracking-widest text-neutral-400"
+			class="mb-1 inline-block w-full text-[11px] font-bold uppercase  tracking-widest text-gray-medium"
 			:class="{
 				'text-center': labelCenter,
 			}"
@@ -50,21 +50,21 @@ function onFocusOut() {
 			class="
 				h-12
 				w-full
-				rounded-lg
+				rounded-md
 				border
-				border-neutral-500
+				border-gray-dark
 				bg-transparent
 				px-4
 				py-2
 				text-lg
 				font-medium
-				text-neutral-200
-				caret-white
-				placeholder:text-neutral-600
+				text-black
+				caret-black
+				placeholder:text-gray-medium/50
 			"
 			:class="{
-				'border-neutral-400': !hasFocus,
-				'outline-none ring-1 ring-white focus:border-transparent': hasFocus,
+				'border-gray-dark': !hasFocus,
+				'outline-none ring-2 ring-blue ring-offset-1': hasFocus,
 			}"
 			:type="type"
 			:placeholder="placeholder"

@@ -93,7 +93,7 @@ watch(selectedEntry, (entry) => {
 
 function getProgressColor() {
 	if (!weightStore.latestEntry) {
-		return 'white'
+		return 'black'
 	}
 
 	if (weightStore.latestEntry.progress === 'increase') {
@@ -205,10 +205,10 @@ onMounted(() => {
 					x: {
 						grid: {
 							display: false,
-							color: 'white',
+							color: 'black',
 						},
 						ticks: {
-							color: 'white',
+							color: 'black',
 							font: {
 								size: 12,
 							},
@@ -218,10 +218,10 @@ onMounted(() => {
 					y: {
 						grid: {
 							display: true,
-							color: 'rgba(255, 255, 255, 0.1)',
+							color: 'rgba(0, 0, 0, 0.1)',
 						},
 						ticks: {
-							color: 'white',
+							color: 'black',
 							font: {
 								size: 12,
 							},
@@ -240,16 +240,6 @@ onMounted(() => {
 
 <template>
 	<div class="relative -mx-4 -mt-12 overflow-hidden pb-8 pt-12">
-		<div class="absolute inset-x-0 bottom-0 z-50 h-44 bg-gradient-to-t from-neutral-900"></div>
-		<div
-			v-if="weightStore.latestEntry"
-			class="pointer-events-none absolute inset-0 bg-gradient-to-tl"
-			:class="{
-				'from-green/20 via-green/5': weightStore.latestEntry.progress === 'increase',
-				'from-red/20 via-red/5': weightStore.latestEntry.progress === 'decrease',
-				'from-blue/20 via-blue/5': weightStore.latestEntry.progress === 'same',
-			}"
-		></div>
 		<div class="px-4">
 			<BSwitch
 				v-model="selectedTimespan"
@@ -264,13 +254,13 @@ onMounted(() => {
 			>
 				<span
 					:key="tweened.date"
-					class="text-neutral-400"
+					class="text-gray-medium"
 				>
 					{{ tweened.date }}
 				</span>
 			</Transition>
 			<div class="flex flex-col items-center">
-				<span class="mb-2 text-4xl font-semibold tabular-nums text-white">{{ tweened.weight.toFixed(1) }} kg</span>
+				<span class="mb-2 text-4xl font-semibold tabular-nums text-black">{{ tweened.weight.toFixed(1) }} kg</span>
 				<span
 					class="rounded-full border px-2 py-0.5 text-xs font-semibold"
 					:class="{

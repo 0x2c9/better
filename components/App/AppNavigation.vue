@@ -42,7 +42,7 @@ const menuItems: IMenuItem[] = [
 
 <template>
 	<nav
-		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-5 items-center justify-center border-t border-neutral-600/40 bg-neutral-900 px-4 backdrop-blur"
+		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-5 items-center justify-center border-t border-gray-light bg-white px-4 backdrop-blur"
 	>
 		<NuxtLink
 			v-for="item in menuItems"
@@ -62,7 +62,7 @@ const menuItems: IMenuItem[] = [
 
 				<span
 					v-if="isExactActive"
-					class="inline-block text-xs"
+					class="inline-block text-xs font-semibold"
 				>
 					{{ item.title }}
 				</span>

@@ -12,35 +12,24 @@ export default {
 	],
 	theme: {
 		colors: {
-			blue: '#0EA5E9',
-			green: '#059669',
-			red: '#DC2626',
-			orange: '#dd8b1d',
-			primary: '#D0FF01',
-			white: '#f3f4f5',
-			transparent: 'transparent',
-			neutral: {
-				50: colors.neutral['50'],
-				100: colors.neutral['100'],
-				200: colors.neutral['200'],
-				300: colors.neutral['300'],
-				400: '#a3a3a3',
-				500: '#737373',
-				600: '#404040',
-				700: '#323232',
-				800: '#222222',
-				900: '#171717',
-				950: '#0B0B0A',
-			},
+			'white': '#FFFFFF',
+			'dirty-white': '#FAFAFA',
+			'gray-light': '#F2F2F2',
+			'gray-medium': '#666666',
+			'gray-dark': '#3E3E3E',
+			'black': '#000000',
+			'blue': '#0070f3',
+			'green': '#20cda6',
+			'red': '#e00',
+			'transparent': 'transparent',
 		},
 		extend: {
 			boxShadow: {
-				better: '0 0 0 1px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.04)',
+				better: '0 0 0 1px rgba(0,0,0,.08), 0px 2px 2px rgba(0,0,0,.04)',
 			},
 		},
-
 		fontFamily: {
-			inter: ['Geist', 'monospace'],
+			geist: ['Geist', 'monospace'],
 		},
 	},
 	corePlugins: {

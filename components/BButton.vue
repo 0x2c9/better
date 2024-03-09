@@ -30,16 +30,16 @@ const component = computed(() => {
 	<component
 		:is="component"
 		:to="to"
-		class="flex select-none items-center justify-center rounded-full font-bold"
+		class="flex select-none items-center justify-center rounded-full font-semibold transition-colors duration-75"
 		:class="{
-			'bg-primary text-neutral-950 active:enabled:bg-primary/80': variant === 'primary',
-			'bg-neutral-600 text-white active:enabled:bg-neutral-700': variant === 'secondary',
-			'border-2 border-neutral-600 text-white active:enabled:bg-neutral-600/40': variant === 'outline',
-			'border-red-700 border-2 bg-red/25 text-red active:enabled:bg-red/50': variant === 'danger',
+			'bg-black text-white active:enabled:bg-black/90': variant === 'primary',
+			'active:enabled:bg-light-gray/90 bg-gray-light text-black': variant === 'secondary',
+			'border-2 border-gray-dark text-gray-dark active:enabled:bg-gray-dark/10': variant === 'outline',
+			'border-2 border-red bg-red/25 text-red active:enabled:bg-red/50': variant === 'danger',
 			'shrink-0': isIconButton,
-			'size-10': isIconButton && !small,
+			'size-11': isIconButton && !small,
 			'size-7': isIconButton && small,
-			'h-11 px-6 text-lg': !isIconButton && !small,
+			'h-12 px-6 text-lg': !isIconButton && !small,
 			'h-8 px-5': !isIconButton && small,
 		}"
 		:disabled="disabled"

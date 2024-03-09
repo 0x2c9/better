@@ -245,15 +245,15 @@ const computedWorkoutExercises = computed(() => {
 				/>
 			</Transition>
 		</Teleport>
-		<footer class="border border-t-2 border-neutral-600/40 px-4">
+		<footer class="border border-t-2 border-gray-light bg-white px-4">
 			<nav class="b-box z-50 mb-4 mt-2 flex flex-col justify-center px-4 pb-4 pt-3">
 				<div class="mb-2 flex justify-center">
 					<Transition name="quick-fade" mode="out-in">
 						<template v-if="workoutTimeInSeconds > 0">
-							<span class="inline-flex min-h-8 items-center text-2xl">{{ secondsIntoMinutes(workoutTimeInSeconds) }}</span>
+							<span class="inline-flex min-h-8 items-center text-2xl font-semibold">{{ secondsIntoMinutes(workoutTimeInSeconds) }}</span>
 						</template>
 						<template v-else>
-							<span class="inline-flex min-h-8 items-center text-sm text-neutral-500">Track how long your workout takes. (optional)</span>
+							<span class="inline-flex min-h-8 items-center text-sm text-gray-medium">Track how long your workout takes. (optional)</span>
 						</template>
 					</Transition>
 				</div>
@@ -270,7 +270,7 @@ const computedWorkoutExercises = computed(() => {
 					<BButton
 						class="flex-1"
 						small
-						variant="secondary"
+						variant="primary"
 						@click="toggleWorkoutTimer"
 					>
 						<template v-if="isActive">

@@ -74,8 +74,8 @@ onMounted(() => {
 		</BButton>
 
 		<LazyBDrawer v-model="showConfirmOverwrite">
-			<p class="mb-6 text-lg font-medium text-neutral-400">
-				Are you sure you want to overwrite your existing entry from <span class="text-white">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
+			<p class="mb-6 text-lg font-medium text-gray-medium">
+				Are you sure you want to overwrite your existing entry from <span class="text-black">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
 			</p>
 
 			<div class="flex flex-col gap-y-4">

@@ -21,10 +21,10 @@ function onLabelClick() {
 		@click.stop="onLabelClick"
 	>
 		<div
-			class="relative h-full w-10 shrink-0 bg-gradient-to-l text-neutral-900 transition-colors duration-200"
+			class="relative h-full w-10 shrink-0 bg-gradient-to-l text-black transition-colors duration-200"
 			:class="{
-				'from-green to-green/20': isChecked,
-				'from-neutral-700 to-neutral-700/20': !isChecked,
+				'bg-green': isChecked,
+				'bg-gray-light': !isChecked,
 			}"
 		>
 			<Transition
@@ -45,7 +45,7 @@ function onLabelClick() {
 				/>
 				<BIcon
 					v-else
-					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-neutral-500"
+					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-gray-dark"
 					size="24"
 					name="material-symbols-check-circle-outline-rounded"
 				/>

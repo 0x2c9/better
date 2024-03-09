@@ -114,13 +114,13 @@ function getDayClass(dayObj: IDay) {
 	const isToday = dayObj.date.isSame(dayjs(), 'day')
 	return {
 		'm-[1px] flex aspect-square select-none items-center justify-center rounded tabular-nums font-medium relative': true,
-		'text-neutral-500': dayObj.type === 'past' || dayObj.type === 'future',
+		'text-gray-light': dayObj.type === 'past' || dayObj.type === 'future',
 		'border border-white': isToday,
-		'bg-white text-neutral-900 before:bg-neutral-950 border-white': isSelected,
-		'cursor-default text-neutral-500 line-through': dayObj.isDisabled,
+		'bg-black text-white before:bg-white border-white': isSelected,
+		'cursor-default text-gray-medium line-through': dayObj.isDisabled,
 		'cursor-pointer': !dayObj.isDisabled,
-		'hover:bg-neutral-400 hover:text-neutral-950': !dayObj.isDisabled && !isSelected,
-		'before:absolute before:size-1 before:bg-white before:rounded-full before:bottom-1': dayObj.highlight,
+		'hover:bg-gray-light hover:text-black': !dayObj.isDisabled && !isSelected,
+		'before:absolute before:size-1 before:bg-black before:rounded-full before:bottom-1': dayObj.highlight,
 	}
 }
 </script>
@@ -161,11 +161,11 @@ function getDayClass(dayObj: IDay) {
 				</button>
 			</div>
 		</div>
-		<div class="border-prm grid grid-cols-7 border-b border-neutral-600/40 pb-2">
+		<div class="border-prm grid grid-cols-7 border-b border-gray-medium pb-2">
 			<div
 				v-for="dayLabel in dayLabels"
 				:key="dayLabel"
-				class="text-neutral text-center text-sm"
+				class="text-center text-sm text-gray-medium"
 			>
 				{{ dayLabel.slice(0, 2) }}
 			</div>

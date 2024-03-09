@@ -165,8 +165,9 @@ function toggleTimer() {
 
 const buttonIsActive = ref(false)
 
-function stopTimer() {
-	if (buttonIsActive.value) {
+function stopTimer(e: TransitionEvent) {
+	const isTransformEvent = e.propertyName === 'transform'
+	if (buttonIsActive.value && isTransformEvent) {
 		timer?.pause()
 		emits('stop')
 	}
@@ -174,11 +175,11 @@ function stopTimer() {
 </script>
 
 <template>
-	<article class="absolute inset-0 z-50 flex flex-1 bg-neutral-950" @click="toggleTimerOverlay">
+	<article class="absolute inset-0 z-50 flex flex-1 bg-dirty-white" @click="toggleTimerOverlay">
 		<Transition name="fade">
 			<div
 				v-if="!timer?.isActive.value && currentPhase !== TimerPhase.Done && showTimerOverlay"
-				class="pointer-events-none fixed inset-0 z-50 bg-neutral-950/50 backdrop-blur-[3px]"
+				class="pointer-events-none fixed inset-0 z-50 bg-white/50 backdrop-blur-[3px]"
 			></div>
 		</Transition>
 		<Transition name="fade">
@@ -192,7 +193,7 @@ function stopTimer() {
 			>
 				<div class="mt-auto flex w-full items-center">
 					<BButton
-						variant="secondary"
+						variant="primary"
 						class="
 							relative
 							overflow-hidden
@@ -203,16 +204,15 @@ function stopTimer() {
 							before:origin-left
 							before:scale-x-0
 							before:transform
-							before:bg-neutral-800
+							before:bg-gray-medium
 							before:transition-transform
 							before:ease-linear
-							active:enabled:bg-transparent
 						"
 						:class="buttonIsActive ? 'before:scale-x-100 before:duration-500' : 'before:scale-x-0 before:duration-200'"
 						@mousedown="buttonIsActive = true"
 						@mouseup="buttonIsActive = false"
 						@touchstart.passive="buttonIsActive = true"
-						@touchend="buttonIsActive = false"
+						@touchend.passive="buttonIsActive = false"
 						@transitionend="stopTimer"
 					>
 						<span class="relative z-20">Hold to Stop</span>
@@ -220,7 +220,6 @@ function stopTimer() {
 
 					<BButton
 						class="ml-auto"
-						big
 						:icon-name="timer?.isActive.value ? 'material-symbols-pause-rounded' : 'material-symbols-play-arrow-rounded'"
 						@click="toggleTimer"
 					/>
@@ -230,7 +229,7 @@ function stopTimer() {
 		<div class="relative flex size-full flex-col">
 			<div class="my-auto select-none">
 				<span
-					class="block text-center text-5xl font-bold uppercase tabular-nums"
+					class="block text-center text-5xl font-bold uppercase tabular-nums text-gray-medium"
 					:class="{
 						'opacity-100': currentPhase === TimerPhase.Training || currentPhase === TimerPhase.Pause,
 						'opacity-0': currentPhase !== TimerPhase.Training && currentPhase !== TimerPhase.Pause,
@@ -246,7 +245,7 @@ function stopTimer() {
 					{{ secondsIntoMinutes(timeLeft) }}
 				</span>
 
-				<span class="block text-center text-5xl font-bold uppercase text-neutral-400">
+				<span class="block text-center text-5xl font-bold uppercase text-gray-medium">
 					{{ computedPhaseConfig.phase }}
 				</span>
 			</div>

@@ -90,10 +90,10 @@ function addActivityEntry(date: string) {
 					:key="day.dayInitial"
 				>
 					<header class="flex items-center">
-						<div class="min-w-28 font-medium text-neutral-500">
+						<div class="min-w-28 font-medium text-black">
 							{{ day.dateFormatted }}
 						</div>
-						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-neutral-800">
+						<div class="mx-4 h-[2px] w-full flex-1 rounded-full bg-black">
 						</div>
 						<BButton
 							icon-name="material-symbols-add-rounded"
@@ -104,9 +104,7 @@ function addActivityEntry(date: string) {
 						/>
 					</header>
 					<section class="mt-2 flex gap-4">
-						<BPill
-							v-if="weightStore.mappedEntryDates[day.date] && globalState.loaded"
-						>
+						<BPill v-if="weightStore.mappedEntryDates[day.date] && globalState.loaded">
 							{{ weightStore.mappedEntryDates[day.date].weight_display }}
 						</BPill>
 						<template v-if="workoutStore.mappedEntryWorkouts[day.date] && globalState.loaded">
@@ -134,7 +132,7 @@ function addActivityEntry(date: string) {
 				/>
 				<div class="flex flex-col items-center" @click="handleWeekChange('current')">
 					<span>{{ selectedWeekTimespanInfo.spanWeekStr }}</span>
-					<span class="tabular-nums text-neutral-400">{{ selectedWeekTimespanInfo.spanDateStr }}</span>
+					<span class="tabular-nums text-gray-medium">{{ selectedWeekTimespanInfo.spanDateStr }}</span>
 				</div>
 
 				<BButton

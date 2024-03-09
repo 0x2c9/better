@@ -227,7 +227,7 @@ const slots = useSlots()
 		>
 			<div
 				v-if="modelValue"
-				class="fixed inset-0 bg-neutral-950/50 backdrop-blur-[4px]"
+				class="fixed inset-0 bg-gray-light/10 backdrop-blur-[4px]"
 				:style="{
 					zIndex: 1010 + localDropdownCounter,
 				}"
@@ -248,7 +248,7 @@ const slots = useSlots()
 				v-if="modelValue"
 				ref="dropdownEl"
 				:data-drawer-index="localDropdownCounter"
-				class="b-box absolute inset-4 z-[1020] flex flex-col overflow-hidden rounded-3xl border-t will-change-transform"
+				class="absolute inset-4 z-[1020] flex flex-col overflow-hidden rounded-2xl bg-white shadow-better will-change-transform"
 				:class="{
 					'[transition:top_0.2s,transform_0.33s,opacity_0.25s]': !isSwiping,
 					'pb-8': !slots.footer,
@@ -268,7 +268,7 @@ const slots = useSlots()
 				>
 					<template v-if="!fullscreen">
 						<div class="flex flex-col items-center justify-center">
-							<div class="h-1.5 w-12 rounded-full bg-neutral-200"></div>
+							<div class="h-1.5 w-12 rounded-full bg-gray-light"></div>
 						</div>
 					</template>
 					<template v-else>
@@ -285,7 +285,7 @@ const slots = useSlots()
 							</button>
 							<div
 								v-if="title"
-								class="mx-auto text-lg font-medium text-neutral-200"
+								class="mx-auto text-lg font-semibold text-black"
 							>
 								{{ title }}
 							</div>
@@ -296,14 +296,14 @@ const slots = useSlots()
 				<div
 					ref="slotEl"
 					:class="{
-						'flex-1 overflow-y-auto overflow-x-hidden pb-4': fullscreen,
+						'flex-1 overflow-y-auto overflow-x-hidden pb-4 pt-1': fullscreen,
 						'px-8': narrow && !fullscreen,
 						'px-4': !narrow || fullscreen,
 					}"
 				>
 					<slot name="default"></slot>
 				</div>
-				<footer class="z-50 border-t border-t-neutral-600/60 bg-neutral-800 p-4 empty:hidden">
+				<footer class="z-50 border-t border-t-gray-light bg-white p-4 empty:hidden">
 					<slot name="footer"></slot>
 				</footer>
 			</div>

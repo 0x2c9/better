@@ -11,7 +11,7 @@ const { secondsIntoMinutes } = useUtils()
 <template>
 	<div class="flex-1">
 		<div class="flex items-center justify-between">
-			<h2 class="text-lg font-medium">
+			<h2 class="text-lg font-semibold">
 				{{ item.exercise_name }}
 			</h2>
 			<ExerciseListItemRepType
@@ -24,7 +24,7 @@ const { secondsIntoMinutes } = useUtils()
 			/>
 			<span
 				v-if="item.exercise_type === 'time' && item.exercise_sets > 1"
-				class="text-neutral-200"
+				class="text-black"
 			>
 				{{ secondsIntoMinutes(item.exercise_duration) }}
 			</span>

@@ -20,6 +20,8 @@ onMounted(async () => {
 
 	globalState.loaded = true
 })
+
+const isSettingsPage = useRoute().path === '/settings'
 </script>
 
 <template>
@@ -28,7 +30,11 @@ onMounted(async () => {
 		class="flex size-full flex-col overflow-hidden"
 	>
 		<main
-			class="flex flex-1 flex-col overflow-y-scroll px-4 pb-[132px] pt-8"
+			class="flex flex-1 flex-col overflow-y-scroll px-4 pt-8"
+			:class="{
+				'pb-[132px]': !isSettingsPage,
+				'pb-[84px]': isSettingsPage,
+			}"
 		>
 			<slot class="flex-1"></slot>
 		</main>

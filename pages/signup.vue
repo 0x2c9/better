@@ -55,7 +55,7 @@ async function onSubmit() {
 				Sign In
 			</BButton>
 		</form>
-		<p class="mt-4 text-center text-sm text-neutral-400">
+		<p class="mt-4 text-center text-sm text-gray-medium">
 			Already have an account?
 			<NuxtLink
 				to="/login"
