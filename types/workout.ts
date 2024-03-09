@@ -11,7 +11,6 @@ export type Workout = {
 
 export type WorkoutEntry = {
 	id?: string
-	workout_id: string
 	workout_name: string
 	workout_exercises: Exercise[][]
 	workout_initial_exercises: Exercise[]
