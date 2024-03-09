@@ -34,7 +34,7 @@ const component = computed(() => {
 		:class="{
 			'bg-black text-white active:enabled:bg-black/90': variant === 'primary',
 			'active:enabled:bg-light-gray/90 bg-gray-light text-black': variant === 'secondary',
-			'border-2 border-gray-dark text-gray-dark active:enabled:bg-gray-dark/10': variant === 'outline',
+			'border-2 border-black text-black active:enabled:bg-black/10': variant === 'outline',
 			'border-2 border-red bg-red/25 text-red active:enabled:bg-red/50': variant === 'danger',
 			'shrink-0': isIconButton,
 			'size-11': isIconButton && !small,

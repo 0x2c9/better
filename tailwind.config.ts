@@ -16,7 +16,6 @@ export default {
 			'dirty-white': '#FAFAFA',
 			'gray-light': '#F2F2F2',
 			'gray-medium': '#666666',
-			'gray-dark': '#3E3E3E',
 			'black': '#000000',
 			'blue': '#0070f3',
 			'green': '#20cda6',

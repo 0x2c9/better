@@ -254,7 +254,7 @@ onMounted(() => {
 			>
 				<span
 					:key="tweened.date"
-					class="text-gray-medium"
+					class="font-semibold text-gray-medium"
 				>
 					{{ tweened.date }}
 				</span>

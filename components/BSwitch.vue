@@ -49,7 +49,7 @@ onUnmounted(() => {
 
 <template>
 	<div
-		class="relative z-50 grid w-full gap-x-3 rounded-full border border-gray-dark px-1 py-[2px]"
+		class="relative z-50 grid w-full gap-x-3 rounded-full border border-black px-1 py-[2px]"
 		:style="{
 			'grid-template-columns': `repeat(${options.length}, 1fr)`,
 		}"

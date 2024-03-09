@@ -52,18 +52,17 @@ function onFocusOut() {
 				w-full
 				rounded-md
 				border
-				border-gray-dark
+				border-black
 				bg-transparent
 				px-4
 				py-2
 				text-lg
-				font-semibold
 				text-black
 				caret-black
 				placeholder:text-gray-medium/50
 			"
 			:class="{
-				'border-gray-dark': !hasFocus,
+				'border-black': !hasFocus,
 				'outline-none ring-2 ring-blue ring-offset-1': hasFocus,
 			}"
 			:type="type"

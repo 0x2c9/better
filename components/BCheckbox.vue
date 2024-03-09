@@ -45,7 +45,7 @@ function onLabelClick() {
 				/>
 				<BIcon
 					v-else
-					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-gray-dark"
+					class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-black"
 					size="24"
 					name="material-symbols-check-circle-outline-rounded"
 				/>

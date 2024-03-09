@@ -134,7 +134,7 @@ async function onDeleteWorkoutEntry() {
 							{{ exercise.exercise_name }}
 						</p>
 
-						<div class="relative h-2 flex-1 rounded-full bg-gray-dark">
+						<div class="relative h-2 flex-1 rounded-full bg-black">
 							<div
 								class="absolute inset-y-0 left-0 rounded-full"
 								:class="{

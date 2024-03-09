@@ -50,7 +50,7 @@ watch(
 
 		<div
 			v-if="!workoutStore.workouts?.length && globalState.loaded"
-			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-gray-dark"
+			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-black"
 		>
 			<p>There are no workouts yet.</p>
 			<p>Create exercises and add your first workout.</p>
