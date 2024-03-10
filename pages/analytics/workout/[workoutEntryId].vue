@@ -26,7 +26,7 @@ onMounted(async () => {
 	}
 })
 
-const computedAnalytics = computed(() => {
+const computedSetAnalytics = computed(() => {
 	const result = []
 
 	for (const exerciseSet of completedExercises.value) {
@@ -34,52 +34,97 @@ const computedAnalytics = computed(() => {
 
 		for (const actualExercise of exerciseSet) {
 			const initialExercise = initialExercises.value.find((actual) => actual.id === actualExercise.id) as Exercise
-
+			const exerciseName = actualExercise.exercise_name
 			if (initialExercise.exercise_type === 'reps' && actualExercise.exercise_type === 'reps') {
-				const actualRepetitions = actualExercise.exercise_repetitions
-				const expectedRepetitions = initialExercise.exercise_repetitions
+				const actualValue = actualExercise.done ? actualExercise.exercise_repetitions : 0
+				const initialValue = initialExercise.exercise_repetitions
 
 				const isCompleted = actualExercise.done
-				const isLess = actualRepetitions < expectedRepetitions
-				const isMore = actualRepetitions > expectedRepetitions
 
-				const percentage = actualExercise.done ? (actualRepetitions / expectedRepetitions) * 100 : 0
+				const actualPercentage = actualExercise.done ? (actualValue / initialValue) * 100 : 0
+				const percentage = actualPercentage > 100 ? 100 : actualPercentage
 
 				set.push({
-					...actualExercise,
+					exerciseName,
 					isCompleted,
-					isLess,
-					isMore,
 					percentage,
-					actualRepetitions,
-					expectedRepetitions,
+					actualPercentage,
+					actualValue,
+					initialValue,
 				})
 			}
 
 			if (initialExercise.exercise_type === 'time' && actualExercise.exercise_type === 'time') {
-				const actualTime = actualExercise.exercise_training_time * actualExercise.exercise_sets
-				const expectedTime = initialExercise.exercise_training_time * initialExercise.exercise_sets
+				const actualValue = actualExercise.done ? actualExercise.exercise_training_time * actualExercise.exercise_sets : 0
+				const initialValue = initialExercise.exercise_training_time * initialExercise.exercise_sets
 
 				const isCompleted = actualExercise.done
-				const isLess = actualTime < expectedTime
-				const isMore = actualTime > expectedTime
 
-				const percentage = actualExercise.done ? (actualTime / expectedTime) * 100 : 0
+				const actualPercentage = actualExercise.done ? (actualValue / initialValue) * 100 : 0
+				const percentage = actualPercentage > 100 ? 100 : actualPercentage
 
 				set.push({
-					...actualExercise,
+					exerciseName,
 					isCompleted,
-					isLess,
-					isMore,
 					percentage,
-					actualTime,
-					expectedTime,
+					actualPercentage,
+					actualValue,
+					initialValue,
 				})
 			}
 		}
 
 		result.push(set)
 	}
+
+	return result
+})
+
+const computedWorkoutAnalytics = computed(() => {
+	const resultObj: Record<string, { actualValue: number, initialValue: number, type: 'reps' | 'time' }> = {}
+	for (const exerciseSet of completedExercises.value) {
+		for (const exercise of exerciseSet) {
+			const initialExercise = initialExercises.value.find((actual) => actual.id === exercise.id) as Exercise
+
+			if (exercise.done) {
+				if (exercise.exercise_type === 'reps' && initialExercise.exercise_type === 'reps') {
+					if (resultObj[exercise.exercise_name]) {
+						resultObj[exercise.exercise_name].actualValue += exercise.exercise_repetitions
+						resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_repetitions
+					} else {
+						resultObj[exercise.exercise_name] = {
+							actualValue: exercise.exercise_repetitions,
+							initialValue: initialExercise.exercise_repetitions,
+							type: 'reps',
+						}
+					}
+				} else if (exercise.exercise_type === 'time' && initialExercise.exercise_type === 'time') {
+					if (resultObj[exercise.exercise_name]) {
+						resultObj[exercise.exercise_name].actualValue += exercise.exercise_training_time * exercise.exercise_sets
+						resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_training_time * initialExercise.exercise_sets
+					} else {
+						resultObj[exercise.exercise_name] = {
+							actualValue: exercise.exercise_training_time * exercise.exercise_sets,
+							initialValue: initialExercise.exercise_training_time * initialExercise.exercise_sets,
+							type: 'time',
+						}
+					}
+				}
+			}
+		}
+	}
+
+	const result = Object.entries(resultObj).map(([exerciseName, { actualValue, initialValue }]) => {
+		const actualPercentage = (actualValue / initialValue) * 100
+		const percentage = actualPercentage > 100 ? 100 : actualPercentage
+		return {
+			exerciseName,
+			actualValue,
+			initialValue,
+			actualPercentage,
+			percentage,
+		}
+	})
 
 	return result
 })
@@ -119,48 +164,76 @@ async function onDeleteWorkoutEntry() {
 					Delete
 				</BButton>
 			</div>
-
-			<section v-for="(exerciseSet, setIndex) in computedAnalytics" :key="setIndex">
+			<section class="mb-4 rounded-lg bg-white p-4 shadow-better">
 				<h3 class="mb-2 text-lg font-semibold">
-					Set {{ setIndex + 1 }}
+					Workout analytics
 				</h3>
-				<ul class="space-y-2">
+				<ul class="space-y-4">
 					<li
-						v-for="(exercise, exerciseIndex) in exerciseSet"
+						v-for="(exercise, exerciseIndex) in computedWorkoutAnalytics"
 						:key="exerciseIndex"
-						class="grid grid-cols-3 items-center"
+						class="flex flex-col"
 					>
-						<p class="ml-2">
-							{{ exercise.exercise_name }}
-						</p>
+						<div class="flex items-center justify-between font-semibold">
+							<p>
+								{{ exercise.exerciseName }}
+							</p>
+							<p>
+								{{ exercise.actualValue }} / {{ exercise.initialValue }}
+							</p>
+						</div>
 
-						<div class="relative h-2 flex-1 rounded-full bg-black">
+						<div class="relative h-2 w-full rounded-full bg-black">
 							<div
 								class="absolute inset-y-0 left-0 rounded-full"
 								:class="{
-									'bg-green': exercise.isMore,
-									'bg-red': exercise.isLess,
-									'bg-blue': exercise.isCompleted,
+									'bg-green': exercise.actualPercentage > 100,
+									'bg-blue': exercise.actualPercentage === 100,
+									'bg-red': exercise.actualPercentage < 100,
 								}"
 								:style="{
 									width: `${exercise.percentage}%`,
 								}"
 							></div>
 						</div>
+					</li>
+				</ul>
+			</section>
+			<section
+				v-for="(exerciseSet, setIndex) in computedSetAnalytics"
+				:key="setIndex"
+				class="mb-4 rounded-lg bg-white p-4 shadow-better"
+			>
+				<h3 class="mb-2 text-lg font-semibold">
+					Set {{ setIndex + 1 }}
+				</h3>
+				<ul class="space-y-4">
+					<li
+						v-for="(exercise, exerciseIndex) in exerciseSet"
+						:key="exerciseIndex"
+						class="flex flex-col"
+					>
+						<div class="flex items-center justify-between font-semibold">
+							<p>
+								{{ exercise.exerciseName }}
+							</p>
+							<p>
+								{{ exercise.actualValue }} / {{ exercise.initialValue }}
+							</p>
+						</div>
 
-						<div class="ml-auto">
-							<p
-								v-if="exercise.exercise_type === 'reps'"
-								class="text-sm"
-							>
-								{{ exercise.actualRepetitions }} / {{ exercise.expectedRepetitions }}
-							</p>
-							<p
-								v-else-if="exercise.exercise_type === 'time'"
-								class="text-sm"
-							>
-								{{ exercise.actualTime }}s / {{ exercise.expectedTime }}s
-							</p>
+						<div class="relative h-2 w-full rounded-full bg-black">
+							<div
+								class="absolute inset-y-0 left-0 rounded-full"
+								:class="{
+									'bg-green': exercise.actualPercentage > 100,
+									'bg-blue': exercise.actualPercentage === 100,
+									'bg-red': exercise.actualPercentage < 100,
+								}"
+								:style="{
+									width: `${exercise.percentage}%`,
+								}"
+							></div>
 						</div>
 					</li>
 				</ul>
