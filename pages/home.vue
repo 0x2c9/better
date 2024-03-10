@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import 'dayjs/locale/de'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
+import type { Walk } from '~/types/walk'
 
 dayjs.extend(weekOfYear)
 dayjs.locale('de') // use locale
@@ -13,6 +14,7 @@ definePageMeta({
 
 const weightStore = useWeightStore()
 const workoutStore = useWorkoutStore()
+const walkStore = useWalkStore()
 const globalState = useGlobalState()
 
 const currentWeek = dayjs().week()
@@ -76,8 +78,19 @@ function handleWeekChange(direction: 'prev' | 'next' | 'current') {
 	}
 }
 
+const showWalkForm = ref(false)
+const selectedWalkDate = ref('')
+const selectedWalk = ref<Walk>()
 function addActivityEntry(date: string) {
 	console.log('addActivityEntry', date)
+	selectedWalkDate.value = date
+	showWalkForm.value = true
+}
+
+function openWalk(entry: Walk) {
+	console.log('openWalk', entry)
+	selectedWalk.value = entry
+	showWalkForm.value = true
 }
 </script>
 
@@ -118,6 +131,17 @@ function addActivityEntry(date: string) {
 								</BPill>
 							</NuxtLink>
 						</template>
+						<template v-if="walkStore.mappedEntryWalks[day.date] && globalState.loaded">
+							<button
+								v-for="walkEntry in walkStore.mappedEntryWalks[day.date]"
+								:key="walkEntry.walk_distance + walkEntry.walk_duration"
+								@click="openWalk(walkEntry)"
+							>
+								<BPill>
+									{{ walkEntry.walk_distance }}km
+								</BPill>
+							</button>
+						</template>
 					</section>
 				</li>
 			</ul>
@@ -143,5 +167,12 @@ function addActivityEntry(date: string) {
 				/>
 			</nav>
 		</footer>
+
+		<WalkForm
+			v-if="showWalkForm"
+			v-model="showWalkForm"
+			:walk-date="selectedWalkDate"
+			:selected-walk="selectedWalk"
+		/>
 	</article>
 </template>

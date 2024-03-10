@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { highlightedDates = new Set(), disabled = false } = defineProps<{
-	highlightedDates: Set<string>
-	disabled: boolean
+	highlightedDates?: Set<string>
+	disabled?: boolean
 }>()
 
 const modelValue = defineModel<string>()

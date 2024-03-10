@@ -4,6 +4,7 @@ const weightStore = useWeightStore()
 const exerciseStore = useExerciseStore()
 const workoutStore = useWorkoutStore()
 const globalState = useGlobalState()
+const walkStore = useWalkStore()
 
 onMounted(async () => {
 	if (!authStore.isAuthenticated) {
@@ -16,6 +17,7 @@ onMounted(async () => {
 		exerciseStore.getExercises(),
 		workoutStore.getWorkouts(),
 		workoutStore.getWorkoutEntries(),
+		walkStore.getWalks(),
 	])
 
 	globalState.loaded = true
