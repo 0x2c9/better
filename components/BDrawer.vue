@@ -260,7 +260,11 @@ const slots = useSlots()
 			>
 				<div
 					ref="swipeEl"
-					class="bg-white px-4 pb-2 pt-4"
+					class="bg-white pb-2 pt-4"
+					:class=" {
+						'px-4': fullscreen,
+						'px-8': !fullscreen,
+					}"
 				>
 					<template v-if="!fullscreen">
 						<div class="flex flex-col items-center justify-center">
@@ -288,9 +292,9 @@ const slots = useSlots()
 
 				<div
 					ref="slotEl"
-					class="px-4"
 					:class="{
-						'flex-1 overflow-y-auto overflow-x-hidden pb-4 pt-2': fullscreen,
+						'flex-1 overflow-y-auto overflow-x-hidden px-4 pb-4 pt-2': fullscreen,
+						'px-8': !fullscreen,
 						'border-t border-t-gray-light': slots.header,
 					}"
 				>

@@ -14,8 +14,10 @@
 		"icon:generate": "pwa-assets-generator --preset minimal-2023 public/better-logo.svg"
 	},
 	"dependencies": {
+		"@formkit/drag-and-drop": "^0.0.26",
 		"@pinia/nuxt": "^0.5.1",
 		"@supabase/supabase-js": "^2.39.7",
+		"@vueuse/components": "^10.9.0",
 		"@vueuse/core": "^10.9.0",
 		"@vueuse/nuxt": "^10.9.0",
 		"chart.js": "^4.4.2",

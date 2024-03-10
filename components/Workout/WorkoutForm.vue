@@ -105,8 +105,10 @@ function updateSelectedExercise(exercise: Exercise) {
 			</div>
 		</template>
 		<ExerciseList
+			v-model="workout.workout_exercises"
 			key-field="listId"
-			:items="workout.workout_exercises"
+			sortable
+			@sort="workout.workout_exercises = $event"
 			@select-exercise="selectExerciseToUpdate"
 			@delete-exercise="deleteExerciseFromNewWorkout"
 		/>
@@ -145,7 +147,7 @@ function updateSelectedExercise(exercise: Exercise) {
 			fullscreen
 		>
 			<ExerciseList
-				:items="exerciseStore.exercises"
+				v-model="exerciseStore.exercises"
 				:disable-delete="true"
 				@select-exercise="addExerciseToWorkout"
 			/>

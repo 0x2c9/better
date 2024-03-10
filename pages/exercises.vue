@@ -46,7 +46,7 @@ function onDeleteExercise(exercise: Exercise) {
 		</div>
 
 		<ExerciseList
-			:items="exerciseStore.exercises"
+			v-model="exerciseStore.exercises"
 			@select-exercise="onSelectExercise"
 			@delete-exercise="onDeleteExercise"
 		/>
