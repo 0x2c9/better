@@ -74,11 +74,23 @@ onMounted(() => {
 		</BButton>
 
 		<LazyBDrawer v-model="showConfirmOverwrite">
-			<p class="mb-6 text-lg font-semibold text-gray-medium">
-				Are you sure you want to overwrite your existing entry from <span class="text-black">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>?
+			<div class="mx-auto mb-4 mt-2 flex size-8 items-center justify-center rounded-full bg-black text-white">
+				<BIcon
+					size="28"
+					name="material-symbols-exclamation-rounded"
+				/>
+			</div>
+			<h1 class="mb-1 text-2xl font-semibold">
+				Update existing entry?
+			</h1>
+			<p class="text-lg">
+				You are about to change your weight entry on <span class="font-semibold">{{ dayjs(weightEntry.date).format('ddd, DD.MM.YYYY') }}</span>.
+			</p>
+			<p class="text-lg">
+				From <span class="font-semibold">{{ selectedWeightEntry?.weight_display }}</span> to <span class="font-semibold">{{ weightEntry.weight }}kg</span>
 			</p>
 
-			<div class="flex flex-col gap-y-4">
+			<div class="mt-8 flex flex-col gap-y-4">
 				<BButton
 					type="button"
 					class="w-full"

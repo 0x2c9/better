@@ -80,10 +80,16 @@ function onCancel() {
 
 		<LazyBDrawer v-model="showConfirmDeleteModal">
 			<section class="flex flex-col">
-				<h1 class="text-xl font-semibold">
+				<div class="mx-auto mb-4 mt-2 flex size-8 items-center justify-center rounded-full bg-black text-white">
+					<BIcon
+						size="28"
+						name="material-symbols-exclamation-rounded"
+					/>
+				</div>
+				<h1 class="mb-1 text-2xl font-semibold">
 					You are about to delete the selected item?
 				</h1>
-				<p class="mt-2 text-lg">
+				<p class="text-lg">
 					This action cannot be undone.
 				</p>
 				<BButton
@@ -91,7 +97,7 @@ function onCancel() {
 					variant="danger"
 					@click="onConfirmAndClose"
 				>
-					Confirm and close
+					Delete and close
 				</BButton>
 				<BButton
 					class="mt-4"

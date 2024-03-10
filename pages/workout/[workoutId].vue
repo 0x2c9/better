@@ -293,10 +293,17 @@ onBeforeRouteLeave(() => {
 
 		<LazyBDrawer v-model="showConfirmLeaveModal">
 			<section class="flex flex-col">
-				<h1 class="text-xl font-semibold">
-					Do you want to leave your current workout?
+				<div class="mx-auto mb-4 mt-2 flex size-8 items-center justify-center rounded-full bg-black text-white">
+					<BIcon
+						size="28"
+						name="material-symbols-exclamation-rounded"
+					/>
+				</div>
+
+				<h1 class="mb-1 text-2xl font-semibold">
+					Leaving workout
 				</h1>
-				<p class="mt-2 text-lg">
+				<p class="text-lg">
 					You are about to lose your current progress in your workout.
 				</p>
 				<BButton
@@ -317,15 +324,21 @@ onBeforeRouteLeave(() => {
 		</LazyBDrawer>
 		<LazyBDrawer v-model="showConfirmSaveModal">
 			<section class="flex flex-col">
-				<h1 class="text-xl font-semibold">
+				<div class="mx-auto mb-4 mt-2 flex size-8 items-center justify-center rounded-full bg-black text-white">
+					<BIcon
+						size="28"
+						:name="undoneWorkouts.length === 0 ? 'material-symbols-fitbit-check-small-rounded' : 'material-symbols-exclamation-rounded'"
+					/>
+				</div>
+				<h1 class="mb-1 text-2xl font-semibold">
 					<template v-if="undoneWorkouts.length === 0">
 						You are done with your workout!
 					</template>
 					<template v-else>
-						Not all exercises are finished.
+						You are not done with your workout yet.
 					</template>
 				</h1>
-				<p class="mt-2 text-lg">
+				<p class="text-lg">
 					<template v-if="undoneWorkouts.length === 0">
 						You are about to save your finished workout. You'll be redirected to the workout list.
 					</template>
