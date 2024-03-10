@@ -32,7 +32,6 @@ const displayValue = computed(() => {
 
 	<LazyBDrawer
 		v-model="showDatepicker"
-		:narrow="false"
 	>
 		<BDatepicker
 			v-model="modelValue"
