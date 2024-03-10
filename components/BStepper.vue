@@ -31,11 +31,15 @@ function clearStepper() {
 	useIncreasedStep.value = false
 }
 
+const stepFactor = computed(() => {
+	return useIncreasedStep.value ? 2 : 1
+})
+
 function increaseValue() {
 	if (max && modelValue.value! >= max)
 		return
 
-	const newValue = (modelValue.value as number) + (useIncreasedStep.value ? 1 : steps)
+	const newValue = (modelValue.value as number) + (steps * stepFactor.value)
 
 	modelValue.value = Number.parseFloat(newValue.toFixed(2))
 }
@@ -44,7 +48,7 @@ function decreaseValue() {
 	if (modelValue.value! <= min)
 		return
 
-	const newValue = (modelValue.value as number) - (useIncreasedStep.value ? 1 : steps)
+	const newValue = (modelValue.value as number) - (steps * stepFactor.value)
 
 	modelValue.value = Number.parseFloat(newValue.toFixed(2))
 }
