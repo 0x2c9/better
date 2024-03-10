@@ -164,7 +164,7 @@ async function onDeleteWorkoutEntry() {
 					Delete
 				</BButton>
 			</div>
-			<section class="mb-4 rounded-lg bg-white p-4 shadow-better">
+			<section v-if="computedWorkoutAnalytics.length" class="mb-4 rounded-lg bg-white p-4 shadow-better">
 				<h3 class="mb-2 text-lg font-semibold">
 					Workout analytics
 				</h3>
