@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import type { Workout, WorkoutEntry } from '@/types/workout'
 
 export const useWorkoutStore = defineStore(

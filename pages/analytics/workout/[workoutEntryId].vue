@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Exercise, RepsExercise } from '~/types/exercise'
-import type { Workout, WorkoutEntry } from '~/types/workout'
+import type { Exercise } from '~/types/exercise'
+import type { WorkoutEntry } from '~/types/workout'
 
 definePageMeta({
 	layout: 'app',
