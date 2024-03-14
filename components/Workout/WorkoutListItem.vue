@@ -63,7 +63,7 @@ function onLeave(el: Element, done: () => void) {
 				@enter="onEnter"
 				@leave="onLeave"
 			>
-				<ul v-show="showExerciseList" class="mt-4 space-y-3 overflow-hidden p-[1px]">
+				<ul v-show="showExerciseList" class="mt-4 space-y-3 overflow-hidden p-px">
 					<ExerciseListItem
 						v-for="(workoutExercise, index) of item.workout_exercises"
 						:key="`${workoutExercise.id}-${index}`"

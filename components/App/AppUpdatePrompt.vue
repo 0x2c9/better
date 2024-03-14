@@ -26,7 +26,7 @@ async function updateServiceWorker() {
 		<Transition name="fade">
 			<div
 				v-if="$pwa?.isPWAInstalled && $pwa.needRefresh"
-				class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-black/50 before:backdrop-blur-[4px] empty:hidden"
+				class="fixed inset-0 z-50 flex items-end p-4 before:fixed before:inset-0 before:z-[-1] before:bg-black/50 before:backdrop-blur-sm empty:hidden"
 			>
 				<div class="relative z-50 flex w-full items-center rounded-lg bg-white p-4 text-black">
 					<BIcon
@@ -40,7 +40,7 @@ async function updateServiceWorker() {
 						size="14"
 					/>
 					<BIcon
-						class="star-icon absolute left-[107px] top-[1px] text-black"
+						class="star-icon absolute left-[107px] top-px text-black"
 						name="mdi-star-four-points"
 						size="14"
 					/>

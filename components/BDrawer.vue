@@ -225,7 +225,7 @@ const slots = useSlots()
 		>
 			<div
 				v-if="modelValue"
-				class="fixed inset-0 bg-gray-light/10 backdrop-blur-[4px]"
+				class="fixed inset-0 bg-gray-light/10 backdrop-blur-sm"
 				:style="{
 					zIndex: 1010 + localDropdownCounter,
 				}"
