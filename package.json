@@ -14,9 +14,9 @@
 		"icon:generate": "pwa-assets-generator --preset minimal-2023 public/better-logo.svg"
 	},
 	"dependencies": {
-		"@formkit/drag-and-drop": "^0.0.26",
+		"@formkit/drag-and-drop": "^0.0.29",
 		"@pinia/nuxt": "^0.5.1",
-		"@supabase/supabase-js": "^2.39.7",
+		"@supabase/supabase-js": "^2.39.8",
 		"@vueuse/components": "^10.9.0",
 		"@vueuse/core": "^10.9.0",
 		"@vueuse/nuxt": "^10.9.0",
@@ -29,13 +29,13 @@
 		"vue-router": "^4.3.0"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "^2.8.0",
+		"@antfu/eslint-config": "^2.8.2",
 		"@eslint/eslintrc": "^3.0.2",
 		"@types/howler": "^2.2.11",
 		"@vite-pwa/nuxt": "^0.6.0",
 		"changelogen": "^0.5.5",
 		"eslint": "^8.57.0",
-		"eslint-plugin-tailwindcss": "^3.14.3",
+		"eslint-plugin-tailwindcss": "^3.15.1",
 		"nuxt": "^3.10.3",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5.4.2",
