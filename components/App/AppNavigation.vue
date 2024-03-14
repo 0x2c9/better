@@ -20,12 +20,6 @@ const menuItems: IMenuItem[] = [
 		iconActive: 'ion-fitness',
 	},
 	{
-		title: 'Exercises',
-		link: '/exercises',
-		iconBase: 'material-symbols-exercise-outline',
-		iconActive: 'material-symbols-exercise',
-	},
-	{
 		title: 'Settings',
 		link: '/settings',
 		iconBase: 'material-symbols-settings-outline-rounded',
@@ -36,7 +30,7 @@ const menuItems: IMenuItem[] = [
 
 <template>
 	<nav
-		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-4 items-center justify-center border-t border-gray-light bg-white px-4 backdrop-blur"
+		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-3 items-center justify-center border-t border-gray-light bg-white px-4 backdrop-blur"
 	>
 		<NuxtLink
 			v-for="item in menuItems"

@@ -37,7 +37,7 @@ const component = computed(() => {
 			'border-2 border-black text-black active:enabled:bg-black/10': variant === 'outline',
 			'border-2 border-red bg-red/25 text-red active:enabled:bg-red/50': variant === 'danger',
 			'shrink-0': isIconButton,
-			'size-11': isIconButton && !small,
+			'size-10': isIconButton && !small,
 			'size-7': isIconButton && small,
 			'h-12 px-6 text-lg': !isIconButton && !small,
 			'h-8 px-5': !isIconButton && small,

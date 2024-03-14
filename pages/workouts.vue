@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Workout } from '@/types/workout'
 
+import type { Exercise } from '~/types/exercise'
+
 definePageMeta({
 	layout: 'app',
 	auth: true,
@@ -36,26 +38,38 @@ watch(
 		immediate: true,
 	},
 )
+const exerciseStore = useExerciseStore()
+
+const selectedExercise = ref<Exercise | null>(null)
+const openExerciseForm = ref(false)
+
+function openExercise() {
+	selectedExercise.value = null
+	openExerciseForm.value = true
+}
+
+function onSelectExercise(exercise: Exercise) {
+	selectedExercise.value = exercise
+	openExerciseForm.value = true
+}
+
+function onDeleteExercise(exercise: Exercise) {
+	exerciseStore.deleteExercise(exercise.id!)
+}
 </script>
 
 <template>
 	<article class="relative w-full">
-		<BPageActionButton @click="openWorkout">
-			<BIcon
-				name="material-symbols-add-rounded"
-				class="-ml-2 mr-2"
+		<div class="mb-4 flex items-center justify-between">
+			<h2 class=" text-2xl font-semibold">
+				Workouts
+			</h2>
+			<BButton
+				icon-name="material-symbols-add-rounded"
+				variant="outline"
+				@click="openWorkout"
 			/>
-			Create Workout
-		</BPageActionButton>
-
-		<div
-			v-if="!workoutStore.workouts?.length && globalState.loaded"
-			class="fixed inset-x-4 top-1/2 -translate-y-1/2 transform text-center text-lg text-black"
-		>
-			<p>There are no workouts yet.</p>
-			<p>Create exercises and add your first workout.</p>
 		</div>
-
 		<BGenericList
 			:items="workoutStore.workouts"
 			@select="onSelectWorkout"
@@ -69,6 +83,27 @@ watch(
 		<WorkoutForm
 			v-model="showWorkoutForm"
 			:selected-workout="selectedWorkout"
+		/>
+
+		<div class="mb-4 mt-8 flex items-center justify-between">
+			<h2 class=" text-2xl font-semibold">
+				Exercises
+			</h2>
+			<BButton
+				icon-name="material-symbols-add-rounded"
+				variant="outline"
+				@click="openExercise"
+			/>
+		</div>
+		<ExerciseList
+			v-model="exerciseStore.exercises"
+			@select-exercise="onSelectExercise"
+			@delete-exercise="onDeleteExercise"
+		/>
+
+		<ExerciseForm
+			v-model="openExerciseForm"
+			:selected-exercise="selectedExercise"
 		/>
 	</article>
 </template>
