@@ -65,7 +65,7 @@ function onCancel() {
 			<li
 				v-for="item of items"
 				:key="String(item[keyField as keyof T])"
-				v-on-long-press.prevent="[onLongPress, { delay: 1000 }]"
+				v-on-long-press.prevent="[onLongPress, { delay: 500 }]"
 				:data-key-field-data="item[keyField as keyof T]"
 				class="relative flex w-full"
 				@click="onSelect(item)"
@@ -79,7 +79,7 @@ function onCancel() {
 		</TransitionGroup>
 
 		<LazyBDrawer v-model="showConfirmDeleteModal">
-			<section class="flex flex-col">
+			<section class="flex select-none flex-col">
 				<div class="mx-auto mb-4 mt-2 flex size-8 items-center justify-center rounded-full bg-black text-white">
 					<BIcon
 						size="28"
