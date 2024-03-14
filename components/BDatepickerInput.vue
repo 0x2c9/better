@@ -8,6 +8,9 @@ const modelValue = defineModel<string>()
 const showDatepicker = ref(false)
 
 function openDatepicker() {
+	if (disabled) {
+		return
+	}
 	showDatepicker.value = true
 }
 
