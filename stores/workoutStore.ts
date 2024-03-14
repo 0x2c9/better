@@ -135,6 +135,7 @@ export const useWorkoutStore = defineStore(
 		return {
 			workouts,
 			mappedEntryWorkouts,
+			workoutEntries,
 			upsertWorkout,
 			getWorkouts,
 			getWorkoutById,

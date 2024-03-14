@@ -1,4 +1,4 @@
-export type Walk = {
+export type WalkEntry = {
 	id?: string
 	user_id?: string
 	walk_distance: number

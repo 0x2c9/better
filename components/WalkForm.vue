@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import type { Walk } from '~/types/walk'
+import type { WalkEntry } from '~/types/walk'
 
-const { walkDate = dayjs().format('YYYY-MM-DD'), selectedWalk } = defineProps<{
-	selectedWalk?: Walk
-	walkDate?: string
+const { selectedWalk } = defineProps<{
+	selectedWalk: WalkEntry | null
 }>()
 
 const walkStore = useWalkStore()
 const { secondsIntoMinutes } = useUtils()
 const openWalkForm = defineModel<boolean>({ required: true, default: false })
 
-const walk = ref<Walk>({
-	walk_distance: 0.5,
-	walk_duration: 60,
-	walk_date: walkDate,
-})
+const defaultWalk = {
+	walk_distance: 1,
+	walk_duration: 600,
+	walk_date: dayjs().format('YYYY-MM-DD'),
+}
+
+const walk = ref<WalkEntry>(defaultWalk)
 
 watch(
 	() => selectedWalk,
@@ -28,6 +29,16 @@ watch(
 		immediate: true,
 	},
 )
+
+watch(
+	() => openWalkForm.value,
+	(openWalkForm) => {
+		if (openWalkForm && !selectedWalk) {
+			walk.value = { ...defaultWalk }
+		}
+	},
+)
+
 function onSubmit() {
 	walkStore.upsertWalk(walk.value)
 	openWalkForm.value = false
@@ -39,7 +50,11 @@ function onSubmit() {
 		v-model="openWalkForm"
 	>
 		<form class="flex flex-col space-y-4" @submit.prevent="onSubmit">
-			<BDatepickerInput v-model="walk.walk_date" :disabled="!!selectedWalk" />
+			<BDatepickerInput
+				v-model="walk.walk_date"
+				:disabled="!!selectedWalk"
+				:highlighted-dates="new Set<string>(Object.keys(walkStore.mappedEntryWalks))"
+			/>
 			<BStepper
 				v-model="walk.walk_distance"
 				label="Distance"
@@ -51,7 +66,7 @@ function onSubmit() {
 			<BStepper
 				v-model="walk.walk_duration"
 				label="Duration"
-				:min="60"
+				:min="1"
 				:steps="10"
 				:display-value="secondsIntoMinutes(walk.walk_duration)"
 			/>
