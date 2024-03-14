@@ -14,12 +14,6 @@ const menuItems: IMenuItem[] = [
 		iconActive: 'material-symbols-home-rounded',
 	},
 	{
-		title: 'Weight',
-		link: '/weight',
-		iconBase: 'material-symbols-monitor-weight-outline',
-		iconActive: 'material-symbols-monitor-weight',
-	},
-	{
 		title: 'Workouts',
 		link: '/workouts',
 		iconBase: 'ion-fitness-outline',
@@ -42,7 +36,7 @@ const menuItems: IMenuItem[] = [
 
 <template>
 	<nav
-		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-5 items-center justify-center border-t border-gray-light bg-white px-4 backdrop-blur"
+		class="fixed inset-x-0 bottom-0 z-50 grid h-[64px] grid-cols-4 items-center justify-center border-t border-gray-light bg-white px-4 backdrop-blur"
 	>
 		<NuxtLink
 			v-for="item in menuItems"

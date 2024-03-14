@@ -20,7 +20,6 @@
 		"@vueuse/components": "^10.9.0",
 		"@vueuse/core": "^10.9.0",
 		"@vueuse/nuxt": "^10.9.0",
-		"chart.js": "^4.4.2",
 		"dayjs": "^1.11.10",
 		"gsap": "^3.12.5",
 		"howler": "^2.2.4",

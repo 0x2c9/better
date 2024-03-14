@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import type { WeightEntry } from '@/types/weight'
 
-definePageMeta({
-	layout: 'app',
-	auth: true,
-})
-
 const weightStore = useWeightStore()
 
 const selectedWeightEntry = ref<WeightEntry | null>(null)
 const showWeightForm = ref(false)
+const showWeightList = ref(false)
 
-function onOpenWeightForm() {
+function openWeightList() {
+	selectedWeightEntry.value = null
+	showWeightList.value = true
+}
+
+function openWeightForm() {
 	selectedWeightEntry.value = null
 	showWeightForm.value = true
 }
@@ -31,28 +32,26 @@ async function onDeleteEntry(weightEntry: WeightEntry) {
 </script>
 
 <template>
-	<article class="relative">
-		<BPageActionButton @click="onOpenWeightForm">
-			<BIcon
-				name="material-symbols-add-rounded"
-				class="-ml-2 mr-2"
-			/>
-			Add weight entry
-		</BPageActionButton>
+	<MappedEntriesHeatMap
+		title="Weight"
+		icon="material-symbols-monitor-weight-outline"
+		:mapped-entries="weightStore.mappedEntryDates"
+		type="add"
+		@click="openWeightList"
+		@action="openWeightForm"
+	/>
 
-		<LazyWeightHistoryChart v-if="weightStore.weightHistory.length" />
-
+	<LazyBDrawer v-model="showWeightForm">
+		<WeightForm
+			:selected-weight-entry="selectedWeightEntry"
+			@submit="onWeightFormSubmit"
+		/>
+	</LazyBDrawer>
+	<LazyBDrawer v-model="showWeightList" fullscreen>
 		<WeightList
 			:items="weightStore.parsedWeightHistory"
 			@select-weight="onSelectEntry"
 			@delete-weight="onDeleteEntry"
 		/>
-
-		<LazyBDrawer v-model="showWeightForm">
-			<WeightForm
-				:selected-weight-entry="selectedWeightEntry"
-				@submit="onWeightFormSubmit"
-			/>
-		</LazyBDrawer>
-	</article>
+	</LazyBDrawer>
 </template>
