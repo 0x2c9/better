@@ -19,7 +19,7 @@ dayjs.locale('de') // use locale
 dayjs.extend(weekOfYear)
 dayjs.extend(isoWeek)
 
-const WEEKS_TO_DISPLAY = 16
+const WEEKS_TO_DISPLAY = 20
 
 function getDateFromWeekAndDay(week: number, day: number) {
 	// Get the first day of the current week
@@ -70,10 +70,8 @@ function getWeekDays(w: number) {
 				<div
 					v-for="d in getWeekDays(w)"
 					:key="`${w}-week-${d}-day`"
-					class="size-4 rounded-sm bg-gray-light"
-					:class="{
-						'bg-green': mappedEntries[getDateFromWeekAndDay(w, d)],
-					}"
+					class="size-3 rounded-sm"
+					:class="mappedEntries[getDateFromWeekAndDay(w, d)] ? 'bg-blue' : 'bg-gray-light'"
 				></div>
 			</div>
 		</section>
