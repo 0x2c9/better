@@ -71,7 +71,7 @@ function getWeekDays(w: number) {
 					v-for="d in getWeekDays(w)"
 					:key="`${w}-week-${d}-day`"
 					class="size-3 rounded-sm"
-					:class="mappedEntries[getDateFromWeekAndDay(w, d)] ? 'bg-blue' : 'bg-gray-light'"
+					:class="mappedEntries[getDateFromWeekAndDay(w, d)] ? 'bg-black' : 'bg-gray-light'"
 				></div>
 			</div>
 		</section>
