@@ -117,7 +117,7 @@ async function onSubmit() {
 			class="!mt-10 w-full"
 			@click="onSubmit"
 		>
-			Add Exercise To List
+			{{ selectedExercise ? 'Update Exercise' : 'Add Exercise To List' }}
 		</BButton>
 	</form>
 </template>
