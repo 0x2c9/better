@@ -75,21 +75,12 @@ const workoutTimeInSeconds = ref(0)
 const { pause, resume, isActive } = useIntervalFn(() => {
 	workoutTimeInSeconds.value++
 }, 1000, {
-	immediate: false,
+	immediate: true,
 	immediateCallback: true,
 })
 
 function resetWorkoutTimer() {
-	pause()
 	workoutTimeInSeconds.value = 0
-}
-
-function toggleWorkoutTimer() {
-	if (isActive.value) {
-		pause()
-	} else {
-		resume()
-	}
 }
 
 const showConfirmLeaveModal = ref(false)
@@ -200,22 +191,24 @@ onBeforeRouteLeave(() => {
 			>
 		</audio>
 		<div class="flex-1 overflow-y-auto px-4 py-6">
-			<header class="mb-4 flex items-center justify-between">
-				<BButton
-					variant="outline"
-					small
-					@click="onGoBack"
-				>
-					<BIcon name="material-symbols-arrow-back-rounded" class="-ml-2 mr-2" />
-					Leave Workout
-				</BButton>
-				<BButton
-					variant="primary"
-					small
-					@click="onSaveWorkout"
-				>
-					Save Workout
-				</BButton>
+			<header class="mb-4 flex  items-center justify-between">
+				<div class="mb-2 flex flex-1 items-center justify-between">
+					<BButton
+						variant="outline"
+						small
+						@click="onGoBack"
+					>
+						Leave
+					</BButton>
+					<span class="inline-flex min-h-8 items-center text-2xl font-semibold tabular-nums">{{ secondsIntoMinutes(workoutTimeInSeconds) }}</span>
+					<BButton
+						variant="primary"
+						small
+						@click="onSaveWorkout"
+					>
+						Save
+					</BButton>
+				</div>
 			</header>
 			<WorkoutExerciseList
 				v-if="selectedWorkout"
@@ -244,51 +237,15 @@ onBeforeRouteLeave(() => {
 				/>
 			</Transition>
 		</Teleport>
-		<footer class="border border-t-2 border-gray-light bg-white px-4">
-			<nav class="b-box z-50 mb-4 mt-2 flex flex-col justify-center px-4 pb-4 pt-3">
-				<div class="mb-2 flex justify-center">
-					<Transition name="quick-fade" mode="out-in">
-						<template v-if="workoutTimeInSeconds > 0">
-							<span class="inline-flex min-h-8 items-center text-2xl font-semibold">{{ secondsIntoMinutes(workoutTimeInSeconds) }}</span>
-						</template>
-						<template v-else>
-							<span class="inline-flex min-h-8 items-center text-sm text-gray-medium">Track how long your workout takes. (optional)</span>
-						</template>
-					</Transition>
-				</div>
-				<div class="mb-6 flex flex-row gap-x-4">
-					<BButton
-						v-if="workoutTimeInSeconds > 0"
-						class="flex-1"
-						small
-						variant="outline"
-						@click="resetWorkoutTimer"
-					>
-						Reset Timer
-					</BButton>
-					<BButton
-						class="flex-1"
-						small
-						variant="primary"
-						@click="toggleWorkoutTimer"
-					>
-						<template v-if="isActive">
-							Pause Timer
-						</template>
-						<template v-else>
-							Start Timer
-						</template>
-					</BButton>
-				</div>
-				<BStepper
-					v-model="activeSet"
-					label="Current Set"
-					:max="selectedWorkout?.workout_sets"
-					:min="1"
-					:steps="1"
-					:computed-display-value="`${activeSet}/${selectedWorkout?.workout_sets}`"
-				/>
-			</nav>
+		<footer class="border border-t-2 border-gray-light bg-white px-4 py-5">
+			<BStepper
+				v-model="activeSet"
+				label="Current Set"
+				:max="selectedWorkout?.workout_sets"
+				:min="1"
+				:steps="1"
+				:computed-display-value="`${activeSet}/${selectedWorkout?.workout_sets}`"
+			/>
 		</footer>
 
 		<LazyBDrawer v-model="showConfirmLeaveModal">
