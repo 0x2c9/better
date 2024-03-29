@@ -66,28 +66,26 @@ const computedWorkoutAnalytics = computed(() => {
 		for (const exercise of exerciseSet) {
 			const initialExercise = completedWorkout.workout_initial_exercises.find((actual) => actual.id === exercise.id) as Exercise
 
-			if (exercise.done) {
-				if (exercise.exercise_type === 'reps' && initialExercise.exercise_type === 'reps') {
-					if (resultObj[exercise.exercise_name]) {
-						resultObj[exercise.exercise_name].actualValue += exercise.exercise_repetitions
-						resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_repetitions
-					} else {
-						resultObj[exercise.exercise_name] = {
-							actualValue: exercise.exercise_repetitions,
-							initialValue: initialExercise.exercise_repetitions,
-							type: 'reps',
-						}
+			if (exercise.exercise_type === 'reps' && initialExercise.exercise_type === 'reps') {
+				if (resultObj[exercise.exercise_name]) {
+					resultObj[exercise.exercise_name].actualValue += exercise.done ? exercise.exercise_repetitions : 0
+					resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_repetitions
+				} else {
+					resultObj[exercise.exercise_name] = {
+						actualValue: exercise.exercise_repetitions,
+						initialValue: initialExercise.exercise_repetitions,
+						type: 'reps',
 					}
-				} else if (exercise.exercise_type === 'time' && initialExercise.exercise_type === 'time') {
-					if (resultObj[exercise.exercise_name]) {
-						resultObj[exercise.exercise_name].actualValue += exercise.exercise_training_time * exercise.exercise_sets
-						resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_training_time * initialExercise.exercise_sets
-					} else {
-						resultObj[exercise.exercise_name] = {
-							actualValue: exercise.exercise_training_time * exercise.exercise_sets,
-							initialValue: initialExercise.exercise_training_time * initialExercise.exercise_sets,
-							type: 'time',
-						}
+				}
+			} else if (exercise.exercise_type === 'time' && initialExercise.exercise_type === 'time') {
+				if (resultObj[exercise.exercise_name]) {
+					resultObj[exercise.exercise_name].actualValue += exercise.done ? exercise.exercise_training_time * exercise.exercise_sets : 0
+					resultObj[exercise.exercise_name].initialValue += initialExercise.exercise_training_time * initialExercise.exercise_sets
+				} else {
+					resultObj[exercise.exercise_name] = {
+						actualValue: exercise.exercise_training_time * exercise.exercise_sets,
+						initialValue: initialExercise.exercise_training_time * initialExercise.exercise_sets,
+						type: 'time',
 					}
 				}
 			}
