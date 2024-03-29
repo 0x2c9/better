@@ -41,5 +41,4 @@ export const ICONS = {
 	'material-symbols-trending-up-rounded': 'material-symbols-trending-up-rounded',
 	'material-symbols-exclamation-rounded': 'material-symbols-exclamation-rounded',
 	'material-symbols-fitbit-check-small-rounded': 'material-symbols-fitbit-check-small-rounded',
-	'material-symbols-directions-walk-rounded': 'material-symbols-directions-walk-rounded',
 } as const
