@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import type { WorkoutEntry } from '~/types/workout'
 
 const workoutStore = useWorkoutStore()
+const { secondsIntoMinutes } = useUtils()
 
 const showWorkoutAnalytics = ref(false)
 const selectedWorkoutEntry = ref<WorkoutEntry>()
@@ -47,10 +48,15 @@ async function onDeleteWorkoutEntry(workoutEntry: WorkoutEntry) {
 					<div class="mr-2 flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-light p-1">
 						<BIcon name="material-symbols-exercise-outline" size="20" />
 					</div>
-					<h2 class="truncate font-semibold">
-						{{ item.workout_name }}
-					</h2>
-					<p class="ml-auto shrink-0">
+					<div>
+						<h2 class="truncate font-semibold">
+							{{ item.workout_name }}
+						</h2>
+						<p v-if="item.workout_duration" class="text-sm">
+							{{ secondsIntoMinutes(item.workout_duration) }}
+						</p>
+					</div>
+					<p class="ml-auto shrink-0 text-sm">
 						{{ dayjs(item.workout_date).format('ddd DD.MM.YYYY') }}
 					</p>
 				</div>
