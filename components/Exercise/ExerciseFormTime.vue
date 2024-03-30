@@ -13,8 +13,6 @@ const emits = defineEmits<{
 
 const exerciseStore = useExerciseStore()
 
-const { secondsIntoMinutes } = useUtils()
-
 const exercise = ref<TimeExercise>({
 	exercise_name: '',
 	exercise_type: 'time',

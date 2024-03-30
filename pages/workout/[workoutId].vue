@@ -10,7 +10,6 @@ definePageMeta({
 
 const workoutStore = useWorkoutStore()
 const route = useRoute()
-const { secondsIntoMinutes } = useUtils()
 
 const selectedWorkout = ref<Workout>()
 const workoutExercises = ref<Exercise[][]>([])

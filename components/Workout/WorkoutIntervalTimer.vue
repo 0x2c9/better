@@ -28,8 +28,6 @@ const TimerPhase = {
 	Done: 'Done',
 }
 
-const { secondsIntoMinutes } = useUtils()
-
 const PREPARE_TIME = 5
 
 const timeLeft = ref(PREPARE_TIME)

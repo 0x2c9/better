@@ -4,8 +4,6 @@ import type { TimeExercise } from '~/types/exercise'
 defineProps<{
 	item: TimeExercise
 }>()
-
-const { secondsIntoMinutes } = useUtils()
 </script>
 
 <template>

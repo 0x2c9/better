@@ -5,8 +5,6 @@ const { columnMode = false } = defineProps<{
 	item: TimeExercise
 	columnMode?: boolean
 }>()
-
-const { secondsIntoMinutes } = useUtils()
 </script>
 
 <template>

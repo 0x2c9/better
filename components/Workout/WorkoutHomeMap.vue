@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import type { WorkoutEntry } from '~/types/workout'
 
 const workoutStore = useWorkoutStore()
-const { secondsIntoMinutes } = useUtils()
 
 const showWorkoutAnalytics = ref(false)
 const selectedWorkoutEntry = ref<WorkoutEntry>()
