@@ -115,6 +115,11 @@ function updateSelectedExercise(exercise: Exercise) {
 
 		<template #footer>
 			<div class="flex flex-col items-center gap-6">
+				<BStepper
+					v-model="workout.workout_sets"
+					label="Workout Sets"
+					:steps="1"
+				/>
 				<div class="flex w-full flex-row items-center gap-x-4">
 					<BButton
 						variant="secondary"
